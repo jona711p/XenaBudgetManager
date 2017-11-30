@@ -286,3 +286,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Connection String & Other Things that dont need to be on Source Control
+cstring.config
+keys.config
