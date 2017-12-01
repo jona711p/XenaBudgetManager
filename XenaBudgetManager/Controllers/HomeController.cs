@@ -54,9 +54,10 @@ namespace XenaBudgetManager.Controllers
             xena.id_code = Request["code"];
 
             AccessToken(xena);
-            
-            return Redirect("http://localhost:1337"); // !!! This is for debugging !!!
-            //return View(xena); // !!! This is for live !!!
+
+            ViewBag.Token = xena.access_token;
+
+            return View(xena);
         }
 
         /// <summary>
