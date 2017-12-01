@@ -55,7 +55,11 @@ namespace XenaBudgetManager.Controllers
 
             AccessToken(xena);
 
+            string testData = GetDataFromXena(xena);
+            ViewBag.Message = testData;
+
             return View(xena);
+            //return Redirect("http://localhost:51171");
         }
 
         /// <summary>
@@ -107,6 +111,16 @@ namespace XenaBudgetManager.Controllers
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
+        }
+
+        private string GetDataFromXena(Xena xena)
+        {
+            using (HttpClient httpClient = xena.CallXena())
+            {
+                string result = httpClient.GetStringAsync("User/VCardForUser").Result;
+
+                return result;
+            }
         }
     }
 }
