@@ -41,7 +41,7 @@ namespace XenaBudgetManager.Models
         {
             using (HttpClient httpClient = xena.CallXena())
             {
-                var result = httpClient.GetStringAsync("Fiscal/98437/FiscalPeriod").Result;
+                var result = httpClient.GetStringAsync("Fiscal/98437/FiscalPeriod").Result; // Remeber to cahnge the "var" to the right "class of", like int or string etc.
 
                 //return result;
             }
