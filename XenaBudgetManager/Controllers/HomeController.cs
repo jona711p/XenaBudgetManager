@@ -49,13 +49,13 @@ namespace XenaBudgetManager.Controllers
         /// You have been givin' a "code". This is your approval from the Xena's Authorization Server.
         /// </summary>
         [HttpPost]
-        public ActionResult Index(XenaOAuth xenaOAuth)
+        public ActionResult Index(Xena xena)
         {
-            xenaOAuth.id_code = Request["code"];
+            xena.id_code = Request["code"];
 
-            AccessToken(xenaOAuth);
+            AccessToken(xena);
 
-            return View(xenaOAuth);
+            return View(xena);
         }
 
         /// <summary>
@@ -67,11 +67,11 @@ namespace XenaBudgetManager.Controllers
         /// Xena's Authorization Server sends a long string back, this is your Access Token!
         /// You assign it to your varible, and it is now ready to be shipped with any Xena's API calls ;)
         /// </summary>
-        private void AccessToken(XenaOAuth xenaOAuth)
+        private void AccessToken(Xena xena)
         {
             List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("code", xenaOAuth.id_code),
+                new KeyValuePair<string, string>("code", xena.id_code),
                 new KeyValuePair<string, string>("client_id", "2e64617f-dc5d-4983-ba27-7dcdb2ed5510.apps.xena.biz"),
                 new KeyValuePair<string, string>("redirect_uri", "http://xenabudgetmanager.azurewebsites.net/"),
                 new KeyValuePair<string, string>("client_secret", ConfigurationManager.AppSettings["client_secret"]),
@@ -90,7 +90,7 @@ namespace XenaBudgetManager.Controllers
 
                 JObject jObject = JObject.Parse(result);
 
-                xenaOAuth.access_token = jObject["access_token"].ToString();
+                xena.access_token = jObject["access_token"].ToString();
             }
         }
 

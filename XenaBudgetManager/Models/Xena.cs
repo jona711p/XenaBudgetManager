@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 
 namespace XenaBudgetManager.Models
 {
-    public class XenaOAuth
+    public class Xena
     {
         public string access_token { get; set; }
         public string id_code { get; set; }
@@ -37,9 +37,9 @@ namespace XenaBudgetManager.Models
         /// !!!   Don't assume that its like it should be everywhere, you will need to change the URL string "98437/FiscalPeriod" so that you call the right API Endpoint !!!
         /// !!! Right now, we just recive a JSON string. This needs to be processed into what ever you might need and change the return type. !!!
         /// </summary>
-        private void GetDataFromXena(XenaOAuth xenaOAuth)
+        private void GetDataFromXena(Xena xena)
         {
-            using (HttpClient httpClient = xenaOAuth.CallXena())
+            using (HttpClient httpClient = xena.CallXena())
             {
                 var result = httpClient.GetStringAsync("98437/FiscalPeriod").Result;
 
