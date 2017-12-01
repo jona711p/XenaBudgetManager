@@ -9,7 +9,7 @@ namespace XenaBudgetManager.Controllers
     public class GetXenaDataController : Controller
     {
         // GET: GetXenaData
-        public ActionResult Index()
+        public ActionResult Index(string token)
         {
             return View();
         }

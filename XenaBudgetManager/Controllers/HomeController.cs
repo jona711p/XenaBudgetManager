@@ -55,7 +55,7 @@ namespace XenaBudgetManager.Controllers
 
             AccessToken(xena);
 
-            ViewBag.Token = xena.access_token;
+            ViewBag.Token = xena.access_token; // Debug
 
             return View(xena);
         }
@@ -109,6 +109,20 @@ namespace XenaBudgetManager.Controllers
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
+        }
+        
+        /// <summary>
+        /// Debug
+        /// </summary>
+        public ActionResult Debug()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Debug(string token)
+        {
+            // return View();
+            return RedirectToAction("Index", "GetXenaData", new { token }); // Redirect To GetXenaData with Token <-- This kan also be used to redirect elsewhere, just change the parameters ;)
         }
     }
 }
