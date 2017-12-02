@@ -54,7 +54,7 @@ namespace XenaBudgetManager.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                // TODO: Add e logic here
 
                 return RedirectToAction("Index");
             }
