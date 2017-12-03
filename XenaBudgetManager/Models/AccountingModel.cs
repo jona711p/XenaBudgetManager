@@ -86,5 +86,22 @@ namespace XenaBudgetManager.Models
 
         [DisplayName("--Lys/Varme")]
         public string LocalCost_Light_Heat { get; set; }
+
+
+
+        // TextBox
+        public int Revenue_January { get; set; }
+        public int Revenue_February{ get; set; }
+        public int Revenue_March { get; set; }
+        public int Revenue_April { get; set; }
+        public int Revenue_May { get; set; }
+        public int Revenue_June { get; set; }
+        public int Revenue_July { get; set; }
+        public int Revenue_August { get; set; }
+        public int Revenue_September { get; set; }
+        public int Revenue_October { get; set; }
+        public int Revenue_November { get; set; }
+        public int Revenue_December { get; set; }
+
     }
 }

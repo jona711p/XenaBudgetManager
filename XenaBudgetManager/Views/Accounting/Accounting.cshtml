@@ -14,12 +14,12 @@
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary()
-        <p>@Html.Label("///////////////////////////////////") @Html.LabelFor(x => x.January) @Html.LabelFor(x => x.February) @Html.LabelFor(x => x.March) 
+        <p>@Html.Label("///////////////////////////////////") @Html.LabelFor(x => x.January) @Html.Label("_______________") @Html.LabelFor(x => x.February) @Html.LabelFor(x => x.March) 
            @Html.LabelFor(x => x.April) @Html.LabelFor(x => x.May) @Html.LabelFor(x => x.June)
            @Html.LabelFor(x => x.July) @Html.LabelFor(x => x.August) @Html.LabelFor(x => x.September)
            @Html.LabelFor(x => x.October) @Html.LabelFor(x => x.November) @Html.LabelFor(x => x.December) </p>
           
-        <p>@Html.LabelFor(x => x.Revenue) @Html.TextBox(x => x.February)</p>
+        <p>@Html.LabelFor(x => x.Revenue) @Html.TextBoxFor(x => x.Revenue_January) @Html.TextBoxFor(x => x.Revenue_February)</p>
         <p>@Html.LabelFor(x => x.Revenue_DogFood)</p>
         <p>@Html.LabelFor(x => x.Revenue_CatFood)</p>
         <p>@Html.Label("_____________")</p>

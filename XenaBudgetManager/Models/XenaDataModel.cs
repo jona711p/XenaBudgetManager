@@ -8,6 +8,6 @@ namespace XenaBudgetManager.Models
 {
     public class XenaDataModel
     {
-        
+    
     }
 }
