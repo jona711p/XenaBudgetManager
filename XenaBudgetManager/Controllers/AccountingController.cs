@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Controllers
 {
     public class AccountingController : Controller
     {
-        [HttpGet]
-        public ActionResult Accounting(AccountingModel data)
+        // GET: Accounting
+        public ActionResult Accounting()
         {
-            return View("Accounting",data);
+            return View();
         }
-
-        
-
     }
 }
