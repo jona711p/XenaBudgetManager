@@ -1,0 +1,38 @@
+﻿@model XenaBudgetManager.Models.XenaDataModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <p>@Html.Label("///////////") @Html.LabelFor(x => x.January) @Html.LabelFor(x => x.February) @Html.LabelFor(x => x.March) 
+           @Html.LabelFor(x => x.April) @Html.LabelFor(x => x.May) @Html.LabelFor(x => x.June)
+           @Html.LabelFor(x => x.July) @Html.LabelFor(x => x.August) @Html.LabelFor(x => x.September)
+           @Html.LabelFor(x => x.October) @Html.LabelFor(x => x.November) @Html.LabelFor(x => x.December) </p>
+          
+        <p>@Html.Label("Hej")</p>
+        <p>@Html.Label("Hej")</p>
+        <p>@Html.Label("Hej")</p>
+        <p>@Html.Label("Hej")</p>
+        <p>@Html.Label("Hej")</p>
+        <p>@Html.Label("Hej")</p>
+        <p>@Html.Label("Hej")</p>
+
+
+
+
+        <input type="submit" value="Færdiggør Regnskab" />
+
+    }
+</body>
+</html>
+
