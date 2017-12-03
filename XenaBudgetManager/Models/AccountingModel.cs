@@ -102,6 +102,7 @@ namespace XenaBudgetManager.Models
         public int Revenue_October { get; set; }
         public int Revenue_November { get; set; }
         public int Revenue_December { get; set; }
+        public int Revenue_Total { get; set; }
 
     }
 }

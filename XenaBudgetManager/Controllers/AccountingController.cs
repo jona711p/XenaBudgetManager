@@ -15,5 +15,7 @@ namespace XenaBudgetManager.Controllers
             return View("Accounting",data);
         }
 
+        
+
     }
 }
