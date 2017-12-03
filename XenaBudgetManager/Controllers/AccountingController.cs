@@ -10,9 +10,9 @@ namespace XenaBudgetManager.Controllers
     public class AccountingController : Controller
     {
         [HttpGet]
-        public ActionResult Accounting(XenaDataModel data)
+        public ActionResult Accounting(AccountingModel data)
         {
-            return View();
+            return View("Accounting",data);
         }
 
     }

@@ -1,4 +1,4 @@
-﻿@model XenaBudgetManager.Models.XenaDataModel
+﻿@model XenaBudgetManager.Models.AccountingModel
 @{
     Layout = null;
 }
@@ -8,37 +8,33 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Accounting</title>
 </head>
 <body>
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary()
-        <p>@Html.Label("///////////") @Html.LabelFor(x => x.January) @Html.LabelFor(x => x.February) @Html.LabelFor(x => x.March) 
+        <p>@Html.Label("///////////////////////////////////") @Html.LabelFor(x => x.January) @Html.LabelFor(x => x.February) @Html.LabelFor(x => x.March) 
            @Html.LabelFor(x => x.April) @Html.LabelFor(x => x.May) @Html.LabelFor(x => x.June)
            @Html.LabelFor(x => x.July) @Html.LabelFor(x => x.August) @Html.LabelFor(x => x.September)
            @Html.LabelFor(x => x.October) @Html.LabelFor(x => x.November) @Html.LabelFor(x => x.December) </p>
           
-        <p>@Html.LabelFor(x => x.Revenue)</p>
+        <p>@Html.LabelFor(x => x.Revenue) @Html.TextBox(x => x.February)</p>
         <p>@Html.LabelFor(x => x.Revenue_DogFood)</p>
         <p>@Html.LabelFor(x => x.Revenue_CatFood)</p>
-        <p>@Html.Label(" ")</p>
+        <p>@Html.Label("_____________")</p>
         <p>@Html.LabelFor(x => x.ProductConsumption)</p>
         <p>@Html.LabelFor(x => x.ProductConsumption_DogFood)</p>
         <p>@Html.LabelFor(x => x.ProductConsumption_CatFood)</p>
-        <p>@Html.Label(" ")</p>
+        <p>@Html.Label("_____________")</p>
         <p>@Html.LabelFor(x => x.StaffCost)</p>
         <p>@Html.LabelFor(x => x.StaffCost_Pay)</p>
-        <p>@Html.Label(" ")</p>
+        <p>@Html.Label("_____________")</p>
         <p>@Html.LabelFor(x => x.LocalCost)</p>
         <p>@Html.LabelFor(x => x.LocalCost_Rent)</p>
         <p>@Html.LabelFor(x => x.LocalCost_Light_Heat)</p>
-        <p>@Html.Label(" ")</p>
+        <p>@Html.Label("_____________")</p>
         <p>@Html.LabelFor(x => x.TheResultOfTheYear)</p>
-
-
-
-
 
         <input type="submit" value="Færdiggør Regnskab" />
 
