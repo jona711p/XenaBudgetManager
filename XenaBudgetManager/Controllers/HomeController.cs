@@ -124,5 +124,28 @@ namespace XenaBudgetManager.Controllers
             // return View();
             return RedirectToAction("Index", "GetXenaData", new { token }); // Redirect To GetXenaData with Token <-- This kan also be used to redirect elsewhere, just change the parameters ;)
         }
+        public ActionResult DBTEST()
+        {
+            //AccountingModel demo = new AccountingModel();
+            //Random rnd = new Random();
+
+            //demo.Revenue_January = rnd.Next(0, 99999);
+            //demo.Revenue_February = rnd.Next(0, 99999);
+            //demo.Revenue_March = rnd.Next(0, 99999);
+            //demo.Revenue_April = rnd.Next(0, 99999);
+            //demo.Revenue_May = rnd.Next(0, 99999);
+            //demo.Revenue_June = rnd.Next(0, 99999);
+            //demo.Revenue_July = rnd.Next(0, 99999);
+            //demo.Revenue_August = rnd.Next(0, 99999);
+            //demo.Revenue_September = rnd.Next(0, 99999);
+            //demo.Revenue_October = rnd.Next(0, 99999);
+            //demo.Revenue_November = rnd.Next(0, 99999);
+            //demo.Revenue_December = rnd.Next(0, 99999);
+            //demo.Revenue_Total = rnd.Next(0, 99999);
+
+            //DB.WriteValueInterval(demo);
+
+            return View("index");
+        }
     }
 }
