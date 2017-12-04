@@ -22,7 +22,7 @@ namespace XenaBudgetManager.Controllers
         public static int LocalCostRentRevenueJanuary = 10;
         public static int LocalLightHeatRevenueJanuary = 10;
         public static int LocalCostRevenueJanuary = LocalCostRentRevenueJanuary+LocalLightHeatRevenueJanuary;
-        public static int MonthResultJanuary = 0;
+        public static int MonthResultJanuary = RevenueJanuary- ProductConsumptionJanuary- StaffCostRevenueJanuary-LocalCostRevenueJanuary;
 
         // February
         public static int RevenueDogFoodRevenueFebruary = 50;
@@ -36,7 +36,21 @@ namespace XenaBudgetManager.Controllers
         public static int LocalCostRentRevenueFebruary = 50;
         public static int LocalLightHeatRevenueFebruary = 50;
         public static int LocalCostRevenueFebruary = LocalCostRentRevenueFebruary+LocalLightHeatRevenueFebruary;
-        public static int MonthResultFebruary = 0;
+        public static int MonthResultFebruary = RevenueFebruary - ProductConsumptionFebruary - StaffCostRevenueFebruary - LocalCostRevenueFebruary;
+
+        // March
+        public static int RevenueDogFoodRevenueMarch = 75;
+        public static int RevenueCatFoodRevenueMarch = 75;
+        public static int RevenueMarch = RevenueDogFoodRevenueMarch + RevenueCatFoodRevenueMarch;
+        public static int ProductConsumptionMarchDogFood = 75;
+        public static int ProductConsumptionMarchCatFood = 75;
+        public static int ProductConsumptionMarch = ProductConsumptionMarchCatFood + ProductConsumptionMarchDogFood;
+        public static int StaffCostPayRevenueMarch = 75;
+        public static int StaffCostRevenueMarch = StaffCostPayRevenueMarch;
+        public static int LocalCostRentRevenueMarch = 75;
+        public static int LocalLightHeatRevenueMarch = 75;
+        public static int LocalCostRevenueMarch = LocalCostRentRevenueMarch + LocalLightHeatRevenueMarch;
+        public static int MonthResultMarch = RevenueMarch - ProductConsumptionMarch - StaffCostRevenueMarch - LocalCostRevenueMarch;
 
 
         public ActionResult Accounting()
@@ -74,6 +88,22 @@ namespace XenaBudgetManager.Controllers
                 LocalCost_Rent = LocalCostRentRevenueFebruary,
                 LocalCost_Light_Heat = LocalLightHeatRevenueFebruary,
                 MonthResult = MonthResultFebruary
+            });
+            Account.Add(new AccountingModel
+            {
+                Month = "Marts",
+                Revenue = RevenueMarch,
+                Revenue_DogFood = RevenueDogFoodRevenueMarch,
+                Revenue_CatFood = RevenueCatFoodRevenueMarch,
+                ProductConsumption = ProductConsumptionMarch,
+                ProductConsumption_DogFood = ProductConsumptionMarchDogFood,
+                ProductConsumption_CatFood = ProductConsumptionMarchCatFood,
+                StaffCost = StaffCostRevenueMarch,
+                StaffCost_Pay = StaffCostPayRevenueMarch,
+                LocalCost = LocalCostRevenueMarch,
+                LocalCost_Rent = LocalCostRentRevenueMarch,
+                LocalCost_Light_Heat = LocalLightHeatRevenueMarch,
+                MonthResult = MonthResultMarch
 
             });
 
