@@ -19,7 +19,9 @@ namespace XenaBudgetManager.Models
             string constr = ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "SELECT * FROM Budget";
+                string query = "SELECT * FROM Budget INNER JOIN LedgerAccount ON LedgerAccountID = LedgerAccountID" +
+                    " INNER JOIN LedgerTag ON LedgerTagID = LedgerTagID INNER JOIN ValueInterval ON ValueIntervalID = " +
+                    "ValueIntervalID INNER JOIN XenaFiscal ON XenaFiscalID = XenaFiscalID INNER JOIN XenaUser ON UserID = UserID";
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
