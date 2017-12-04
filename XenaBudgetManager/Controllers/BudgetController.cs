@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Models
 {
@@ -31,6 +32,8 @@ namespace XenaBudgetManager.Models
 
             return View(ds);
         }
+        
+        [HttpPost]
         public ActionResult CreateBudget()
         {
             return View();
