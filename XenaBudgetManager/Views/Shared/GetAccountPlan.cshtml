@@ -1,0 +1,57 @@
+﻿@model IEnumerable<XenaBudgetManager.Models.LedgerAccounts>
+
+@{
+    ViewBag.Title = "GetAccountPlan";
+}
+
+<h2>GetAccountPlan</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ledgerTagId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shortDescribtion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LongDescribtion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ledgerAccountId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.accountName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ledgerTagId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.shortDescribtion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LongDescribtion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ledgerAccountId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.accountName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

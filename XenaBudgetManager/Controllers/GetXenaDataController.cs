@@ -1,89 +1,108 @@
-﻿using System;
+﻿using System.Web.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using XenaBudgetManager.Models;
+using Newtonsoft.Json;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace XenaBudgetManager.Controllers
 {
     public class GetXenaDataController : Controller
     {
-        // GET: GetXenaData
-        public ActionResult Index(string token)
+        //create a list of xenadatamodel objects, to place the incoming data in to 
+        public static List<LedgerAccounts> GetAccountPlan(Xena xena) //Takes the helper object xena to easier connect to xena
         {
-            return View();
-        }
+            List<LedgerAccounts> LedgerAccountData = new List<LedgerAccounts>();
 
-        // GET: GetXenaData/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: GetXenaData/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: GetXenaData/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            using (HttpClient httpClient = xena.CallXena()) //instantite httpclient using the cll xena helper
             {
-                // TODO: Add insert logic here
+              
+                JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/LedgerTagGroup/LedgerAccount").Result);
 
-                return RedirectToAction("Index");
+                foreach (JObject jObject in jArray)
+                {
+                    LedgerAccountData.Add(new LedgerAccounts(jObject));
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return LedgerAccountData;         
         }
 
-        // GET: GetXenaData/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //// GET: GetXenaData
+        //public ActionResult Index(string token)
+        //{
+        //    return View();
+        //}
 
-        // POST: GetXenaData/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add e logic here
+        //// GET: GetXenaData/Details/5
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// GET: GetXenaData/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // GET: GetXenaData/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //// POST: GetXenaData/Create
+        //[HttpPost]
+        //public ActionResult Create(FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add insert logic here
 
-        // POST: GetXenaData/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// GET: GetXenaData/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
+
+        //// POST: GetXenaData/Edit/5
+        //[HttpPost]
+        //public ActionResult Edit(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add e logic here
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        //// GET: GetXenaData/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
+
+        //// POST: GetXenaData/Delete/5
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }
