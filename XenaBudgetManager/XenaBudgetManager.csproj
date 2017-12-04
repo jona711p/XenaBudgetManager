@@ -183,9 +183,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountGroup.cs" />
+    <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\BudgetController.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\AccountingModel.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Xena.cs" />
     <Compile Include="Models\XenaDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
