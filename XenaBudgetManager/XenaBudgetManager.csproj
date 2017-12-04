@@ -183,6 +183,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BudgetController.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\AccountingModel.cs" />
     <Compile Include="Models\Xena.cs" />
@@ -244,6 +245,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Debug.cshtml" />
     <Content Include="Views\Accounting\Accounting.cshtml" />
+    <Content Include="Views\Budget\Budget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
