@@ -18,12 +18,12 @@ namespace XenaBudgetManager.Models
         public LedgerTags(JObject jObject)
         {
             ledgerTagId = int.Parse(jObject["Id"].ToString());
-            shortDescribtion = (jObject["ShortDescription"].ToString());
-            longDescribtion = (jObject["LongDescription"].ToString());
+            shortDescription = (jObject["ShortDescription"].ToString());
+            longDescription = (jObject["LongDescription"].ToString());
         }
         public int ledgerTagId { get; set; }
-        public string shortDescribtion { get; set; }
-        public string longDescribtion { get; set; }
+        public string shortDescription { get; set; }
+        public string longDescription { get; set; }
     }
 
     // Containing ledger accounts

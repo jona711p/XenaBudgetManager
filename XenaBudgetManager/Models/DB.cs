@@ -24,6 +24,7 @@ namespace XenaBudgetManager.Models
 
             return connection;
         }
+
         /// <summary>
         /// Written by Thomas
         /// Closes connection to the DB
@@ -51,7 +52,6 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry to the ValueInterval table in DB with the postings of a given account
         /// </summary>
-
         public static void WriteValueInterval(Account inputData)
         {
             SqlConnection connection = null;
@@ -69,9 +69,10 @@ namespace XenaBudgetManager.Models
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
         }
+
         /// <summary>
         /// Written by Thomas
-        ///Inserts a new entry in  DB 'LedgerAccount' with AccountID and AccountName 
+        /// Inserts a new entry in  DB 'LedgerAccount' with related data 
         /// </summary>
         public static void WriteNewLedgerAccount(LedgerAccounts inputData)
         {
@@ -81,6 +82,74 @@ namespace XenaBudgetManager.Models
             SqlCommand command = new SqlCommand(
                 string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
                         VALUES ({0},{1});", inputData.ledgerAccountId, inputData.ledgerAccountId), connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
+        }
+
+        /// <summary>
+        /// Written by Thomas
+        /// Inserts a new entry in  DB 'LedgerTag' with related data 
+        /// </summary>
+        public static void WriteNewLedgerTag(LedgerTags inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                string.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
+                        VALUES ({0},{1},{2});", inputData.ledgerTagId, inputData.shortDescription, inputData.longDescription), connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
+        }
+
+        /// <summary>
+        /// Written by Thomas
+        /// Inserts a new entry in  DB 'XenaUser' with related data 
+        /// </summary>
+        public static void WriteNewUser(User inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                string.Format(@"INSERT INTO XenaUser(UserID) 
+                        VALUES ({0});", inputData.userID), connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
+        }
+
+        /// <summary>
+        /// Written by Thomas
+        /// Inserts a new entry in  DB 'XenaFiscal' with related data 
+        /// </summary>
+        public static void WriteNewFiscal(Budget inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                string.Format(@"INSERT INTO XenaFiscal(XenaFiscal) 
+                        VALUES ({0});", inputData.XenaFiscalID), connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
+        }
+
+        /// <summary>
+        /// Written by Thomas
+        /// Inserts a new entry in  DB 'Budget' with related data 
+        /// </summary>
+        public static void WriteNewBudget(Budget inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                string.Format(@"INSERT INTO Budget(BudgetID, BudgetName, Year) 
+                        VALUES ({0}, {1}, {2});", inputData.budgetID, inputData.budgetName, inputData.budgetYear), connection);
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
