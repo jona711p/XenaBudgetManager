@@ -40,22 +40,22 @@ namespace XenaBudgetManager.Models
             return connection;
         }
 
-        public static void WriteValueInterval(AccountingModel inputIValueInterval)
+        public static void WriteValueInterval(Account inputData)
         {
-            //SqlConnection connection = null;
-            //connection = ConnectToDB(connection);
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
 
-            //SqlCommand command = new SqlCommand(
-            //            string.Format(@"INSERT INTO ValueInterval(January, February, March, April, May, June, July, August, September, October, November, December, [total]) 
-            //            VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12});",
-            //            inputIValueInterval.Revenue_January, inputIValueInterval.Revenue_February, inputIValueInterval.Revenue_March,
-            //            inputIValueInterval.Revenue_April, inputIValueInterval.Revenue_May, inputIValueInterval.Revenue_June, inputIValueInterval.Revenue_July,
-            //            inputIValueInterval.Revenue_August, inputIValueInterval.Revenue_September, inputIValueInterval.Revenue_October,
-            //            inputIValueInterval.Revenue_November, inputIValueInterval.Revenue_December, inputIValueInterval.Revenue_Total), 
-            //                                    connection);
+            SqlCommand command = new SqlCommand(
+                        string.Format(@"INSERT INTO ValueInterval(January, February, March, April, May, June, July, August, September, October, November, December, [total]) 
+                        VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12});",
+                            inputData.January, inputData.February, inputData.March,
+                            inputData.April, inputData.May, inputData.June, inputData.July,
+                            inputData.August, inputData.September, inputData.October,
+                            inputData.November, inputData.December, inputData.Total),
+                                                connection);
 
-            //command.ExecuteNonQuery();
-            //connection = DisconnectFromDB(connection);
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
         }
     }
 }
