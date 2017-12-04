@@ -50,6 +50,11 @@ namespace XenaBudgetManager.Models
             AmountYearToDateCredit = int.Parse(jObject["AmountYearToDateCredit"].ToString());
             TranslatedGroup = (jObject["TranslatedGroup"].ToString());
         }
+
+        public LedgerGroupData()
+        {
+        }
+
         public int AmountMonth { get; set; }
         public int? AmountMonthDebit { get; set; }
         public int? AmountMonthCredit { get; set; }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Mvc;
@@ -47,7 +48,7 @@ namespace XenaBudgetManager.Controllers
         //// GET: GetXenaData - fiscal period data
         public ActionResult LedgerGroupData()
         {
-            List<LedgerGroupData> LedgerGroupData = new List<LedgerGroupData>();
+            LedgerGroupData LedgerGroupData = new LedgerGroupData();
 
             using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the cll xena helper
             {
