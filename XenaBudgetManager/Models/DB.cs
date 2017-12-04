@@ -10,6 +10,10 @@ namespace XenaBudgetManager.Models
 {
     public class DB
     {
+        ///<summary>
+        ///Written by Thomas
+        ///Establishes a connection to the DB 
+        ///</summary>
         public static SqlConnection ConnectToDB(SqlConnection connection)
         {
            
@@ -20,7 +24,10 @@ namespace XenaBudgetManager.Models
 
             return connection;
         }
-
+        /// <summary>
+        /// Written by Thomas
+        /// Closes connection to the DB
+        /// </summary>
         public static SqlConnection DisconnectFromDB(SqlConnection connection)
         {
             try
@@ -40,6 +47,11 @@ namespace XenaBudgetManager.Models
             return connection;
         }
 
+        /// <summary>
+        /// Written by Thomas
+        /// Inserts a new entry to the ValueInterval table in DB with the postings of a given account
+        /// </summary>
+
         public static void WriteValueInterval(Account inputData)
         {
             SqlConnection connection = null;
@@ -53,6 +65,22 @@ namespace XenaBudgetManager.Models
                             inputData.August, inputData.September, inputData.October,
                             inputData.November, inputData.December, inputData.Total),
                                                 connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
+        }
+        /// <summary>
+        /// Written by Thomas
+        ///Inserts a new entry in  DB 'LedgerAccount' with AccountID and AccountName 
+        /// </summary>
+        public static void WriteNewLedgerAccount(LedgerAccounts inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
+                        VALUES ({0},{1});", inputData.ledgerAccountId, inputData.ledgerAccountId), connection);
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
