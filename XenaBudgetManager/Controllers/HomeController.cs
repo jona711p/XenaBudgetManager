@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -94,6 +93,10 @@ namespace XenaBudgetManager.Controllers
                 JObject jObject = JObject.Parse(result);
 
                 xena.access_token = jObject["access_token"].ToString();
+
+                HttpCookie accessCookie = new HttpCookie("access_token");
+                accessCookie.Value = xena.access_token;
+                Response.Cookies.Add(accessCookie);
             }
         }
 
@@ -111,7 +114,7 @@ namespace XenaBudgetManager.Controllers
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
-        
+
         /// <summary>
         /// Debug
         /// </summary>
@@ -122,9 +125,13 @@ namespace XenaBudgetManager.Controllers
         [HttpPost]
         public ActionResult Debug(string token)
         {
-            // return View();   //Index
-            return RedirectToAction("Index", new { token }); // Redirect To GetXenaData with Token <-- This kan also be used to redirect elsewhere, just change the parameters ;)
+            HttpCookie accessCookie = new HttpCookie("access_token");
+            accessCookie.Value = token;
+            Response.Cookies.Add(accessCookie);
+
+            return RedirectToAction("Index");
         }
+
         public ActionResult DBTEST()
         {
             Account demo = new Account();
@@ -146,7 +153,7 @@ namespace XenaBudgetManager.Controllers
 
             DB.WriteValueInterval(demo);
 
-            return View("index");
+            return View("Index");
         }
     }
 }
