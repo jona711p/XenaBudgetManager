@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Mvc;
 using XenaBudgetManager.Models;
@@ -14,100 +14,71 @@ namespace XenaBudgetManager.Controllers
         {
             List<LedgerAccounts> LedgerAccount = new List<LedgerAccounts>();
 
-            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the cll xena helper
-            {
+            //using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the call xena helper
+            //{
 
-                JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/LedgerTagGroup/LedgerAccount").Result);
+            //    JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/LedgerTagGroup/LedgerAccount").Result);
 
-                foreach (JObject jObject in jArray)
-                {
-                    LedgerAccount.Add(new LedgerAccounts(jObject));
-                }
-            }
+            //    foreach (JObject jObject in jArray)
+            //    {
+            //        LedgerAccount.Add(new LedgerAccounts(jObject));
+            //    }
+            //}
+
             return LedgerAccount;
         }
+
         //GET:  list of ledgertag objects - the account names
         public List<LedgerTags> LedgerTag() //Takes the helper object xena to easier connect to xena
         {
             List<LedgerTags> LedgerTag = new List<LedgerTags>();
 
-            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the cll xena helper
-            {
+            //using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the call xena helper
+            //{
 
-                JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/LedgerTag").Result);
+            //    JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/LedgerTag").Result);
 
-                foreach (JObject jObject in jArray)
-                {
-                    LedgerTag.Add(new LedgerTags(jObject));
-                }
-            }
+            //    foreach (JObject jObject in jArray)
+            //    {
+            //        LedgerTag.Add(new LedgerTags(jObject));
+            //    }
+            //}
+
             return LedgerTag;
         }
-
 
         //// GET: GetXenaData - fiscal period data
         public ActionResult LedgerGroupData()
         {
-            LedgerGroupData LedgerGroupData = new LedgerGroupData();
+            List<LedgerGroupData> ledgerGroupDataList = new List<LedgerGroupData>(); // A new empty list of LedgerGroupData
 
-            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the cll xena helper
+            List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
+                "Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530"); // List with JTokens from Xena's Array
+
+            foreach (JToken jToken in jTokenList)
             {
-                JObject jObject = JObject.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530").Result);
-
-                List<string> test = new List<string>();
-
-                int count = int.Parse(jObject["Count"].ToString());
-
-                test.Add(jObject["Entities"][0]["AmountMonth"].ToString());
-                test.Add(jObject["Entities"][0]["AmountMonthDebit"].ToString());
-                test.Add(jObject["Entities"][0]["AmountMonthCredit"].ToString());
-                test.Add(jObject["Entities"][0]["Group"].ToString());
-                test.Add(jObject["Entities"][0]["AmountYearToDate"].ToString());
-                test.Add(jObject["Entities"][0]["AmountYearToDateDebit"].ToString());
-                test.Add(jObject["Entities"][0]["AmountYearToDateCredit"].ToString());
-                test.Add(jObject["Entities"][0]["TranslatedGroup"].ToString());
-
-                test.Add(jObject["Entities"][1]["AmountMonth"].ToString());
-                test.Add(jObject["Entities"][1]["AmountMonthDebit"].ToString());
-                test.Add(jObject["Entities"][1]["AmountMonthCredit"].ToString());
-                test.Add(jObject["Entities"][1]["Group"].ToString());
-                test.Add(jObject["Entities"][1]["AmountYearToDate"].ToString());
-                test.Add(jObject["Entities"][1]["AmountYearToDateDebit"].ToString());
-                test.Add(jObject["Entities"][1]["AmountYearToDateCredit"].ToString());
-                test.Add(jObject["Entities"][1]["TranslatedGroup"].ToString());
-
-                test.Add(jObject["Entities"][2]["AmountMonth"].ToString());
-                test.Add(jObject["Entities"][2]["AmountMonthDebit"].ToString());
-                test.Add(jObject["Entities"][2]["AmountMonthCredit"].ToString());
-                test.Add(jObject["Entities"][2]["Group"].ToString());
-                test.Add(jObject["Entities"][2]["AmountYearToDate"].ToString());
-                test.Add(jObject["Entities"][2]["AmountYearToDateDebit"].ToString());
-                test.Add(jObject["Entities"][2]["AmountYearToDateCredit"].ToString());
-                test.Add(jObject["Entities"][2]["TranslatedGroup"].ToString());
-
-                //foreach (JObject jObject in jArray)
-                //{
-                //    LedgerGroupData.Add(new LedgerGroupData(jObject));
-                //}
+                ledgerGroupDataList.Add(new LedgerGroupData(jToken)); // Adds each Entity to a LedgerGroupData
             }
 
-            return View(LedgerGroupData);
+            return View(ledgerGroupDataList);
         }
+
         //// GET: GetXenaData - detailed period data
         public ActionResult LedgerGroupDetailData()
         {
             List<LedgerGroupDetailData> LedgerGroupDetailData = new List<LedgerGroupDetailData>();
 
-            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the cll xena helper
-            {
+            //using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the call xena helper
+            //{
 
-                JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799").Result);
+            //    JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799").Result);
 
-                foreach (JObject jObject in jArray)
-                {
-                    LedgerGroupDetailData.Add(new LedgerGroupDetailData(jObject));
-                }
-            }
+            //    foreach (JObject jObject in jArray)
+            //    {
+            //        LedgerGroupDetailData.Add(new LedgerGroupDetailData(jObject));
+            //    }
+            //}
+
             return View(LedgerGroupDetailData);
         }
     }

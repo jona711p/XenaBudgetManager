@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.ApplicationInsights.Web;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Controllers
@@ -29,27 +28,17 @@ namespace XenaBudgetManager.Controllers
         /// </summary>
         public void Login()
         {
-            if (Session["LoggedIn"] == null || (bool) Session["LoggedIn"] == false)
-            {
-                NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
+            NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
 
-                queryString["response_type"] = "code id_token";
-                queryString["client_id"] = "2e64617f-dc5d-4983-ba27-7dcdb2ed5510.apps.xena.biz";
-                queryString["redirect_uri"] = "http://xenabudgetmanager.azurewebsites.net/";
-                queryString["scope"] = "openid testapi";
-                queryString["nonce"] = RandomString(32);
-                queryString["response_mode"] = "form_post";
-                queryString["json"] = "true";
+            queryString["response_type"] = "code id_token";
+            queryString["client_id"] = "2e64617f-dc5d-4983-ba27-7dcdb2ed5510.apps.xena.biz";
+            queryString["redirect_uri"] = "http://xenabudgetmanager.azurewebsites.net/";
+            queryString["scope"] = "openid testapi";
+            queryString["nonce"] = RandomString(32);
+            queryString["response_mode"] = "form_post";
+            queryString["json"] = "true";
 
-                Response.Redirect("https://login.xena.biz/connect/authorize?" + queryString);
-            }
-
-            else
-            {
-                Session.Clear();
-                Session.Abandon();
-                RedirectToAction("Index", "Home");
-            }
+            Response.Redirect("https://login.xena.biz/connect/authorize?" + queryString);
         }
 
         /// <summary>
@@ -108,17 +97,13 @@ namespace XenaBudgetManager.Controllers
                 HttpCookie accessCookie = new HttpCookie("access_token");
                 accessCookie.Value = xena.access_token;
                 Response.Cookies.Add(accessCookie);
-                
+
             }
 
-            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value))
-            {
-                string result = httpClient.GetStringAsync("User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false").Result;
+            List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
+                "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
 
-                JObject jObject = JObject.Parse(result);
-
-                Session["UserName"] = jObject["Entities"][0]["ResourceName"].ToString();
-            }
+            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
         }
 
         /// <summary>
@@ -134,6 +119,13 @@ namespace XenaBudgetManager.Controllers
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
+        }
+
+        public ActionResult Logout()
+        {
+            Session["LoggedIn"] = null;
+            Session["UserName"] = string.Empty;
+            return RedirectToAction("Index");
         }
 
         /// <summary>
@@ -152,14 +144,10 @@ namespace XenaBudgetManager.Controllers
             accessCookie.Value = token;
             Response.Cookies.Add(accessCookie);
 
-            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value))
-            {
-                string result = httpClient.GetStringAsync("User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false").Result;
+            List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
+                "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
 
-                JObject jObject = JObject.Parse(result);
-
-                Session["UserName"] = jObject["Entities"][0]["ResourceName"].ToString();
-            }
+            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
 
             return RedirectToAction("Index");
         }

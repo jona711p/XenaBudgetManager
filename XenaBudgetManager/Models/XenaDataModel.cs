@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Web;
 
 namespace XenaBudgetManager.Models
 {
@@ -14,13 +9,13 @@ namespace XenaBudgetManager.Models
     // Containing ledger tag  which is the actual account numbers
     public class LedgerTags
     {
-         
         public LedgerTags(JObject jObject)
         {
             ledgerTagId = int.Parse(jObject["Id"].ToString());
-            shortDescription = (jObject["ShortDescription"].ToString());
-            longDescription = (jObject["LongDescription"].ToString());
+            shortDescription = jObject["ShortDescription"].ToString();
+            longDescription = jObject["LongDescription"].ToString();
         }
+
         public int ledgerTagId { get; set; }
         public string shortDescription { get; set; }
         public string longDescription { get; set; }
@@ -31,24 +26,25 @@ namespace XenaBudgetManager.Models
     {
         public LedgerAccounts(JObject jObject)
         {
-            ledgerAccountId = (jObject["Value"].ToString());
-            accountName = (jObject["Text"].ToString());
+            ledgerAccountId = jObject["Value"].ToString();
+            accountName = jObject["Text"].ToString();
         }
         public string ledgerAccountId { get; set; }
         public string accountName { get; set; }
     }
+
     public class LedgerGroupData
     {
-        public LedgerGroupData(JObject jObject)
+        public LedgerGroupData(JToken jToken) // Changed from JObject to JToken, and added "if null" to int?'s
         {
-            AmountMonth = int.Parse(jObject["AmountMonth"].ToString());
-            AmountMonthDebit = int.Parse(jObject["AmountMonthDebit"].ToString());
-            AmountMonthCredit = int.Parse(jObject["AmountMonthCredit"].ToString());
-            Group = (jObject["Group"].ToString());
-            AmountYearToDate = int.Parse(jObject["AmountYearToDate"].ToString());
-            AmountYearToDateDebit = int.Parse(jObject["AmountYearToDateDebit"].ToString());
-            AmountYearToDateCredit = int.Parse(jObject["AmountYearToDateCredit"].ToString());
-            TranslatedGroup = (jObject["TranslatedGroup"].ToString());
+            AmountMonth = int.Parse(jToken["AmountMonth"].ToString());
+            AmountMonthDebit = jToken["AmountMonthDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthDebit"].ToString());
+            AmountMonthCredit = jToken["AmountMonthCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthCredit"].ToString());
+            Group = jToken["Group"].ToString();
+            AmountYearToDate = int.Parse(jToken["AmountYearToDate"].ToString());
+            AmountYearToDateDebit = jToken["AmountYearToDateDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateDebit"].ToString());
+            AmountYearToDateCredit = jToken["AmountYearToDateCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateCredit"].ToString());
+            TranslatedGroup = jToken["TranslatedGroup"].ToString();
         }
 
         public LedgerGroupData()
@@ -64,27 +60,26 @@ namespace XenaBudgetManager.Models
         public int? AmountYearToDateCredit { get; set; }
         public string TranslatedGroup { get; set; }
     }
+
     public class LedgerGroupDetailData
     {
         public LedgerGroupDetailData(JObject jObject)
         {
-            Controller = (jObject["Controller"].ToString());
-            ControllerAction = (jObject["ControllerAction"].ToString());
-            Id = (jObject["Id"].ToString());
+            Controller = jObject["Controller"].ToString();
+            ControllerAction = jObject["ControllerAction"].ToString();
+            Id = jObject["Id"].ToString();
             AccountNumber = int.Parse(jObject["AccountNumber"].ToString());
-            AccountDescription = (jObject["AccountDescription"].ToString());
-            Description = (jObject["Description"].ToString());
+            AccountDescription = jObject["AccountDescription"].ToString();
+            Description = jObject["Description"].ToString();
             AmountMonth = int.Parse(jObject["AmountMonth"].ToString());
             AmountMonthDebit = int.Parse(jObject["AmountMonthDebit"].ToString());
             AmountMonthCredit = int.Parse(jObject["AmountMonthCredit"].ToString());
             AmountYearToDate = int.Parse(jObject["AmountYearToDate"].ToString());
             AmountYearToDateDebit = int.Parse(jObject["AmountYearToDateDebit"].ToString());
             AmountYearToDateCredit = int.Parse(jObject["AmountYearToDateCredit"].ToString());
-            LedgerAccount = (jObject["LedgerAccount"].ToString());
-            Group = (jObject["Group"].ToString());
+            LedgerAccount = jObject["LedgerAccount"].ToString();
+            Group = jObject["Group"].ToString();
             GroupIndex = int.Parse(jObject["GroupIndex"].ToString());
-
-
         }
 
         public string Controller { get; set; }

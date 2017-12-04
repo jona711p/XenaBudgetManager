@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool loggedIn = Session["LoggedIn"] == null || (bool) Session["LoggedIn"] == false;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,7 +32,7 @@
                     <li>@Html.ActionLink("Group data", "LedgerGroupData", "GetXenaData", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Group detailed data", "LedgerGroupDetailData", "GetXenaData", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Vis Regnskab", "Budget", "Budget", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink(Session["LoggedIn"] == null || (bool)Session["LoggedIn"] == false ? "Log Ind" : Session["UserName"] + ": Log Ud", "Login", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink(loggedIn ? "Log Ind" : Session["UserName"] + ": Log Ud", loggedIn ? "Login" : "Logout", "Home", new { area = "" }, null)</li>
                 </ul>
             </div>
         </div>
