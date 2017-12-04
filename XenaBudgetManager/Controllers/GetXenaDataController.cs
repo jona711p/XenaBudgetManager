@@ -15,7 +15,7 @@ namespace XenaBudgetManager.Controllers
 
             using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the cll xena helper
             {
-              
+
                 JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/LedgerTagGroup/LedgerAccount").Result);
 
                 foreach (JObject jObject in jArray)
@@ -23,7 +23,7 @@ namespace XenaBudgetManager.Controllers
                     LedgerAccount.Add(new LedgerAccounts(jObject));
                 }
             }
-            return LedgerAccount;         
+            return LedgerAccount;
         }
         //GET:  list of ledgertag objects - the account names
         public List<LedgerTags> LedgerTag() //Takes the helper object xena to easier connect to xena
@@ -51,13 +51,23 @@ namespace XenaBudgetManager.Controllers
 
             using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value)) //instantite httpclient using the cll xena helper
             {
-                
-              JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530").Result);
+                JObject jObject = JObject.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530").Result);
 
-                foreach (JObject jObject in jArray)
-                {
-                    LedgerGroupData.Add(new LedgerGroupData(jObject));
-                }
+                List<string> test = new List<string>();
+
+                test.Add(jObject["Entities"][0]["AmountMonth"].ToString());
+                test.Add(jObject["Entities"][0]["AmountMonthDebit"].ToString());
+                test.Add(jObject["Entities"][0]["AmountMonthCredit"].ToString());
+                test.Add(jObject["Entities"][0]["Group"].ToString());
+                test.Add(jObject["Entities"][0]["AmountYearToDate"].ToString());
+                test.Add(jObject["Entities"][0]["AmountYearToDateDebit"].ToString());
+                test.Add(jObject["Entities"][0]["AmountYearToDateCredit"].ToString());
+                test.Add(jObject["Entities"][0]["TranslatedGroup"].ToString());
+
+                //foreach (JObject jObject in jArray)
+                //{
+                //    LedgerGroupData.Add(new LedgerGroupData(jObject));
+                //}
             }
             return View(LedgerGroupData);
         }

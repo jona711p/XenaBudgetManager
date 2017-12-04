@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.ApplicationInsights.Web;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Controllers
@@ -28,17 +29,27 @@ namespace XenaBudgetManager.Controllers
         /// </summary>
         public void Login()
         {
-            NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
+            if (Session["LoggedIn"] == null || (bool) Session["LoggedIn"] == false)
+            {
+                NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
 
-            queryString["response_type"] = "code id_token";
-            queryString["client_id"] = "2e64617f-dc5d-4983-ba27-7dcdb2ed5510.apps.xena.biz";
-            queryString["redirect_uri"] = "http://xenabudgetmanager.azurewebsites.net/";
-            queryString["scope"] = "openid testapi";
-            queryString["nonce"] = RandomString(32);
-            queryString["response_mode"] = "form_post";
-            queryString["json"] = "true";
+                queryString["response_type"] = "code id_token";
+                queryString["client_id"] = "2e64617f-dc5d-4983-ba27-7dcdb2ed5510.apps.xena.biz";
+                queryString["redirect_uri"] = "http://xenabudgetmanager.azurewebsites.net/";
+                queryString["scope"] = "openid testapi";
+                queryString["nonce"] = RandomString(32);
+                queryString["response_mode"] = "form_post";
+                queryString["json"] = "true";
 
-            Response.Redirect("https://login.xena.biz/connect/authorize?" + queryString);
+                Response.Redirect("https://login.xena.biz/connect/authorize?" + queryString);
+            }
+
+            else
+            {
+                Session.Clear();
+                Session.Abandon();
+                RedirectToAction("Index", "Home");
+            }
         }
 
         /// <summary>
@@ -125,9 +136,26 @@ namespace XenaBudgetManager.Controllers
         [HttpPost]
         public ActionResult Debug(string token)
         {
+            Session["LoggedIn"] = true;
+
             HttpCookie accessCookie = new HttpCookie("access_token");
             accessCookie.Value = token;
             Response.Cookies.Add(accessCookie);
+
+            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value))
+            {
+                string result = httpClient.GetStringAsync("User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false").Result;
+
+                JObject jObject = JObject.Parse(result);
+
+                List<string> test = new List<string>();
+
+                test.Add(jObject["Entities"][0]["UserId"].ToString());
+                test.Add(jObject["Entities"][0]["ResourceName"].ToString());
+                test.Add(jObject["Entities"][0]["FiscalSetupId"].ToString());
+
+                //return result;
+            }
 
             return RedirectToAction("Index");
         }

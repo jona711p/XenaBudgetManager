@@ -38,7 +38,7 @@ namespace XenaBudgetManager.Models
         /// !!!   Don't assume that its like it should be everywhere, you will need to change the URL string "Fiscal/98437/FiscalPeriod" so that you call the right API Endpoint !!!
         /// !!! Right now, we just recive a JSON string. This needs to be processed into what ever you might need and change the return type. !!!
         /// </summary>
-        //private void GetDataFromXena(Xena xena)
+        //private void GetDataFromXena()
         //{
         //    using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value))
         //    {
