@@ -31,5 +31,9 @@ namespace XenaBudgetManager.Models
 
             return View(ds);
         }
+        public ActionResult CreateBudget()
+        {
+            return View();
+        }
     }
 }
