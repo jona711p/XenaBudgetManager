@@ -246,10 +246,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Debug.cshtml" />
+    <Content Include="Views\GetXenaData\LedgerGroupData.cshtml" />
+    <Content Include="Views\GetXenaData\LedgerGroupDetailData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\GetXenaData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

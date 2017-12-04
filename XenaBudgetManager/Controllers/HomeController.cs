@@ -122,8 +122,8 @@ namespace XenaBudgetManager.Controllers
         [HttpPost]
         public ActionResult Debug(string token)
         {
-            // return View();
-            return RedirectToAction("Index", "GetXenaData", new { token }); // Redirect To GetXenaData with Token <-- This kan also be used to redirect elsewhere, just change the parameters ;)
+            // return View();   //Index
+            return RedirectToAction("Index", new { token }); // Redirect To GetXenaData with Token <-- This kan also be used to redirect elsewhere, just change the parameters ;)
         }
         public ActionResult DBTEST()
         {

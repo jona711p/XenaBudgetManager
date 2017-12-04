@@ -290,3 +290,4 @@ __pycache__/
 # Connection String & Other Things that dont need to be on Source Control
 cstring.config
 keys.config
+connstring\.config

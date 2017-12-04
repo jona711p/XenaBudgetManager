@@ -9,10 +9,10 @@ namespace XenaBudgetManager.Controllers
 {
     public class GetXenaDataController : Controller
     {
-        //create a list of xenadatamodel objects, to place the incoming data in to 
-        public static List<LedgerAccounts> GetAccountPlan(Xena xena) //Takes the helper object xena to easier connect to xena
+        //GET:  list of ledgeraccount objects - the group names
+        public static List<LedgerAccounts> LedgerAccount(Xena xena) //Takes the helper object xena to easier connect to xena
         {
-            List<LedgerAccounts> LedgerAccountData = new List<LedgerAccounts>();
+            List<LedgerAccounts> LedgerAccount = new List<LedgerAccounts>();
 
             using (HttpClient httpClient = xena.CallXena()) //instantite httpclient using the cll xena helper
             {
@@ -21,88 +21,66 @@ namespace XenaBudgetManager.Controllers
 
                 foreach (JObject jObject in jArray)
                 {
-                    LedgerAccountData.Add(new LedgerAccounts(jObject));
+                    LedgerAccount.Add(new LedgerAccounts(jObject));
                 }
             }
-            return LedgerAccountData;         
+            return LedgerAccount;         
+        }
+        //GET:  list of ledgertag objects - the account names
+        public static List<LedgerTags> LedgerTag(Xena xena) //Takes the helper object xena to easier connect to xena
+        {
+            List<LedgerTags> LedgerTag = new List<LedgerTags>();
+
+            using (HttpClient httpClient = xena.CallXena()) //instantite httpclient using the cll xena helper
+            {
+
+                JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/LedgerTag").Result);
+
+                foreach (JObject jObject in jArray)
+                {
+                    LedgerTag.Add(new LedgerTags(jObject));
+                }
+            }
+            return LedgerTag;
         }
 
-        //// GET: GetXenaData
-        //public ActionResult Index(string token)
-        //{
-        //    return View();
-        //}
 
-        //// GET: GetXenaData/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        //// GET: GetXenaData - fiscal period data
+        public ActionResult LedgerGroupData(Xena xena)
+        {
+            List<LedgerGroupData> LedgerGroupData = new List<LedgerGroupData>();
 
-        //// GET: GetXenaData/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+            using (HttpClient httpClient = xena.CallXena()) //instantite httpclient using the cll xena helper
+            {
+                
+              JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530").Result);
 
-        //// POST: GetXenaData/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
+                foreach (JObject jObject in jArray)
+                {
+                    LedgerGroupData.Add(new LedgerGroupData(jObject));
+                }
+            }
+            return View(LedgerGroupData);
+        }
+        //// GET: GetXenaData - detailed period data
+        public ActionResult LedgerGroupDetailData(Xena xena)
+        {
+            List<LedgerGroupDetailData> LedgerGroupDetailData = new List<LedgerGroupDetailData>();
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+            using (HttpClient httpClient = xena.CallXena()) //instantite httpclient using the cll xena helper
+            {
 
-        //// GET: GetXenaData/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+                JArray jArray = JArray.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799").Result);
 
-        //// POST: GetXenaData/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add e logic here
+                foreach (JObject jObject in jArray)
+                {
+                    LedgerGroupDetailData.Add(new LedgerGroupDetailData(jObject));
+                }
+            }
+            return View(LedgerGroupDetailData);
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
-        //// GET: GetXenaData/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
 
-        //// POST: GetXenaData/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }
