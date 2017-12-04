@@ -108,6 +108,16 @@ namespace XenaBudgetManager.Controllers
                 HttpCookie accessCookie = new HttpCookie("access_token");
                 accessCookie.Value = xena.access_token;
                 Response.Cookies.Add(accessCookie);
+                
+            }
+
+            using (HttpClient httpClient = Xena.CallXena(Request.Cookies["access_token"].Value))
+            {
+                string result = httpClient.GetStringAsync("User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false").Result;
+
+                JObject jObject = JObject.Parse(result);
+
+                Session["UserName"] = jObject["Entities"][0]["ResourceName"].ToString();
             }
         }
 
@@ -148,13 +158,7 @@ namespace XenaBudgetManager.Controllers
 
                 JObject jObject = JObject.Parse(result);
 
-                List<string> test = new List<string>();
-
-                test.Add(jObject["Entities"][0]["UserId"].ToString());
-                test.Add(jObject["Entities"][0]["ResourceName"].ToString());
-                test.Add(jObject["Entities"][0]["FiscalSetupId"].ToString());
-
-                //return result;
+                Session["UserName"] = jObject["Entities"][0]["ResourceName"].ToString();
             }
 
             return RedirectToAction("Index");

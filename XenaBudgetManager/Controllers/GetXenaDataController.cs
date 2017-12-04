@@ -55,6 +55,8 @@ namespace XenaBudgetManager.Controllers
 
                 List<string> test = new List<string>();
 
+                int count = int.Parse(jObject["Count"].ToString());
+
                 test.Add(jObject["Entities"][0]["AmountMonth"].ToString());
                 test.Add(jObject["Entities"][0]["AmountMonthDebit"].ToString());
                 test.Add(jObject["Entities"][0]["AmountMonthCredit"].ToString());
@@ -64,11 +66,30 @@ namespace XenaBudgetManager.Controllers
                 test.Add(jObject["Entities"][0]["AmountYearToDateCredit"].ToString());
                 test.Add(jObject["Entities"][0]["TranslatedGroup"].ToString());
 
+                test.Add(jObject["Entities"][1]["AmountMonth"].ToString());
+                test.Add(jObject["Entities"][1]["AmountMonthDebit"].ToString());
+                test.Add(jObject["Entities"][1]["AmountMonthCredit"].ToString());
+                test.Add(jObject["Entities"][1]["Group"].ToString());
+                test.Add(jObject["Entities"][1]["AmountYearToDate"].ToString());
+                test.Add(jObject["Entities"][1]["AmountYearToDateDebit"].ToString());
+                test.Add(jObject["Entities"][1]["AmountYearToDateCredit"].ToString());
+                test.Add(jObject["Entities"][1]["TranslatedGroup"].ToString());
+
+                test.Add(jObject["Entities"][2]["AmountMonth"].ToString());
+                test.Add(jObject["Entities"][2]["AmountMonthDebit"].ToString());
+                test.Add(jObject["Entities"][2]["AmountMonthCredit"].ToString());
+                test.Add(jObject["Entities"][2]["Group"].ToString());
+                test.Add(jObject["Entities"][2]["AmountYearToDate"].ToString());
+                test.Add(jObject["Entities"][2]["AmountYearToDateDebit"].ToString());
+                test.Add(jObject["Entities"][2]["AmountYearToDateCredit"].ToString());
+                test.Add(jObject["Entities"][2]["TranslatedGroup"].ToString());
+
                 //foreach (JObject jObject in jArray)
                 //{
                 //    LedgerGroupData.Add(new LedgerGroupData(jObject));
                 //}
             }
+
             return View(LedgerGroupData);
         }
         //// GET: GetXenaData - detailed period data
