@@ -288,6 +288,11 @@ __pycache__/
 *.xsd.cs
 
 # Connection String & Other Things that dont need to be on Source Control
+<<<<<<< HEAD
 cstring.config
 keys.config
 connstring\.config
+=======
+cstrings.config
+keys.config
+>>>>>>> master

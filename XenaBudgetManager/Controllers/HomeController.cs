@@ -127,24 +127,24 @@ namespace XenaBudgetManager.Controllers
         }
         public ActionResult DBTEST()
         {
-            //AccountingModel demo = new AccountingModel();
-            //Random rnd = new Random();
+            Account demo = new Account();
+            Random rnd = new Random();
 
-            //demo.Revenue_January = rnd.Next(0, 99999);
-            //demo.Revenue_February = rnd.Next(0, 99999);
-            //demo.Revenue_March = rnd.Next(0, 99999);
-            //demo.Revenue_April = rnd.Next(0, 99999);
-            //demo.Revenue_May = rnd.Next(0, 99999);
-            //demo.Revenue_June = rnd.Next(0, 99999);
-            //demo.Revenue_July = rnd.Next(0, 99999);
-            //demo.Revenue_August = rnd.Next(0, 99999);
-            //demo.Revenue_September = rnd.Next(0, 99999);
-            //demo.Revenue_October = rnd.Next(0, 99999);
-            //demo.Revenue_November = rnd.Next(0, 99999);
-            //demo.Revenue_December = rnd.Next(0, 99999);
-            //demo.Revenue_Total = rnd.Next(0, 99999);
+            demo.January = rnd.Next(0, 99999);
+            demo.February = rnd.Next(0, 99999);
+            demo.March = rnd.Next(0, 99999);
+            demo.April = rnd.Next(0, 99999);
+            demo.May = rnd.Next(0, 99999);
+            demo.June = rnd.Next(0, 99999);
+            demo.July = rnd.Next(0, 99999);
+            demo.August = rnd.Next(0, 99999);
+            demo.September = rnd.Next(0, 99999);
+            demo.October = rnd.Next(0, 99999);
+            demo.November = rnd.Next(0, 99999);
+            demo.December = rnd.Next(0, 99999);
+            demo.Total = rnd.Next(0, 99999);
 
-            //DB.WriteValueInterval(demo);
+            DB.WriteValueInterval(demo);
 
             return View("index");
         }
