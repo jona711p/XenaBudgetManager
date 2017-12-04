@@ -79,8 +79,5 @@ namespace XenaBudgetManager.Controllers
             }
             return View(LedgerGroupDetailData);
         }
-
-
-
     }
 }
