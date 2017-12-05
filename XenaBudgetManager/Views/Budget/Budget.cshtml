@@ -17,6 +17,27 @@
             <th>BudgetID</th>
             <th>BudgetName</th>
             <th>Year</th>
+            <th>LedgerAccountID</th>
+            <th>AccountName</th>
+            <th>LedgerTagID</th>
+            <th>ShortDescription</th>
+            <th>LongDescription</th>
+            <th>ValueIntervalID</th>
+            <th>January</th>
+            <th>February</th>
+            <th>March</th>
+            <th>April</th>
+            <th>June</th>
+            <th>July</th>
+            <th>August</th>
+            <th>September</th>
+            <th>October</th>
+            <th>November</th>
+            <th>December</th>
+            <th>Total</th>
+            <th>XenaFiscalID</th>
+            <th>UserID</th>
+
         </tr>
         @foreach (DataRow row in Model.Tables[0].Rows)
         {
@@ -24,6 +45,26 @@
                 <td>@row["BudgetID"]</td>
                 <td>@row["BudgetName"]</td>
                 <td>@row["Year"]</td>
+                <td>@row["LedgerAccountID"]</td>
+                <td>@row["AccountName"]</td>
+                <td>@row["LedgerTagID"]</td>
+                <td>@row["ShortDescription"]</td>
+                <td>@row["LongDescription"]</td>
+                <td>@row["ValueIntervalID"]</td>
+                <td>@row["January"]</td>
+                <td>@row["February"]</td>
+                <td>@row["March"]</td>
+                <td>@row["April"]</td>
+                <td>@row["June"]</td>
+                <td>@row["July"]</td>
+                <td>@row["August"]</td>
+                <td>@row["September"]</td>
+                <td>@row["October"]</td>
+                <td>@row["November"]</td>
+                <td>@row["December"]</td>
+                <td>@row["Total"]</td>
+                <td>@row["XenaFiscalID"]</td>
+                <td>@row["UserID"]</td>
             </tr>
         }
     </table>
