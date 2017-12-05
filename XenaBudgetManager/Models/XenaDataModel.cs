@@ -51,6 +51,11 @@ namespace XenaBudgetManager.Models
         {
         }
 
+        public LedgerGroupData(int i)
+        {
+            this.i = i;
+        }
+
         public int AmountMonth { get; set; }
         public int? AmountMonthDebit { get; set; }
         public int? AmountMonthCredit { get; set; }

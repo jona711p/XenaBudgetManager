@@ -50,14 +50,63 @@ namespace XenaBudgetManager.Controllers
         //// GET: GetXenaData - fiscal period data
         public ActionResult LedgerGroupData()
         {
+<<<<<<< Updated upstream
             List<LedgerGroupData> ledgerGroupDataList = new List<LedgerGroupData>(); // A new empty list of LedgerGroupData
 
             List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
                 "Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530"); // List with JTokens from Xena's Array
+=======
+            List<LedgerGroupData> LedgerGroupData = new List<LedgerGroupData>();
+>>>>>>> Stashed changes
 
             foreach (JToken jToken in jTokenList)
             {
+<<<<<<< Updated upstream
                 ledgerGroupDataList.Add(new LedgerGroupData(jToken)); // Adds each Entity to a LedgerGroupData
+=======
+              JObject jObject = JObject.Parse(httpClient.GetStringAsync("Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530").Result);
+              
+                List<string> test = new List<string>();
+
+                int count = int.Parse(jObject["Count"].ToString());
+
+                test.Add(jObject["Entities"][0]["AmountMonth"].ToString());
+                test.Add(jObject["Entities"][0]["AmountMonthDebit"].ToString());
+                test.Add(jObject["Entities"][0]["AmountMonthCredit"].ToString());
+                test.Add(jObject["Entities"][0]["Group"].ToString());
+                test.Add(jObject["Entities"][0]["AmountYearToDate"].ToString());
+                test.Add(jObject["Entities"][0]["AmountYearToDateDebit"].ToString());
+                test.Add(jObject["Entities"][0]["AmountYearToDateCredit"].ToString());
+                test.Add(jObject["Entities"][0]["TranslatedGroup"].ToString());
+
+                test.Add(jObject["Entities"][1]["AmountMonth"].ToString());
+                test.Add(jObject["Entities"][1]["AmountMonthDebit"].ToString());
+                test.Add(jObject["Entities"][1]["AmountMonthCredit"].ToString());
+                test.Add(jObject["Entities"][1]["Group"].ToString());
+                test.Add(jObject["Entities"][1]["AmountYearToDate"].ToString());
+                test.Add(jObject["Entities"][1]["AmountYearToDateDebit"].ToString());
+                test.Add(jObject["Entities"][1]["AmountYearToDateCredit"].ToString());
+                test.Add(jObject["Entities"][1]["TranslatedGroup"].ToString());
+
+                test.Add(jObject["Entities"][2]["AmountMonth"].ToString());
+                test.Add(jObject["Entities"][2]["AmountMonthDebit"].ToString());
+                test.Add(jObject["Entities"][2]["AmountMonthCredit"].ToString());
+                test.Add(jObject["Entities"][2]["Group"].ToString());
+                test.Add(jObject["Entities"][2]["AmountYearToDate"].ToString());
+                test.Add(jObject["Entities"][2]["AmountYearToDateDebit"].ToString());
+                test.Add(jObject["Entities"][2]["AmountYearToDateCredit"].ToString());
+                test.Add(jObject["Entities"][2]["TranslatedGroup"].ToString());
+
+                LedgerGroupData.Add(new LedgerGroupData(jObject));
+                for (int i = 0; i < jObject.Count; i++)
+                {
+                    LedgerGroupData.Add(new LedgerGroupData(i));
+                }
+                //foreach (JObject item in jObject)
+                //{
+                //    LedgerGroupData.Add(new LedgerGroupData(item));
+                //}
+>>>>>>> Stashed changes
             }
 
             return View(ledgerGroupDataList);
