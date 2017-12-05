@@ -26,7 +26,7 @@ namespace XenaBudgetManager.Models
     {
         public LedgerAccounts(JObject jObject)
         {
-            ledgerAccountId = jObject["Value"].ToString();
+            ledgerAccountId = jToken["Value"].ToString();
             accountName = jObject["Text"].ToString();
         }
         public string ledgerAccountId { get; set; }
@@ -49,11 +49,6 @@ namespace XenaBudgetManager.Models
 
         public LedgerGroupData()
         {
-        }
-
-        public LedgerGroupData(int i)
-        {
-            this.i = i;
         }
 
         public int AmountMonth { get; set; }
