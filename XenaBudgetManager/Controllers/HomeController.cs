@@ -52,8 +52,14 @@ namespace XenaBudgetManager.Controllers
         public ActionResult Index(Xena xena)
         {
             xena.id_code = Request["code"];
-
             AccessToken(xena);
+
+            Session["loggedIn"] = true;
+
+            List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
+                "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
+
+            Session["userName"] = jTokenList[0]["ResourceName"].ToString();
 
             ViewBag.Token = xena.access_token; // Debug
 
@@ -95,11 +101,6 @@ namespace XenaBudgetManager.Controllers
                 xena.access_token = jObject["access_token"].ToString();
                 Session["access_token"] = xena.access_token;
             }
-
-            List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
-                "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
-            
-            Session["userName"] = jTokenList[0]["ResourceName"].ToString();
         }
 
         /// <summary>
