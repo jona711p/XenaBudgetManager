@@ -43,7 +43,7 @@ namespace XenaBudgetManager.Models
 
         //private void GetDataFromXena()
         //{
-        //    List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
+        //    List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
         //        "Fiscal/98437/FiscalPeriod");
 
         //    // INDEX [ ]
