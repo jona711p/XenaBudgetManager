@@ -147,8 +147,8 @@ namespace XenaBudgetManager.Controllers
             Response.Cookies.Add(httpCookie);
 
             List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
-                "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
-            
+                "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
+
             Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
 
             return RedirectToAction("Index");
