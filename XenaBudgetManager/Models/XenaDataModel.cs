@@ -9,11 +9,12 @@ namespace XenaBudgetManager.Models
     // Containing ledger tag  which is the actual account numbers
     public class LedgerTags
     {
-        public LedgerTags(JObject jObject)
+        public LedgerTags(JToken jToken)
         {
-            ledgerTagId = int.Parse(jObject["Id"].ToString());
-            shortDescription = jObject["ShortDescription"].ToString();
-            longDescription = jObject["LongDescription"].ToString();
+            
+            ledgerTagId = int.Parse(jToken["Id"].ToString());
+            shortDescription = jToken["ShortDescription"].ToString();
+            longDescription = jToken["LongDescription"].ToString();
         }
 
         public int ledgerTagId { get; set; }
@@ -24,10 +25,10 @@ namespace XenaBudgetManager.Models
     // Containing ledger accounts
     public class LedgerAccounts
     {
-        public LedgerAccounts(JObject jObject)
+        public LedgerAccounts(JToken jToken)
         {
-            //ledgerAccountId = jToken["Value"].ToString();
-            accountName = jObject["Text"].ToString();
+            ledgerAccountId = jToken["Value"].ToString();
+            accountName = jToken["Text"].ToString();
         }
         public string ledgerAccountId { get; set; }
         public string accountName { get; set; }
@@ -63,23 +64,23 @@ namespace XenaBudgetManager.Models
 
     public class LedgerGroupDetailData
     {
-        public LedgerGroupDetailData(JObject jObject)
+        public LedgerGroupDetailData(JToken jToken)
         {
-            Controller = jObject["Controller"].ToString();
-            ControllerAction = jObject["ControllerAction"].ToString();
-            Id = jObject["Id"].ToString();
-            AccountNumber = int.Parse(jObject["AccountNumber"].ToString());
-            AccountDescription = jObject["AccountDescription"].ToString();
-            Description = jObject["Description"].ToString();
-            AmountMonth = int.Parse(jObject["AmountMonth"].ToString());
-            AmountMonthDebit = int.Parse(jObject["AmountMonthDebit"].ToString());
-            AmountMonthCredit = int.Parse(jObject["AmountMonthCredit"].ToString());
-            AmountYearToDate = int.Parse(jObject["AmountYearToDate"].ToString());
-            AmountYearToDateDebit = int.Parse(jObject["AmountYearToDateDebit"].ToString());
-            AmountYearToDateCredit = int.Parse(jObject["AmountYearToDateCredit"].ToString());
-            LedgerAccount = jObject["LedgerAccount"].ToString();
-            Group = jObject["Group"].ToString();
-            GroupIndex = int.Parse(jObject["GroupIndex"].ToString());
+            Controller = jToken["Controller"].ToString();
+            ControllerAction = jToken["ControllerAction"].ToString();
+            Id = jToken["Id"].ToString();
+            AccountNumber = int.Parse(jToken["AccountNumber"].ToString());
+            AccountDescription = jToken["AccountDescription"].ToString();
+            Description = jToken["Description"].ToString();
+            AmountMonth = int.Parse(jToken["AmountMonth"].ToString());
+            AmountMonthDebit = jToken["AmountMonthDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthDebit"].ToString());
+            AmountMonthCredit = int.Parse(jToken["AmountMonthCredit"].ToString());
+            AmountYearToDate = int.Parse(jToken["AmountYearToDate"].ToString());
+            AmountYearToDateDebit = jToken["AmountYearToDateDebit"].Type == JTokenType.Null ? null : AmountYearToDateDebit = int.Parse(jToken["AmountYearToDateDebit"].ToString());
+            AmountYearToDateCredit = int.Parse(jToken["AmountYearToDateCredit"].ToString());
+            LedgerAccount = jToken["LedgerAccount"].ToString();
+            Group = jToken["Group"].ToString();
+            GroupIndex = int.Parse(jToken["GroupIndex"].ToString());
         }
 
         public string Controller { get; set; }
@@ -89,10 +90,10 @@ namespace XenaBudgetManager.Models
         public string AccountDescription { get; set; }
         public string Description { get; set; }
         public int AmountMonth { get; set; }
-        public object AmountMonthDebit { get; set; }
+        public int ? AmountMonthDebit { get; set; }    //obj ti int ?
         public int AmountMonthCredit { get; set; }
         public int AmountYearToDate { get; set; }
-        public object AmountYearToDateDebit { get; set; }
+        public int ? AmountYearToDateDebit { get; set; }//obj to int ?
         public int AmountYearToDateCredit { get; set; }
         public string LedgerAccount { get; set; }
         public string Group { get; set; }
