@@ -102,8 +102,7 @@ namespace XenaBudgetManager.Controllers
 
             List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
                 "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
-
-            Session["UserID"] = int.Parse(jTokenList[0]["UserId"].ToString());
+            
             Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
         }
 
@@ -149,10 +148,9 @@ namespace XenaBudgetManager.Controllers
 
             List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
                 "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
-
-            Session["UserID"] = int.Parse(jTokenList[0]["UserId"].ToString());
-            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
             
+            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
+
             return RedirectToAction("Index");
         }
 

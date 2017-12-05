@@ -26,7 +26,7 @@ namespace XenaBudgetManager.Models
     {
         public LedgerAccounts(JObject jObject)
         {
-            ledgerAccountId = jToken["Value"].ToString();
+            //ledgerAccountId = jToken["Value"].ToString();
             accountName = jObject["Text"].ToString();
         }
         public string ledgerAccountId { get; set; }
