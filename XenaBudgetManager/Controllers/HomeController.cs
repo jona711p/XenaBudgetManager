@@ -94,9 +94,9 @@ namespace XenaBudgetManager.Controllers
 
                 xena.access_token = jObject["access_token"].ToString();
 
-                HttpCookie accessCookie = new HttpCookie("access_token");
-                accessCookie.Value = xena.access_token;
-                Response.Cookies.Add(accessCookie);
+                HttpCookie httpCookie = new HttpCookie("access_token");
+                httpCookie.Value = xena.access_token;
+                Response.Cookies.Add(httpCookie);
 
             }
 
@@ -123,6 +123,7 @@ namespace XenaBudgetManager.Controllers
 
         public ActionResult Logout()
         {
+            Request.Cookies.Clear();
             Session["LoggedIn"] = null;
             Session["UserName"] = string.Empty;
             return RedirectToAction("Index");
@@ -140,9 +141,9 @@ namespace XenaBudgetManager.Controllers
         {
             Session["LoggedIn"] = true;
 
-            HttpCookie accessCookie = new HttpCookie("access_token");
-            accessCookie.Value = token;
-            Response.Cookies.Add(accessCookie);
+            HttpCookie httpCookie = new HttpCookie("access_token");
+            httpCookie.Value = token;
+            Response.Cookies.Add(httpCookie);
 
             List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
                 "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");

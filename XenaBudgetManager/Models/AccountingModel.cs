@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel;
 
 namespace XenaBudgetManager.Models
 {
@@ -14,6 +10,7 @@ namespace XenaBudgetManager.Models
 
         [DisplayName("MonthResult")]
         public int MonthResult { get; set; }
+
 
         // Finance Groups
         [DisplayName("Netto Omsætning")]
@@ -30,7 +27,6 @@ namespace XenaBudgetManager.Models
 
         [DisplayName("Årets Resultat")]
         public int TheResultOfTheYear { get; set; }
-
 
 
         // finance Accounts
@@ -54,6 +50,5 @@ namespace XenaBudgetManager.Models
 
         [DisplayName("--Lys/Varme")]
         public int LocalCost_Light_Heat { get; set; }
-
     }
 }
