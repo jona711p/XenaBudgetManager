@@ -90,10 +90,10 @@ namespace XenaBudgetManager.Models
         public string AccountDescription { get; set; }
         public string Description { get; set; }
         public int AmountMonth { get; set; }
-        public int ? AmountMonthDebit { get; set; }    //obj ti int ?
+        public int? AmountMonthDebit { get; set; }    //obj ti int ?
         public int AmountMonthCredit { get; set; }
         public int AmountYearToDate { get; set; }
-        public int ? AmountYearToDateDebit { get; set; }//obj to int ?
+        public int? AmountYearToDateDebit { get; set; }//obj to int ?
         public int AmountYearToDateCredit { get; set; }
         public string LedgerAccount { get; set; }
         public string Group { get; set; }
