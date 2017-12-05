@@ -93,14 +93,13 @@ namespace XenaBudgetManager.Controllers
                 JObject jObject = JObject.Parse(result);
 
                 xena.access_token = jObject["access_token"].ToString();
-
                 Session["access_token"] = xena.access_token;
             }
 
             List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
             
-            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
+            Session["userName"] = jTokenList[0]["ResourceName"].ToString();
         }
 
         /// <summary>
@@ -136,14 +135,13 @@ namespace XenaBudgetManager.Controllers
         [HttpPost]
         public ActionResult Debug(string token)
         {
-            Session["LoggedIn"] = true;
-
+            Session["loggedIn"] = true;
             Session["access_token"] = token;
 
             List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
 
-            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
+            Session["userName"] = jTokenList[0]["ResourceName"].ToString();
 
             return RedirectToAction("Index");
         }
