@@ -124,8 +124,9 @@ namespace XenaBudgetManager.Controllers
         public ActionResult Logout()
         {
             Request.Cookies.Clear();
-            Session["LoggedIn"] = null;
-            Session["UserName"] = string.Empty;
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
             return RedirectToAction("Index");
         }
 

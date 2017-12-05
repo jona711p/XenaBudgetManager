@@ -26,12 +26,19 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Hjem", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Vis Regnskab", "Accounting", "Accounting", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Opret Budget", "CreateBudget", "Budget", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Vis Budget", "Budget", "Budget", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Group data", "LedgerGroupData", "GetXenaData", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Group detailed data", "LedgerGroupDetailData", "GetXenaData", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Vis Regnskab", "Budget", "Budget", new { area = "" }, null)</li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Budget <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Vis Regnskab", "Accounting", "Accounting", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Opret Budget", "CreateBudget", "Budget", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Vis Budget", "Budget", "Budget", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Group data", "LedgerGroupData", "GetXenaData", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Group detailed data", "LedgerGroupDetailData", "GetXenaData", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Vis Regnskab", "Budget", "Budget", new { area = "" }, null)</li>
+                        </ul>
+                    </li>
+                    
                     <li>@Html.ActionLink(loggedIn ? "Log Ind" : Session["UserName"] + ": Log Ud", loggedIn ? "Login" : "Logout", "Home", new { area = "" }, null)</li>
                 </ul>
             </div>
