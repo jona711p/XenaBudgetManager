@@ -19,7 +19,7 @@ namespace XenaBudgetManager.Models
             string constr = ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "SELECT * FROM Budget INNER JOIN LedgerAccount ON LedgerAccountID = LedgerAccountID INNER JOIN LedgerTag ON LedgerTagID = LedgerTagID INNER JOIN ValueInterval ON ValueIntervalID = ValueIntervalID INNER JOIN XenaFiscal ON XenaFiscalID = XenaFiscalID INNER JOIN XenaUser ON UserID = UserID";
+                string query = "Select ValueIntervalID, AccountName,ShortDescription,LongDescription FROM Budget Inner JOIN ValueInterval ON BudgetID = BudgetID INNER JOIN LedgerAccount ON LedgerAccountID = LedgerAccountID INNER JOIN LedgerTag ON LedgerTagID = LedgerTagID INNER JOIN XenaFiscal ON XenaFiscalID = XenaFiscalID";
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
@@ -33,7 +33,7 @@ namespace XenaBudgetManager.Models
             return View(ds);
         }
         
-        [HttpPost]
+
         public ActionResult CreateBudget()
         {
             return View();
