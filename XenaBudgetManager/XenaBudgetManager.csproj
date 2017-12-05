@@ -255,6 +255,7 @@
     <Content Include="Views\Budget\CreateBudget.cshtml" />
     <Content Include="Views\GetXenaData\LedgerGroupData.cshtml" />
     <Content Include="Views\GetXenaData\LedgerGroupDetailData.cshtml" />
+    <Content Include="Views\Shared\_Layout_LoggedIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
