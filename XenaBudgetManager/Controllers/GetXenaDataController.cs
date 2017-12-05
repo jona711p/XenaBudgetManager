@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Web.Mvc;
 using XenaBudgetManager.Models;
 
+
+
 namespace XenaBudgetManager.Controllers
 {
     public class GetXenaDataController : Controller
@@ -25,6 +27,8 @@ namespace XenaBudgetManager.Controllers
             }
 
             return LedgerAccountList;
+
+            //TODO: code that takes the list and persists it to the db
         }
 
         //GET:  list of ledgertag objects - the account names
@@ -41,6 +45,11 @@ namespace XenaBudgetManager.Controllers
             {
                 LedgerTagList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerTag list
             }
+
+            //TODO: code that takes the list and persists it to the db
+            DB.WriteNewLedgerTag(LedgerTagList);
+
+
 
             return LedgerTagList;
         }
