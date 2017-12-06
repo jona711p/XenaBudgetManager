@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Controllers
@@ -7,6 +8,20 @@ namespace XenaBudgetManager.Controllers
     {
         public ActionResult Accounting()
         {
+            DateTime? fromDate = null;
+            DateTime? toDate = null;
+
+            ViewBag.fromDate = fromDate;
+            ViewBag.toDate = toDate;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Accounting(DateTime fromDate, DateTime toDate)
+        {
+            GetXenaData.LedgerGroupData(Session["access_token"].ToString(), fromDate, toDate);
+
             return View();
         }
 
