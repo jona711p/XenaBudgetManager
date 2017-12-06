@@ -9,33 +9,59 @@ namespace XenaBudgetManager.Models
     // Containing ledger tag  which is the actual account numbers
     public class LedgerTags
     {
-        public LedgerTags(JToken jToken)
-        {
-            //ledgerTagId = jToken["Id"].Type == JTokenType.Null ? null : ledgerTagId = int.Parse(jToken["Id"].ToString());
-            ledgerTagId = jToken["Id"].ToString();
-            shortDescription = jToken["ShortDescription"].ToString();
-            longDescription = jToken["LongDescription"].ToString();
-        }
-
-        public string ledgerTagId { get; set; }//?
+        public int ledgerTagId { get; set; }
         public string shortDescription { get; set; }
         public string longDescription { get; set; }
+        public string accountID { get; set; }
+
+        public LedgerTags()
+        {
+        }
+
+        public LedgerTags(JToken jToken)
+        {
+            if (jToken["Id"].Type != JTokenType.Null)
+            {
+                ledgerTagId = int.Parse(jToken["Id"].ToString());
+                shortDescription = jToken["ShortDescription"].ToString();
+                longDescription = jToken["LongDescription"].ToString();
+                accountID = jToken["LedgerAccount"].ToString();
+            }
+        }
     }
 
     // Containing ledger accounts
     public class LedgerAccounts
     {
+        public string ledgerAccountId { get; set; }
+        public string accountName { get; set; }
+
+        public LedgerAccounts()
+        {
+        }
+
         public LedgerAccounts(JToken jToken)
         {
             ledgerAccountId = jToken["Value"].ToString();
             accountName = jToken["Text"].ToString();
         }
-        public string ledgerAccountId { get; set; }
-        public string accountName { get; set; }
     }
 
     public class LedgerGroupData
     {
+        public int AmountMonth { get; set; }
+        public int? AmountMonthDebit { get; set; }
+        public int? AmountMonthCredit { get; set; }
+        public string Group { get; set; }
+        public int AmountYearToDate { get; set; }
+        public int? AmountYearToDateDebit { get; set; }
+        public int? AmountYearToDateCredit { get; set; }
+        public string TranslatedGroup { get; set; }
+
+        public LedgerGroupData()
+        {
+        }
+
         public LedgerGroupData(JToken jToken) // Changed from JObject to JToken, and added "if null" to int?'s
         {
             AmountMonth = int.Parse(jToken["AmountMonth"].ToString());
@@ -47,23 +73,30 @@ namespace XenaBudgetManager.Models
             AmountYearToDateCredit = jToken["AmountYearToDateCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateCredit"].ToString());
             TranslatedGroup = jToken["TranslatedGroup"].ToString();
         }
-
-        public LedgerGroupData()
-        {
-        }
-
-        public int AmountMonth { get; set; }
-        public int? AmountMonthDebit { get; set; }
-        public int? AmountMonthCredit { get; set; }
-        public string Group { get; set; }
-        public int AmountYearToDate { get; set; }
-        public int? AmountYearToDateDebit { get; set; }
-        public int? AmountYearToDateCredit { get; set; }
-        public string TranslatedGroup { get; set; }
     }
 
     public class LedgerGroupDetailData
     {
+        public string Controller { get; set; }
+        public string ControllerAction { get; set; }
+        public string Id { get; set; }
+        public int AccountNumber { get; set; }
+        public string AccountDescription { get; set; }
+        public string Description { get; set; }
+        public int AmountMonth { get; set; }
+        public int? AmountMonthDebit { get; set; }    //obj ti int ?
+        public int AmountMonthCredit { get; set; }
+        public int AmountYearToDate { get; set; }
+        public int? AmountYearToDateDebit { get; set; }//obj to int ?
+        public int AmountYearToDateCredit { get; set; }
+        public string LedgerAccount { get; set; }
+        public string Group { get; set; }
+        public int GroupIndex { get; set; }
+
+        public LedgerGroupDetailData()
+        {
+        }
+
         public LedgerGroupDetailData(JToken jToken)
         {
             Controller = jToken["Controller"].ToString();
@@ -82,21 +115,5 @@ namespace XenaBudgetManager.Models
             Group = jToken["Group"].ToString();
             GroupIndex = int.Parse(jToken["GroupIndex"].ToString());
         }
-
-        public string Controller { get; set; }
-        public string ControllerAction { get; set; }
-        public string Id { get; set; }
-        public int AccountNumber { get; set; }
-        public string AccountDescription { get; set; }
-        public string Description { get; set; }
-        public int AmountMonth { get; set; }
-        public int ? AmountMonthDebit { get; set; }    //obj ti int ?
-        public int AmountMonthCredit { get; set; }
-        public int AmountYearToDate { get; set; }
-        public int ? AmountYearToDateDebit { get; set; }//obj to int ?
-        public int AmountYearToDateCredit { get; set; }
-        public string LedgerAccount { get; set; }
-        public string Group { get; set; }
-        public int GroupIndex { get; set; }
     }
 }

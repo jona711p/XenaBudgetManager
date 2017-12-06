@@ -19,7 +19,7 @@ namespace XenaBudgetManager.Models
             string constr = ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "SELECT * FROM Budget INNER JOIN LedgerAccount ON LedgerAccountID = LedgerAccountID INNER JOIN LedgerTag ON LedgerTagID = LedgerTagID INNER JOIN ValueInterval ON ValueIntervalID = ValueIntervalID INNER JOIN XenaFiscal ON XenaFiscalID = XenaFiscalID INNER JOIN XenaUser ON UserID = UserID";
+                string query = "SELECT * FROM view_FullBudget WHERE Budgetnavn = 'Kaffebudget'";
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
@@ -33,10 +33,24 @@ namespace XenaBudgetManager.Models
             return View(ds);
         }
         
-        [HttpPost]
+
         public ActionResult CreateBudget()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult CreateBudget(Budget budget)
+        {
+            int budgetID;
+            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString());
+            budgetID = DB.WriteNewBudget(budget);
+            DB.WriteNewLedgerAccount(GetXenaData.LedgerAccount(Session["access_token"].ToString()));
+            DB.WriteNewLedgerTag(tempLedgerTag);
+            DB.WriteNewRel_AccountPlan(tempLedgerTag , budgetID);
+            return View();
+            
         }
     }
 }

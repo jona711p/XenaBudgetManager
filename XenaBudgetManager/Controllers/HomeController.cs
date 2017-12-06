@@ -52,8 +52,14 @@ namespace XenaBudgetManager.Controllers
         public ActionResult Index(Xena xena)
         {
             xena.id_code = Request["code"];
-
             AccessToken(xena);
+
+            Session["loggedIn"] = true;
+
+            List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
+                "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
+
+            Session["userName"] = jTokenList[0]["ResourceName"].ToString();
 
             ViewBag.Token = xena.access_token; // Debug
 
@@ -93,17 +99,8 @@ namespace XenaBudgetManager.Controllers
                 JObject jObject = JObject.Parse(result);
 
                 xena.access_token = jObject["access_token"].ToString();
-
-                HttpCookie httpCookie = new HttpCookie("access_token");
-                httpCookie.Value = xena.access_token;
-                Response.Cookies.Add(httpCookie);
-
+                Session["access_token"] = xena.access_token;
             }
-
-            List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
-                "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
-            
-            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
         }
 
         /// <summary>
@@ -123,7 +120,6 @@ namespace XenaBudgetManager.Controllers
 
         public ActionResult Logout()
         {
-            Request.Cookies.Clear();
             Session.Abandon();
             Session.Clear();
             Session.RemoveAll();
@@ -140,42 +136,15 @@ namespace XenaBudgetManager.Controllers
         [HttpPost]
         public ActionResult Debug(string token)
         {
-            Session["LoggedIn"] = true;
+            Session["loggedIn"] = true;
+            Session["access_token"] = token;
 
-            HttpCookie httpCookie = new HttpCookie("access_token");
-            httpCookie.Value = token;
-            Response.Cookies.Add(httpCookie);
-
-            List<JToken> jTokenList = Xena.CallXena(Request.Cookies["access_token"].Value,
+            List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
 
-            Session["UserName"] = jTokenList[0]["ResourceName"].ToString();
+            Session["userName"] = jTokenList[0]["ResourceName"].ToString();
 
             return RedirectToAction("Index");
-        }
-
-        public ActionResult DBTEST()
-        {
-            Account demo = new Account();
-            Random rnd = new Random();
-
-            demo.January = rnd.Next(0, 99999);
-            demo.February = rnd.Next(0, 99999);
-            demo.March = rnd.Next(0, 99999);
-            demo.April = rnd.Next(0, 99999);
-            demo.May = rnd.Next(0, 99999);
-            demo.June = rnd.Next(0, 99999);
-            demo.July = rnd.Next(0, 99999);
-            demo.August = rnd.Next(0, 99999);
-            demo.September = rnd.Next(0, 99999);
-            demo.October = rnd.Next(0, 99999);
-            demo.November = rnd.Next(0, 99999);
-            demo.December = rnd.Next(0, 99999);
-            demo.Total = rnd.Next(0, 99999);
-
-            DB.WriteValueInterval(demo);
-
-            return View("Index");
         }
     }
 }
