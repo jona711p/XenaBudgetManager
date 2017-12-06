@@ -172,7 +172,7 @@ namespace XenaBudgetManager.Models
 
             SqlCommand command = new SqlCommand(
                 string.Format(@"INSERT INTO Budget(BudgetName, Year) 
-                        VALUES ({0}, {1});", inputData.budgetName, inputData.budgetYear), connection);
+                        VALUES ('{0}', {1});", inputData.budgetName, inputData.budgetYear), connection);
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);

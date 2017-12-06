@@ -44,7 +44,8 @@ namespace XenaBudgetManager.Models
         public ActionResult CreateBudget(Budget budget)
         {
             DB.WriteNewBudget(budget);
-            return View();            
+            return View();     
+            
         }
     }
 }
