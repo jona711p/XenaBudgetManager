@@ -81,7 +81,7 @@ namespace XenaBudgetManager.Models
             {
                 SqlCommand command = new SqlCommand(
                     string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                        VALUES ({0},{1});", inputList[i].ledgerAccountId, inputList[i].ledgerAccountId), connection);
+                        VALUES ({0},{1});", inputList[i].ledgerAccountId, inputList[i].accountName), connection);
 
                 command.ExecuteNonQuery();
             }
