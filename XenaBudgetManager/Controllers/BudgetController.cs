@@ -45,12 +45,19 @@ namespace XenaBudgetManager.Models
         {
             int budgetID;
             List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString());
+            List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString());
+
             budgetID = DB.WriteNewBudget(budget);
-            DB.WriteNewLedgerAccount(GetXenaData.LedgerAccount(Session["access_token"].ToString()));
-            DB.WriteNewLedgerTag(tempLedgerTag);
-            DB.WriteNewRel_AccountPlan(tempLedgerTag , budgetID);
+
+            List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !GetXenaData.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
+            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !GetXenaData.DupeCheckListAccount().Contains(x.ledgerAccountId)).ToList();
+
+            DB.WriteNewLedgerAccount(dupecheckledgerAccount);
+            DB.WriteNewLedgerTag(dupecheckledgertag);
+            DB.WriteNewRel_AccountPlan(dupecheckledgertag, dupecheckledgerAccount, budgetID);
             return View();
             
         }
+        
     }
 }

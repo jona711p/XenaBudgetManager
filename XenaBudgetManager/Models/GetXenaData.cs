@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace XenaBudgetManager.Models
 {
@@ -78,5 +80,49 @@ namespace XenaBudgetManager.Models
                 ledgerGroupDetailDataList.Add(new Models.LedgerGroupDetailData(jToken)); // Adds each Entity to a LedgerGroupData
             }
         }
+
+        public static List<int> DupeCheckListTag()
+        {
+            DataTable dt = new DataTable();
+            List<int> dupeCheckList = new List<int>();
+
+            SqlConnection connection = null;
+            connection = DB.ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT LedgerTagID From LedgerTag WHERE LedgerTagID IS NOT Null", connection);
+
+            dt.Load(command.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                dupeCheckList.Add(int.Parse(row[0].ToString()));
+            }
+
+            connection = DB.DisconnectFromDB(connection);
+
+            return dupeCheckList;
+        }
+        public static List<string> DupeCheckListAccount()
+        {
+            DataTable dt = new DataTable();
+            List<string> dupeCheckList = new List<string>();
+
+            SqlConnection connection = null;
+            connection = DB.ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT LedgerAccountID From LedgerAccount WHERE LedgerAccountID IS NOT Null", connection);
+
+            dt.Load(command.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                dupeCheckList.Add(row[0].ToString());
+            }
+
+            connection = DB.DisconnectFromDB(connection);
+
+            return dupeCheckList;
+        }
+        
     }
 }

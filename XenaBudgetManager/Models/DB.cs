@@ -104,7 +104,7 @@ namespace XenaBudgetManager.Models
                string.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
                VALUES (@LedgerTagID, @ShortDescription, @LongDescription)"), connection);
 
-                cmd.Parameters.AddWithValue("@LedgerTagID", inputList[i].ledgerTagId);
+                cmd.Parameters.AddWithValue("@LedgerTagID", inputList[i].ledgerTagId).ToString();
                 cmd.Parameters.AddWithValue("@ShortDescription", inputList[i].shortDescription);
                 cmd.Parameters.AddWithValue("@LongDescription", inputList[i].longDescription);
                 cmd.Parameters.Clear();
@@ -118,7 +118,7 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
         /// </summary>
-        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputList, int budgetID) //rettet efter XenaDataModel
+        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputList, List<LedgerAccounts> inputList2, int budgetID) //rettet efter XenaDataModel
         {
             budgetID = 3;
             SqlConnection connection = null;
@@ -188,8 +188,12 @@ namespace XenaBudgetManager.Models
             return Convert.ToInt32(tempData);
         }
 
+       
+            //List<City> dupeCheckList = cities.Where(x => !XMLDBReadLogic.DupeCheckList("ID", "Cities").Contains(x.ID.Value)).ToList(); // Removes any dupes found already in the DataBase
+        
 
-        //List<City> dupeCheckList = cities.Where(x => !XMLDBReadLogic.DupeCheckList("ID", "Cities").Contains(x.ID.Value)).ToList(); // Removes any dupes found already in the DataBase
+
+
 
     }
 }
