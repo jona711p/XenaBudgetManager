@@ -107,7 +107,26 @@ namespace XenaBudgetManager.Models
             }
             connection = DisconnectFromDB(connection);
         }
+      
+        /// <summary>
+        /// Written by Thomas
+        /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
+        /// </summary>
+        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputList, int budgetID) //rettet efter XenaDataModel
+        {
+            budgetID = 3;
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
 
+            for (int i = 0; i < inputList.Count; i++)
+            {
+                SqlCommand command = new SqlCommand(
+                    string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputList[i].accountID, inputList[i].shortDescription), connection);
+
+                command.ExecuteNonQuery();
+            }
+            connection = DisconnectFromDB(connection);
+        }
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'XenaUser' with related data 
