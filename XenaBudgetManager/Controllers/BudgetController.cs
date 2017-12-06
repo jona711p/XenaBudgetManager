@@ -43,17 +43,23 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
         {
-            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString());
-            List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString());
+            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
+            List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
 
-            budget.budgetID = DB.WriteNewBudget(budget);
+            budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
-            List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !GetXenaData.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
-            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !GetXenaData.DupeCheckListAccount().Contains(x.ledgerAccountId)).ToList();
+            List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !GetXenaData.DupeCheckListTag().Contains(x.ledgerTagId)).ToList(); //tjekker for dubletter og laver en liste med unikke
+            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !GetXenaData.DupeCheckListAccount().Contains(x.ledgerAccountXena)).ToList();//tjekker for dubletter og laver en liste med unikke
 
-            DB.WriteNewLedgerAccount(dupecheckledgerAccount);
-            DB.WriteNewLedgerTag(dupecheckledgertag);
-            DB.WriteNewRel_AccountPlan(dupecheckledgertag, dupecheckledgerAccount, budget.budgetID);
+
+
+            ///if(tag[i].xena == account[j].xena)
+            ///     insert into rel budgetID, tag[i].xena, account[j].xena
+        
+
+            tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB
+            DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
+            DB.WriteNewRel_AccountPlan(dupecheckledgertag, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
             return View();
             
         }

@@ -40,7 +40,10 @@ namespace XenaBudgetManager.Models
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
             {
-                LedgerTagList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerTag list
+                if (jToken["Id"].Type != JTokenType.Null && int.Parse(jToken["Id"].ToString()) != 0)
+                {
+                    LedgerTagList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerTag list
+                }
             }
 
             //TODO: code that takes the list and persists it to the db

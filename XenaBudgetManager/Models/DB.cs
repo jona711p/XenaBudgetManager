@@ -72,7 +72,7 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry in  DB 'LedgerAccount' with related data 
         /// </summary>
-        public static void WriteNewLedgerAccount(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
+        public static List<LedgerAccounts> WriteNewLedgerAccount(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -81,15 +81,20 @@ namespace XenaBudgetManager.Models
             {
                 SqlCommand cmd = new SqlCommand(
                     string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                    VALUES(@LedgerAccountID, @AccountName)"), connection);
+                    VALUES(@LedgerAccountID, @AccountName) SELECT SCOPE_IDENTITY()"), connection);
 
-                cmd.Parameters.AddWithValue("@LedgerAccountID", inputList[i].ledgerAccountId);
+                cmd.Parameters.AddWithValue("@LedgerAccountID", inputList[i].ledgerAccountXena);
                 cmd.Parameters.AddWithValue("@AccountName", inputList[i].accountName);
 
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
+                inputList[i].ledgerAccountId = int.Parse(cmd.ExecuteScalar().ToString());
+
             }
+
             connection = DisconnectFromDB(connection);
+
+            return inputList;
         }
 
         /// <summary>
@@ -123,18 +128,24 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
         /// </summary>
-        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputList, List<LedgerAccounts> inputList2, int budgetID) //rettet efter XenaDataModel
+        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputTagList, int budgetID) //rettet efter XenaDataModel
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
-            for (int i = 0; i < inputList.Count; i++)
+            for (int i = 0; i < inputTagList.Count; i++)
             {
-                SqlCommand command = new SqlCommand(
-                    string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},'{1}',{2});", budgetID, inputList2[i].ledgerAccountId, inputList[i].ledgerTagId), connection);
+                try
+                {
+                    SqlCommand command = new SqlCommand(
+                        string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputTagList[i].accountID, inputTagList[i].ledgerTagId), connection);
 
-                command.ExecuteNonQuery();
-            }
+                    command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+throw new Exception("Error at "+i + ". "+ex.ToString());                }}
             connection = DisconnectFromDB(connection);
         }
         /// <summary>
