@@ -80,10 +80,11 @@ namespace XenaBudgetManager.Models
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-                    string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                    VALUES(@LedgerAccountID, @AccountName)"), connection);
+                    string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, LedgerAccountXena, AccountName) 
+                    VALUES(@LedgerAccountID, @LedgerAccountXena, @AccountName)"), connection);
 
-                cmd.Parameters.AddWithValue("@LedgerAccountID", inputList[i].ledgerAccountId);
+                cmd.Parameters.AddWithValue("@LedgerAccountID", inputList[i].ledgerAccountId).ToString();
+                cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
                 cmd.Parameters.AddWithValue("@AccountName", inputList[i].accountName);
 
                 cmd.ExecuteNonQuery();

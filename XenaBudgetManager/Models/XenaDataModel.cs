@@ -33,7 +33,8 @@ namespace XenaBudgetManager.Models
     // Containing ledger accounts
     public class LedgerAccounts
     {
-        public string ledgerAccountId { get; set; }
+        public int ledgerAccountId { get; set; }
+        public string ledgerAccountXena { get; set; }
         public string accountName { get; set; }
 
         public LedgerAccounts()
@@ -42,7 +43,8 @@ namespace XenaBudgetManager.Models
 
         public LedgerAccounts(JToken jToken)
         {
-            ledgerAccountId = jToken["Value"].ToString();
+            ledgerAccountId = int.Parse(jToken["Value"].ToString());
+            ledgerAccountXena = jToken["Value"].ToString();
             accountName = jToken["Text"].ToString();
         }
     }
