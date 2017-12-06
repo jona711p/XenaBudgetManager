@@ -81,7 +81,7 @@ namespace XenaBudgetManager.Models
             {
                 SqlCommand command = new SqlCommand(
                     string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                        VALUES ({0},{1});", inputList[i].ledgerAccountId, inputList[i].ledgerAccountId), connection);
+                        VALUES ({0},{1});", inputList[i].ledgerAccountId, inputList[i].accountName), connection);
 
                 command.ExecuteNonQuery();
             }
@@ -97,13 +97,19 @@ namespace XenaBudgetManager.Models
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
-            for (int i = 0; i < inputList.Count; i++)
+            
+            for (int i = 1; i < inputList.Count; i++)
             {
-                SqlCommand command = new SqlCommand(
-                    string.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
-                        VALUES ({0},{1},{2});", inputList[i].ledgerTagId, inputList[i].shortDescription, inputList[i].longDescription), connection);
+                SqlCommand cmd = new SqlCommand(
+               string.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
+               VALUES (@LedgerTagID, @ShortDescription, @LongDescription)"), connection);
 
-                command.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@LedgerTagID", inputList[i].ledgerTagId);
+                cmd.Parameters.AddWithValue("@ShortDescription", inputList[i].shortDescription);
+                cmd.Parameters.AddWithValue("@LongDescription", inputList[i].longDescription);
+                cmd.Parameters.Clear();
+                cmd.ExecuteNonQuery();
+               
             }
             connection = DisconnectFromDB(connection);
         }

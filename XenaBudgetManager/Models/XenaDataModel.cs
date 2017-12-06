@@ -11,13 +11,13 @@ namespace XenaBudgetManager.Models
     {
         public LedgerTags(JToken jToken)
         {
-            
-            ledgerTagId = int.Parse(jToken["Id"].ToString());
+            //ledgerTagId = jToken["Id"].Type == JTokenType.Null ? null : ledgerTagId = int.Parse(jToken["Id"].ToString());
+            ledgerTagId = jToken["Id"].ToString();
             shortDescription = jToken["ShortDescription"].ToString();
             longDescription = jToken["LongDescription"].ToString();
         }
 
-        public int ledgerTagId { get; set; }
+        public string ledgerTagId { get; set; }//?
         public string shortDescription { get; set; }
         public string longDescription { get; set; }
     }
@@ -90,10 +90,10 @@ namespace XenaBudgetManager.Models
         public string AccountDescription { get; set; }
         public string Description { get; set; }
         public int AmountMonth { get; set; }
-        public int? AmountMonthDebit { get; set; }    //obj ti int ?
+        public int ? AmountMonthDebit { get; set; }    //obj ti int ?
         public int AmountMonthCredit { get; set; }
         public int AmountYearToDate { get; set; }
-        public int? AmountYearToDateDebit { get; set; }//obj to int ?
+        public int ? AmountYearToDateDebit { get; set; }//obj to int ?
         public int AmountYearToDateCredit { get; set; }
         public string LedgerAccount { get; set; }
         public string Group { get; set; }
