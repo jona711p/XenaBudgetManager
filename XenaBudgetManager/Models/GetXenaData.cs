@@ -47,7 +47,7 @@ namespace XenaBudgetManager.Models
         }
 
         // GET: GetXenaData - fiscal period data
-        public void LedgerGroupData(string token)
+        public static List<LedgerGroupData> LedgerGroupData(string token)
         {
             //create an instanse of a ledgergroupdata
             List<LedgerGroupData> ledgerGroupDataList = new List<LedgerGroupData>(); // A new empty list of LedgerGroupData
@@ -61,9 +61,11 @@ namespace XenaBudgetManager.Models
             {
                 ledgerGroupDataList.Add(new LedgerGroupData(jToken)); // Adds each Entity to a LedgerGroupData
             }
+
+            return ledgerGroupDataList;
         }
 
-        public void LedgerGroupDetailData(string token)
+        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token)
         {
             //create an instanse of a ledgergroupdata
             List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
@@ -77,6 +79,8 @@ namespace XenaBudgetManager.Models
             {
                 ledgerGroupDetailDataList.Add(new Models.LedgerGroupDetailData(jToken)); // Adds each Entity to a LedgerGroupData
             }
+
+            return ledgerGroupDetailDataList;
         }
     }
 }

@@ -252,8 +252,8 @@
     <Content Include="Views\Home\Debug.cshtml" />
     <Content Include="Views\Accounting\Accounting.cshtml" />
     <Content Include="Views\Budget\Budget.cshtml" />
-    <Content Include="Views\GetXenaData\LedgerGroupData.cshtml" />
-    <Content Include="Views\GetXenaData\LedgerGroupDetailData.cshtml" />
+    <Content Include="Views\Accounting\LedgerGroupData.cshtml" />
+    <Content Include="Views\Accounting\LedgerGroupDetailData.cshtml" />
     <Content Include="Views\Shared\_Layout_LoggedIn.cshtml" />
     <Content Include="Views\Budget\CreateBudget.cshtml" />
   </ItemGroup>
