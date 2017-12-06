@@ -9,7 +9,7 @@ namespace XenaBudgetManager.Models
     // Containing ledger tag  which is the actual account numbers
     public class LedgerTags
     {
-        public int? ledgerTagId { get; set; }
+        public int ledgerTagId { get; set; }
         public string shortDescription { get; set; }
         public string longDescription { get; set; }
         public string accountID { get; set; }
@@ -22,7 +22,7 @@ namespace XenaBudgetManager.Models
         {
             if (jToken["Id"].Type != JTokenType.Null)
             {
-                ledgerTagId = jToken["Id"].Type == JTokenType.Null ? null : ledgerTagId = int.Parse(jToken["Id"].ToString());
+                ledgerTagId = int.Parse(jToken["Id"].ToString());
                 shortDescription = jToken["ShortDescription"].ToString();
                 longDescription = jToken["LongDescription"].ToString();
                 accountID = jToken["LedgerAccount"].ToString();
