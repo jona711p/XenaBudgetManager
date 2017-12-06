@@ -20,7 +20,8 @@ namespace XenaBudgetManager.Models
 
         public LedgerTags(JToken jToken)
         {
-            if (jToken["Id"].Type != JTokenType.Null)
+            //if (jToken["Id"].Type != JTokenType.Null || int.Parse(jToken["Id"].ToString()) != 0)
+            if (int.Parse(jToken["Version"].ToString()) != 0)
             {
                 ledgerTagId = int.Parse(jToken["Id"].ToString());
                 shortDescription = jToken["ShortDescription"].ToString();

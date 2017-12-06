@@ -81,7 +81,7 @@ namespace XenaBudgetManager.Models
             {
                 SqlCommand command = new SqlCommand(
                     string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                        VALUES ({0},{1});", inputList[i].ledgerAccountId, inputList[i].accountName), connection);
+                        VALUES ('{0}','{1}');", inputList[i].ledgerAccountId, inputList[i].accountName), connection);
 
                 command.ExecuteNonQuery();
             }
@@ -181,5 +181,9 @@ namespace XenaBudgetManager.Models
 
             return Convert.ToInt32(tempData);
         }
+
+
+        //List<City> dupeCheckList = cities.Where(x => !XMLDBReadLogic.DupeCheckList("ID", "Cities").Contains(x.ID.Value)).ToList(); // Removes any dupes found already in the DataBase
+
     }
 }
