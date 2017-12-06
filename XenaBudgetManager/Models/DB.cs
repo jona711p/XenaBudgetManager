@@ -79,11 +79,15 @@ namespace XenaBudgetManager.Models
 
             for (int i = 0; i < inputList.Count; i++)
             {
-                SqlCommand command = new SqlCommand(
+                SqlCommand cmd = new SqlCommand(
                     string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                        VALUES ('{0}','{1}');", inputList[i].ledgerAccountId, inputList[i].accountName), connection);
+                    VALUES(@LedgerAccountID, @AccountName)"), connection);
 
-                command.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@LedgerAccountID", inputList[i].ledgerAccountId);
+                cmd.Parameters.AddWithValue("@AccountName", inputList[i].accountName);
+
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
             }
             connection = DisconnectFromDB(connection);
         }
@@ -107,9 +111,10 @@ namespace XenaBudgetManager.Models
                 cmd.Parameters.AddWithValue("@LedgerTagID", inputList[i].ledgerTagId).ToString();
                 cmd.Parameters.AddWithValue("@ShortDescription", inputList[i].shortDescription);
                 cmd.Parameters.AddWithValue("@LongDescription", inputList[i].longDescription);
-                cmd.Parameters.Clear();
+                
                 cmd.ExecuteNonQuery();
-               
+                cmd.Parameters.Clear();
+
             }
             connection = DisconnectFromDB(connection);
         }
