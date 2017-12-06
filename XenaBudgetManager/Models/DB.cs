@@ -211,11 +211,33 @@ namespace XenaBudgetManager.Models
             return int.Parse(tempData.ToString());
         }
 
-       
-            //List<City> dupeCheckList = cities.Where(x => !XMLDBReadLogic.DupeCheckList("ID", "Cities").Contains(x.ID.Value)).ToList(); // Removes any dupes found already in the DataBase
-        
+
+        //få fat i gruppeidliste 
+        //select * from LedgerAccount
+        //tag templisten og bind xenaid til accountid
+        //returner opdateret liste med grupper
 
 
+        public static List<LedgerAccounts> GetAccountIDs(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            for (int i = 0; i < inputList.Count; i++)
+            {
+                SqlCommand cmd = new SqlCommand(
+                    string.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena) SELECT SCOPE_IDENTITY()"), connection);
+                cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
+
+                inputList[i].ledgerAccountId = int.Parse(cmd.ExecuteScalar().ToString());
+                cmd.Parameters.Clear();
+
+            }
+
+            connection = DisconnectFromDB(connection);
+
+            return inputList;
+        }
 
 
     }
