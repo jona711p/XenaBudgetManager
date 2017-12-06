@@ -27,6 +27,13 @@ namespace XenaBudgetManager.Controllers
             return View();
         }
 
+        public ActionResult LedgerTag()
+        {
+            GetXenaData.LedgerTag(Session["access_token"].ToString());
+
+            return RedirectToAction("Accounting");
+        }
+
         public ActionResult LedgerGroupData()
         {
             return View(GetXenaData.LedgerGroupData(Session["access_token"].ToString()));
