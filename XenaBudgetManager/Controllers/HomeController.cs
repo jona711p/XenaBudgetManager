@@ -146,29 +146,5 @@ namespace XenaBudgetManager.Controllers
 
             return RedirectToAction("Index");
         }
-
-        public ActionResult DBTEST()
-        {
-            Account demo = new Account();
-            Random rnd = new Random();
-
-            demo.January = rnd.Next(0, 99999);
-            demo.February = rnd.Next(0, 99999);
-            demo.March = rnd.Next(0, 99999);
-            demo.April = rnd.Next(0, 99999);
-            demo.May = rnd.Next(0, 99999);
-            demo.June = rnd.Next(0, 99999);
-            demo.July = rnd.Next(0, 99999);
-            demo.August = rnd.Next(0, 99999);
-            demo.September = rnd.Next(0, 99999);
-            demo.October = rnd.Next(0, 99999);
-            demo.November = rnd.Next(0, 99999);
-            demo.December = rnd.Next(0, 99999);
-            demo.Total = rnd.Next(0, 99999);
-
-            DB.WriteValueInterval(demo);
-
-            return View("Index");
-        }
     }
 }
