@@ -44,7 +44,7 @@ namespace XenaBudgetManager.Models
         public ActionResult CreateBudget(Budget budget)
         {
             DB.WriteNewBudget(budget);
-            DB.WriteNewLedgerAccount(GetXenaData(Session["access_token"].ToString()));
+            DB.WriteNewLedgerAccount(GetXenaData.LedgerAccount(Session["access_token"].ToString()));
             return View();
             
         }
