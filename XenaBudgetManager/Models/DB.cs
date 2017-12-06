@@ -80,15 +80,14 @@ namespace XenaBudgetManager.Models
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-                    string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                    VALUES(@LedgerAccountID, @AccountName) SELECT SCOPE_IDENTITY()"), connection);
+                    string.Format(@"INSERT INTO LedgerAccount(LedgerAccountXena, AccountName) 
+                    VALUES(@LedgerAccountXena, @AccountName) SELECT SCOPE_IDENTITY()"), connection);
 
-                cmd.Parameters.AddWithValue("@LedgerAccountID", inputList[i].ledgerAccountXena);
+                cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
                 cmd.Parameters.AddWithValue("@AccountName", inputList[i].accountName);
 
-                cmd.ExecuteNonQuery();
-                cmd.Parameters.Clear();
                 inputList[i].ledgerAccountId = int.Parse(cmd.ExecuteScalar().ToString());
+                cmd.Parameters.Clear();
 
             }
 
@@ -128,26 +127,37 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
         /// </summary>
-        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputTagList, int budgetID) //rettet efter XenaDataModel
+        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputTagList, List<LedgerAccounts> inputAccountList, int budgetID) //rettet efter XenaDataModel
         {
-            SqlConnection connection = null;
-            connection = ConnectToDB(connection);
+         
 
             for (int i = 0; i < inputTagList.Count; i++)
             {
-                try
+                for (int j = 0; j < inputAccountList.Count; j++)
                 {
-                    SqlCommand command = new SqlCommand(
-                        string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputTagList[i].accountID, inputTagList[i].ledgerTagId), connection);
+                    if (inputTagList[i].ledgerAccountXena == inputAccountList[j].ledgerAccountXena)
+                    {
+                        try
+                        {
+                            SqlConnection connection = null;
+                            connection = ConnectToDB(connection);
 
-                    command.ExecuteNonQuery();
+                            SqlCommand command = new SqlCommand(
+                                string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputAccountList[j].ledgerAccountId, inputTagList[i].ledgerTagId), connection);
 
+                            command.ExecuteNonQuery();
+                            connection = DisconnectFromDB(connection);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error at " + i + ". " + ex.ToString());
+                        }
+                    }
                 }
-                catch (Exception ex)
-                {
-throw new Exception("Error at "+i + ". "+ex.ToString());                }}
-            connection = DisconnectFromDB(connection);
-        }
+            }
+                }
+
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'XenaUser' with related data 

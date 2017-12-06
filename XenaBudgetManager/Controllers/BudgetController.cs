@@ -59,7 +59,7 @@ namespace XenaBudgetManager.Models
 
             tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB
             DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
-            DB.WriteNewRel_AccountPlan(dupecheckledgertag, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
+            DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
             return View();
             
         }

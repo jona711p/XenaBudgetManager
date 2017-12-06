@@ -175,7 +175,7 @@ namespace XenaBudgetManager.Models
             SqlConnection connection = null;
             connection = DB.ConnectToDB(connection);
 
-            SqlCommand command = new SqlCommand("SELECT LedgerAccountID From LedgerAccount WHERE LedgerAccountID IS NOT Null", connection);
+            SqlCommand command = new SqlCommand("SELECT LedgerAccountXena From LedgerAccount WHERE LedgerAccountXena IS NOT Null", connection);
 
             dt.Load(command.ExecuteReader());
 
