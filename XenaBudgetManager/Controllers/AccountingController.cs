@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using XenaBudgetManager.Models;
 
@@ -20,7 +21,8 @@ namespace XenaBudgetManager.Controllers
         [HttpPost]
         public ActionResult Accounting(DateTime fromDate, DateTime toDate)
         {
-            GetXenaData.LedgerGroupData(Session["access_token"].ToString(), fromDate, toDate);
+            List<LedgerGroupData> ledgerGroupDataList = GetXenaData.LedgerGroupData(Session["access_token"].ToString(), fromDate, toDate);
+            List<LedgerGroupDetailData> ledgerGroupDetailDataList = GetXenaData.LedgerGroupDetailData(Session["access_token"].ToString(), fromDate, toDate);
 
             return View();
         }
