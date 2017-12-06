@@ -32,3 +32,9 @@
             grid.Column("MonthResult","Måned Resultat")
      ))
 </div>
+
+@*Claus - attempt to persist to db*@
+<div id="gridContent">
+
+    <input type="button" value="Opdater kontoplan" onclick="location.href='@Url.Action("LedgerTag", "GetXenaData")'" />
+</div>
