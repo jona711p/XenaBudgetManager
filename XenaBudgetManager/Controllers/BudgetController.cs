@@ -43,8 +43,12 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
         {
-            DB.WriteNewBudget(budget);
+            int budgetID;
+            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString());
+            budgetID = DB.WriteNewBudget(budget);
             DB.WriteNewLedgerAccount(GetXenaData.LedgerAccount(Session["access_token"].ToString()));
+            DB.WriteNewLedgerTag(tempLedgerTag);
+            DB.WriteNewRel_AccountPlan(tempLedgerTag , budgetID);
             return View();
             
         }
