@@ -20,10 +20,13 @@ namespace XenaBudgetManager.Models
 
         public LedgerTags(JToken jToken)
         {
-            ledgerTagId = jToken["Id"].Type == JTokenType.Null ? null : ledgerTagId = int.Parse(jToken["Id"].ToString());
-            shortDescription = jToken["ShortDescription"].ToString();
-            longDescription = jToken["LongDescription"].ToString();
-            accountID = jToken["LedgerAccount"].ToString();
+            if (jToken["Id"].Type != JTokenType.Null)
+            {
+                ledgerTagId = jToken["Id"].Type == JTokenType.Null ? null : ledgerTagId = int.Parse(jToken["Id"].ToString());
+                shortDescription = jToken["ShortDescription"].ToString();
+                longDescription = jToken["LongDescription"].ToString();
+                accountID = jToken["LedgerAccount"].ToString();
+            }
         }
     }
 
