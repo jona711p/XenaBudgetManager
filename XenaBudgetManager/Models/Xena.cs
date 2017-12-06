@@ -43,7 +43,7 @@ namespace XenaBudgetManager.Models
 
         //private void GetDataFromXena()
         //{
-        //    List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
+        //    List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(), // "Session["access_token"].ToString()" Can only be used in a controller, change it to a parameter if used in a class and send it along from the controller
         //        "Fiscal/98437/FiscalPeriod");
 
         //    // INDEX [ ]
