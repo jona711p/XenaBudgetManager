@@ -101,7 +101,7 @@ namespace XenaBudgetManager.Models
             {
                 SqlCommand command = new SqlCommand(
                     string.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
-                        VALUES ({0},{1},{2});", inputList[i].ledgerTagId, inputList[i].shortDescription, inputList[i].longDescription), connection);
+                        VALUES ({0},'{1}','{2}');", inputList[i].ledgerTagId, inputList[i].shortDescription, inputList[i].longDescription), connection);
 
                 command.ExecuteNonQuery();
             }
@@ -121,7 +121,7 @@ namespace XenaBudgetManager.Models
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand command = new SqlCommand(
-                    string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputList[i].accountID, inputList[i].shortDescription), connection);
+                    string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},'{1}','{2}');", budgetID, inputList[i].accountID, inputList[i].shortDescription), connection);
 
                 command.ExecuteNonQuery();
             }
