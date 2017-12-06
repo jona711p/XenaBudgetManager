@@ -165,7 +165,7 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Budget' with related data 
         /// </summary>
-        public static void WriteNewBudget(Budget inputData)
+        public static int WriteNewBudget(Budget inputData)
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -174,8 +174,12 @@ namespace XenaBudgetManager.Models
                 string.Format(@"INSERT INTO Budget(BudgetName, Year) 
                         VALUES ('{0}', {1});", inputData.budgetName, inputData.budgetYear), connection);
 
+            var tempData = command.ExecuteScalar();
+
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
+
+            return Convert.ToInt32(tempData);
         }
     }
 }
