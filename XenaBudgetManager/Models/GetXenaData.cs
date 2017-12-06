@@ -41,7 +41,7 @@ namespace XenaBudgetManager.Models
             }
 
             //TODO: code that takes the list and persists it to the db
-            DB.WriteNewLedgerTag(LedgerTagList);
+            //DB.WriteNewLedgerTag(LedgerTagList);
 
             return LedgerTagList;
         }
