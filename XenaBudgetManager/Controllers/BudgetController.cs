@@ -38,5 +38,13 @@ namespace XenaBudgetManager.Models
         {
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult CreateBudget(Budget budget)
+        {
+            DB.WriteNewBudget(budget);
+            return View();            
+        }
     }
 }
