@@ -43,7 +43,7 @@ namespace XenaBudgetManager.Models
         {
             List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
             List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
-            tempLedgerTag = (GetXenaData.GetproducTag(tempLedgerTag));
+            tempLedgerTag = (GetXenaData.GetProductTag(tempLedgerTag));
             tempLedgerTag = (GetXenaData.GetRevenueTag(tempLedgerTag));
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
