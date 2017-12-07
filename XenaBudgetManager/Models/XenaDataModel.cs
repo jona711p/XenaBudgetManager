@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.ComponentModel;
-using Newtonsoft.Json.Linq;
 
 namespace XenaBudgetManager.Models
 {
@@ -59,13 +59,16 @@ namespace XenaBudgetManager.Models
 
     public class LedgerGroupData
     {
+        [DisplayName("Periode")]
         public int AmountMonth { get; set; }
-        public int? AmountMonthDebit { get; set; }
-        public int? AmountMonthCredit { get; set; }
-        public string Group { get; set; }
+        //public int? AmountMonthDebit { get; set; }
+        //public int? AmountMonthCredit { get; set; }
+        //public string Group { get; set; }
+        [DisplayName("År til dato")]
         public int AmountYearToDate { get; set; }
-        public int? AmountYearToDateDebit { get; set; }
-        public int? AmountYearToDateCredit { get; set; }
+      //  public int? AmountYearToDateDebit { get; set; }
+    //    public int? AmountYearToDateCredit { get; set; }
+        [DisplayName("Finanskonto")]
         public string TranslatedGroup { get; set; }
         public List<LedgerGroupDetailData> LedgerGroupDetailDataList { get; set; }
 
@@ -76,12 +79,12 @@ namespace XenaBudgetManager.Models
         public LedgerGroupData(JToken jToken) // Changed from JObject to JToken, and added "if null" to int?'s
         {
             AmountMonth = int.Parse(jToken["AmountMonth"].ToString());
-            AmountMonthDebit = jToken["AmountMonthDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthDebit"].ToString());
-            AmountMonthCredit = jToken["AmountMonthCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthCredit"].ToString());
-            Group = jToken["Group"].ToString();
+            //AmountMonthDebit = jToken["AmountMonthDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthDebit"].ToString());
+            //AmountMonthCredit = jToken["AmountMonthCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthCredit"].ToString());
+            //Group = jToken["Group"].ToString();
             AmountYearToDate = int.Parse(jToken["AmountYearToDate"].ToString());
-            AmountYearToDateDebit = jToken["AmountYearToDateDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateDebit"].ToString());
-            AmountYearToDateCredit = jToken["AmountYearToDateCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateCredit"].ToString());
+            //AmountYearToDateDebit = jToken["AmountYearToDateDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateDebit"].ToString());
+            //AmountYearToDateCredit = jToken["AmountYearToDateCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateCredit"].ToString());
             TranslatedGroup = jToken["TranslatedGroup"].ToString();
         }
     }

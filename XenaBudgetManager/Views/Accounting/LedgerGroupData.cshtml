@@ -12,9 +12,12 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AmountMonth)
+            @Html.DisplayNameFor(model => model.TranslatedGroup)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.AmountMonth)
+        </th>
+        @*<th>
             @Html.DisplayNameFor(model => model.AmountMonthDebit)
         </th>
         <th>
@@ -22,28 +25,29 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Group)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.AmountYearToDate)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.AmountYearToDateDebit)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AmountYearToDateCredit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TranslatedGroup)
-        </th>
+        </th>*@
+      
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AmountMonth)
+            @Html.DisplayFor(modelItem => item.TranslatedGroup)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.AmountMonth)
+        </td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.AmountMonthDebit)
         </td>
         <td>
@@ -51,19 +55,17 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Group)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.AmountYearToDate)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.AmountYearToDateDebit)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AmountYearToDateCredit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TranslatedGroup)
-        </td>
+        </td>*@
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
