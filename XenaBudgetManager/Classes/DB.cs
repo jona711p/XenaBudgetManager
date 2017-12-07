@@ -343,9 +343,5 @@ namespace XenaBudgetManager.Classes
 
             return dupeCheckList;
         }
-        //public static void Insert(List<LedgerTags>)
-        //{
-
-        //}
     }
 }

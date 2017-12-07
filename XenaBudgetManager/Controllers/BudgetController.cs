@@ -30,7 +30,7 @@ namespace XenaBudgetManager.Models
 
             return View(ds);
         }
-        
+
 
         public ActionResult CreateBudget()
         {
@@ -74,21 +74,11 @@ namespace XenaBudgetManager.Models
         }
         public ActionResult EditBudget()
         {
-            return View();
+            List<LedgerTags> list = new List<LedgerTags>();
+
+            return View(list);
         }
-
-
-        // http://techfunda.com/howto/278/insert-record-into-database
-        [HttpPost]
-        [ValidateAntiForgeryToken] // Klippe klistre - Aner ikke hvad den bruges til.
-        public ActionResult EditBudget(List<LedgerTags> list)
-        {
-            if (ModelState.IsValid)
-            {
-               // DB.Insert(list);
-            }
-            return View();
-        }
-
     }
+
 }
+
