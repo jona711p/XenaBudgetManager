@@ -71,7 +71,8 @@ namespace XenaBudgetManager.Models
             DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
 
             DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-            return View("EditBudget",tempLedgerTag);
+            return RedirectToAction("Accounting",tempLedgerTag);
+           // return View("EditBudget",tempLedgerTag);
             
             /*
              kører fint første gang
@@ -82,8 +83,21 @@ namespace XenaBudgetManager.Models
             henter vi ikke den fulde liste med grupper & konto fra xena med vores kald?
              */
         }
+        public ActionResult EditBudget()
+        {
+            return View();
+        }
+
+
+        // http://techfunda.com/howto/278/insert-record-into-database
+        [HttpPost]
+        [ValidateAntiForgeryToken] // Klippe klistre - Aner ikke hvad den bruges til.
         public ActionResult EditBudget(List<LedgerTags> list)
         {
+            if (ModelState.IsValid)
+            {
+                DB.Insert(list);
+            }
             return View();
         }
 
