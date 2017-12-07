@@ -51,9 +51,12 @@ namespace XenaBudgetManager.Models
             List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !GetXenaData.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
             List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !GetXenaData.DupeCheckListAccount().Contains(x.ledgerAccountId.ToString())).ToList();//CN Id added tostring
 
-            DB.WriteNewLedgerAccount(dupecheckledgerAccount);
-            DB.WriteNewLedgerTag(dupecheckledgertag);
-            DB.WriteNewRel_AccountPlan(dupecheckledgertag, dupecheckledgerAccount, budget.budgetID);
+            //if ((tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgertag.Count == 0) ||
+            //    (tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgerAccount.Count == 0))
+            //{
+            //    //tjek efter budgetår?
+            //    tempLedgerAccount = DB.GetAccountIDs(tempLedgerAccount); //hent ids fra allerede oprettede db grupper
+            //    DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
 
             //}
             tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB og gemmer grupperID fra db i en liste af grupper
