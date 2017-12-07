@@ -96,7 +96,7 @@ namespace XenaBudgetManager.Models
         {
             if (ModelState.IsValid)
             {
-                DB.Insert(list);
+               // DB.Insert(list);
             }
             return View();
         }
