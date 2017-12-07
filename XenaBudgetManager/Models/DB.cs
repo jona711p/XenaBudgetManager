@@ -118,7 +118,13 @@ namespace XenaBudgetManager.Models
             }
             connection = DisconnectFromDB(connection);
         }
-      
+      public static GetLedgerTag()
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            return;
+        }
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
