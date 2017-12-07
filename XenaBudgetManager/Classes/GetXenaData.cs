@@ -167,7 +167,7 @@ namespace XenaBudgetManager.Classes
             long unixTimeSeconds = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
             return unixTimeSeconds / 60 / 60 / 24;
         }
-        public static  GetRevenueTag(string token)
+        public static  GetRevenueTag(string token, List<ExtraLedgerTag> ExtraLedgerTagList)
         {
             List<ExtraLedgerTag> ExtraLedgerTagList = new List<ExtraLedgerTag>();
             //create a list of the tokens received from xena - tokens here are key/value pairs
