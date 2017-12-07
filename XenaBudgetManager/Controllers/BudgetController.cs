@@ -43,8 +43,15 @@ namespace XenaBudgetManager.Models
         {
             List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
             List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
-            tempLedgerTag = (GetXenaData.GetProductTag(tempLedgerTag));
-            tempLedgerTag = (GetXenaData.GetRevenueTag(tempLedgerTag));
+
+            List<ExtraLedgerTag> tempExtraTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
+            tempExtraTag = GetXenaData.GetRevenueTag(Session["access_token"].ToString());
+
+            for (int i = 0; i < tempExtraTag.Count; i++)
+            {
+                
+            }
+
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
             List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !DB.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
