@@ -44,15 +44,19 @@ namespace XenaBudgetManager.Models
             List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
             List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
 
-            List<ExtraLedgerTag> tempExtraTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
-            tempExtraTag = GetXenaData.GetRevenueTag(Session["access_token"].ToString());
+            List<ExtraLedgerTag> tempExtraProductTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
+            List<ExtraLedgerTag> tempExtraRevenueTag = GetXenaData.GetRevenueTag(Session["access_token"].ToString()); //laver listen forfra
 
      
-            for (int i = 0; i < tempExtraTag.Count; i++)
+            for (int i = 0; i < tempExtraProductTag.Count; i++)
             {
-                tempLedgerTag.Add(new LedgerTags(tempExtraTag[i]));
+                tempLedgerTag.Add(new LedgerTags(tempExtraProductTag[i]));
             }
-
+            for (int i = 0; i < tempExtraRevenueTag.Count; i++)
+            {
+                tempLedgerTag.Add(new LedgerTags(tempExtraRevenueTag[i]));
+            }
+            //extratagID er ikke unikt brug kontoid istedet?
 
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
