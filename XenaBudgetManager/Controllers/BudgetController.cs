@@ -43,7 +43,8 @@ namespace XenaBudgetManager.Models
         {
             List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
             List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
-
+            tempLedgerTag.Add(GetXenaData.GetProductTag());
+            tempLedgerTag.Add(GetXenaData.GetRevenueTag());
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
             List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !DB.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
@@ -59,8 +60,9 @@ namespace XenaBudgetManager.Models
             //}
             tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB og gemmer grupperID fra db i en liste af grupper
             DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
+
             DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-            return View(); //"EditBudget", tempLedgerTag);
+            return View("EditBudget",tempLedgerTag);
             
             /*
              kører fint første gang
