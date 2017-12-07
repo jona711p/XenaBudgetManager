@@ -6,9 +6,23 @@
 
 <h2>LedgerGroupData</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(
+        function () {
+
+            $('td div').slideUp();
+            $('td h5').click(
+                function () {
+                    $(this).siblings('div').slideToggle();
+                }
+            );
+        }
+    );
+
+</script>
+
 <table class="table">
     <tr>
         <th>
@@ -17,61 +31,51 @@
         <th>
             @Html.DisplayNameFor(model => model.AmountMonth)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.AmountMonthDebit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmountMonthCredit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Group)
-        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.AmountYearToDate)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.AmountYearToDateDebit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmountYearToDateCredit)
-        </th>*@
-      
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TranslatedGroup)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountMonth)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.AmountMonthDebit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountMonthCredit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Group)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountYearToDate)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.AmountYearToDateDebit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountYearToDateCredit)
-        </td>*@
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h5>@Html.DisplayFor(modelItem => item.TranslatedGroup)</h5>
+                <div>
 
+                    @foreach (var list in item.LedgerGroupDetailDataList)
+                    {
+                        <p>@Html.DisplayFor(modelItemList => list.Group)</p>
+                        <p>@Html.DisplayFor(modelItemList => list.AccountDescription)</p>
+                        <p>@Html.DisplayFor(modelItemList => list.AmountMonth)</p>
+                        <p>@Html.DisplayFor(modelItemList => list.AmountYearToDate)</p>
+                    }
+
+                </div>
+            </td>
+            <td>
+                <h5>@Html.DisplayFor(modelItem => item.AmountMonth)</h5>
+                <div>
+
+                    @foreach (var list in item.LedgerGroupDetailDataList)
+                    {
+                        <p>@Html.DisplayFor(modelItemList => list.AmountMonth)</p>
+                    }
+
+                </div>
+            </td>
+            <td>
+                <h5>@Html.DisplayFor(modelItem => item.AmountYearToDate)</h5>
+                <div>
+
+                    @foreach (var list in item.LedgerGroupDetailDataList)
+                    {
+                        <p>@Html.DisplayFor(modelItemList => list.AmountYearToDate)</p>
+                    }
+
+                </div>
+            </td>
+        </tr>
+    }
 </table>
