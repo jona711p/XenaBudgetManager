@@ -142,7 +142,7 @@ namespace XenaBudgetManager.Models
         }
         public ExtraLedgerTag(JToken jToken)
         {
-            ledgerTagId = int.Parse(jToken["Id"].ToString().Substring(0,8)); 
+            ledgerTagId = int.Parse(jToken["Id"].ToString().Substring(0,9)); 
             shortDescription = jToken["AccountNumber"].ToString();
             longDescription = jToken["Description"].ToString();
             ledgerAccountXena = jToken["LedgerAccount"].ToString();
