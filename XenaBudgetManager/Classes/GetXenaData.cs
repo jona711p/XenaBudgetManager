@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using XenaBudgetManager.Models;
 
-namespace XenaBudgetManager.Models
+namespace XenaBudgetManager.Classes
 {
     public class GetXenaData
     {
@@ -15,7 +16,7 @@ namespace XenaBudgetManager.Models
 
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = Xena.CallXena(token,
+            List<JToken> jTokenList = XenaLogic.CallXena(token,
                 "Fiscal/98437/LedgerTagGroup/LedgerAccount");
             //take each token in the token list and add them to the ledgeraccount list
             foreach (JToken jToken in jTokenList)
@@ -35,7 +36,7 @@ namespace XenaBudgetManager.Models
 
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = Xena.CallXena(token,
+            List<JToken> jTokenList = XenaLogic.CallXena(token,
                 "Fiscal/98437/LedgerTag");
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
@@ -68,7 +69,7 @@ namespace XenaBudgetManager.Models
                           "FiscalDateFrom=" + fromXenaEpoch + "&" + 
                           "FiscalDateTo=" + toXenaEpoch;
 
-            List<JToken> jTokenList = Xena.CallXena(token, url); // List with JTokens from Xena's Array
+            List<JToken> jTokenList = XenaLogic.CallXena(token, url); // List with JTokens from Xena's Array
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
             {
@@ -85,7 +86,7 @@ namespace XenaBudgetManager.Models
             //
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = Xena.CallXena(token,
+            List<JToken> jTokenList = XenaLogic.CallXena(token,
                 "Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530"); // List with JTokens from Xena's Array
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
@@ -112,7 +113,7 @@ namespace XenaBudgetManager.Models
                          "FiscalDateTo=" + toXenaEpoch +
                          "&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799";
 
-            List<JToken> jTokenList = Xena.CallXena(token, url); // List with JTokens from Xena's Array
+            List<JToken> jTokenList = XenaLogic.CallXena(token, url); // List with JTokens from Xena's Array
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
             {
@@ -129,7 +130,7 @@ namespace XenaBudgetManager.Models
 
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = Xena.CallXena(token,
+            List<JToken> jTokenList = XenaLogic.CallXena(token,
                 "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799"); // List with JTokens from Xena's Array
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
@@ -146,6 +147,13 @@ namespace XenaBudgetManager.Models
             return unixTimeSeconds / 60 / 60 / 24;
         }
 
+
+
+
+        /// <summary>
+        /// Thomas, dette skal i DB classen :)
+        /// </summary>
+        /// <returns></returns>
         public static List<int> DupeCheckListTag()
         {
             DataTable dt = new DataTable();

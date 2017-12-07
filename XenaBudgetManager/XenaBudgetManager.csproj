@@ -177,9 +177,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Classes\XenaLogic.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Database\Db.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,9 +187,9 @@
     <Compile Include="Models\AccountGroup.cs" />
     <Compile Include="Models\Budget.cs" />
     <Compile Include="Controllers\BudgetController.cs" />
-    <Compile Include="Models\DB.cs" />
+    <Compile Include="Classes\DB.cs" />
     <Compile Include="Models\AccountingModel.cs" />
-    <Compile Include="Models\GetXenaData.cs" />
+    <Compile Include="Classes\GetXenaData.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Xena.cs" />
     <Compile Include="Models\XenaDataModel.cs" />

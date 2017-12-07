@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using XenaBudgetManager.Models;
 
-namespace XenaBudgetManager.Models
+namespace XenaBudgetManager.Classes
 {
     public class DB
     {

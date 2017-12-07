@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using XenaBudgetManager.Models;
+using XenaBudgetManager.Classes;
 
 namespace XenaBudgetManager.Models
 {
@@ -62,7 +60,7 @@ namespace XenaBudgetManager.Models
             tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB og gemmer grupperID fra db i en liste af grupper
             DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
             DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-            return View("EditBudget", tempLedgerTag);
+            return View(); //"EditBudget", tempLedgerTag);
             
             /*
              kører fint første gang

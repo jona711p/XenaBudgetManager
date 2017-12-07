@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using XenaBudgetManager.Classes;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Controllers
@@ -34,7 +31,7 @@ namespace XenaBudgetManager.Controllers
             queryString["client_id"] = "2e64617f-dc5d-4983-ba27-7dcdb2ed5510.apps.xena.biz";
             queryString["redirect_uri"] = "http://xenabudgetmanager.azurewebsites.net/";
             queryString["scope"] = "openid testapi";
-            queryString["nonce"] = RandomString(32);
+            queryString["nonce"] = XenaLogic.RandomString(32);
             queryString["response_mode"] = "form_post";
             queryString["json"] = "true";
 
@@ -52,11 +49,12 @@ namespace XenaBudgetManager.Controllers
         public ActionResult Index(Xena xena)
         {
             xena.id_code = Request["code"];
-            AccessToken(xena);
+            xena.access_token = XenaLogic.AccessToken(xena);
 
+            Session["access_token"] = xena.access_token;
             Session["loggedIn"] = true;
 
-            List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
+            List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
 
             Session["userName"] = jTokenList[0]["ResourceName"].ToString();
@@ -64,58 +62,6 @@ namespace XenaBudgetManager.Controllers
             ViewBag.Token = xena.access_token; // Debug
 
             return View(xena);
-        }
-
-        /// <summary>
-        /// 
-        /// Written by Jonas
-        /// 
-        /// You will now request a Access Token from Xena's Authorization Server.
-        /// You build a encoded URL and send it to Xena's Authorization Server.
-        /// Xena's Authorization Server sends a long string back, this is your Access Token!
-        /// You assign it to your varible, and it is now ready to be shipped with any Xena's API calls ;)
-        /// </summary>
-        private void AccessToken(Xena xena)
-        {
-            List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("code", xena.id_code),
-                new KeyValuePair<string, string>("client_id", "2e64617f-dc5d-4983-ba27-7dcdb2ed5510.apps.xena.biz"),
-                new KeyValuePair<string, string>("redirect_uri", "http://xenabudgetmanager.azurewebsites.net/"),
-                new KeyValuePair<string, string>("client_secret", ConfigurationManager.AppSettings["client_secret"]),
-                new KeyValuePair<string, string>("grant_type", "authorization_code"),
-                new KeyValuePair<string, string>("response_mode", "form_post"),
-                new KeyValuePair<string, string>("json", "true")
-            };
-
-            FormUrlEncodedContent content = new FormUrlEncodedContent(keyValuePairs);
-
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = httpClient.PostAsync("https://login.xena.biz/connect/token?", content).Result;
-
-                string result = response.Content.ReadAsStringAsync().Result;
-
-                JObject jObject = JObject.Parse(result);
-
-                xena.access_token = jObject["access_token"].ToString();
-                Session["access_token"] = xena.access_token;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// Written by Jonas
-        /// 
-        /// Here we generate a uniqe string og letters & numbers to be used in the authorization process.
-        /// </summary>
-        private string RandomString(int length)
-        {
-            Random rnd = new Random();
-
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
 
         public ActionResult Logout()
@@ -139,7 +85,7 @@ namespace XenaBudgetManager.Controllers
             Session["loggedIn"] = true;
             Session["access_token"] = token;
 
-            List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(),
+            List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
 
             Session["userName"] = jTokenList[0]["ResourceName"].ToString();
