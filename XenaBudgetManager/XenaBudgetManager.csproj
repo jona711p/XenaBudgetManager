@@ -256,6 +256,7 @@
     <Content Include="Views\Accounting\LedgerGroupDetailData.cshtml" />
     <Content Include="Views\Shared\_Layout_LoggedIn.cshtml" />
     <Content Include="Views\Budget\CreateBudget.cshtml" />
+    <Content Include="Views\Budget\EditBudget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

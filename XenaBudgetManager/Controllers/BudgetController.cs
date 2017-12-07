@@ -57,13 +57,12 @@ namespace XenaBudgetManager.Models
             //    //tjek efter budgetår?
             //    tempLedgerAccount = DB.GetAccountIDs(tempLedgerAccount); //hent ids fra allerede oprettede db grupper
             //    DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-               
-            //}
 
+            //}
             tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB og gemmer grupperID fra db i en liste af grupper
             DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
             DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-            return View();
+            return View("EditBudget", tempLedgerTag);
             
             /*
              kører fint første gang
@@ -73,6 +72,10 @@ namespace XenaBudgetManager.Models
             men disse grupper og kontoer hører ikke sammen? så der bliver ikke lavet en relationstabel for budget nr 2
             henter vi ikke den fulde liste med grupper & konto fra xena med vores kald?
              */
+        }
+        public ActionResult EditBudget(List<LedgerTags> list)
+        {
+            return View();
         }
 
     }
