@@ -143,9 +143,6 @@ namespace XenaBudgetManager.Classes
 
         public static List<LedgerTags> GetRevenueTag(string token) // Without DateTime
         {
-            //create an instanse of a ledgergroupdata
-            List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
-
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
             List<JToken> jTokenList = XenaLogic.CallXena(token,
@@ -153,7 +150,7 @@ namespace XenaBudgetManager.Classes
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
             {
-                ledgerGroupDetailDataList.Add(new LedgerGroupDetailData(jToken)); // Adds each Entity to a LedgerGroupData
+                ledgerGroupDetailDataList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerGroupData
             }
 
             return ledgerGroupDetailDataList;
