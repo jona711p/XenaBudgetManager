@@ -46,8 +46,8 @@ namespace XenaBudgetManager.Models
 
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
-            List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !GetXenaData.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
-            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !GetXenaData.DupeCheckListAccount().Contains(x.ledgerAccountId.ToString())).ToList();//CN Id added tostring
+            List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !DB.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
+            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !DB.DupeCheckListAccount().Contains(x.ledgerAccountId.ToString())).ToList();//CN Id added tostring
 
             //if ((tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgertag.Count == 0) ||
             //    (tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgerAccount.Count == 0))

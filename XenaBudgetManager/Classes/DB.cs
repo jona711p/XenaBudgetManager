@@ -57,7 +57,7 @@ namespace XenaBudgetManager.Classes
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
-                        string.Format(@"INSERT INTO ValueInterval(January, February, March, April, May, June, July, August, September, October, November, December, [total]) 
+                        String.Format(@"INSERT INTO ValueInterval(January, February, March, April, May, June, July, August, September, October, November, December, [total]) 
                         VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12});",
                             inputData.January, inputData.February, inputData.March,
                             inputData.April, inputData.May, inputData.June, inputData.July,
@@ -81,13 +81,13 @@ namespace XenaBudgetManager.Classes
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-                    string.Format(@"INSERT INTO LedgerAccount(LedgerAccountXena, AccountName) 
+                    String.Format(@"INSERT INTO LedgerAccount(LedgerAccountXena, AccountName) 
                     VALUES(@LedgerAccountXena, @AccountName) SELECT SCOPE_IDENTITY()"), connection);
 
                 cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
                 cmd.Parameters.AddWithValue("@AccountName", inputList[i].accountName);
 
-                inputList[i].ledgerAccountId = int.Parse(cmd.ExecuteScalar().ToString());
+                inputList[i].ledgerAccountId = Int32.Parse(cmd.ExecuteScalar().ToString());
                 cmd.Parameters.Clear();
 
             }
@@ -110,7 +110,7 @@ namespace XenaBudgetManager.Classes
             for (int i = 1; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-               string.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
+               String.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
                VALUES (@LedgerTagID, @ShortDescription, @LongDescription)"), connection);
 
                 cmd.Parameters.AddWithValue("@LedgerTagID", inputList[i].ledgerTagId).ToString();
@@ -144,7 +144,7 @@ namespace XenaBudgetManager.Classes
                             connection = ConnectToDB(connection);
 
                             SqlCommand command = new SqlCommand(
-                                string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputAccountList[j].ledgerAccountId, inputTagList[i].ledgerTagId), connection);
+                                String.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputAccountList[j].ledgerAccountId, inputTagList[i].ledgerTagId), connection);
 
                             command.ExecuteNonQuery();
                             connection = DisconnectFromDB(connection);
@@ -169,7 +169,7 @@ namespace XenaBudgetManager.Classes
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
-                string.Format(@"INSERT INTO XenaUser(UserID) 
+                String.Format(@"INSERT INTO XenaUser(UserID) 
                         VALUES ({0});", inputData.userID), connection);
 
             command.ExecuteNonQuery();
@@ -186,7 +186,7 @@ namespace XenaBudgetManager.Classes
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
-                string.Format(@"INSERT INTO XenaFiscal(XenaFiscal) 
+                String.Format(@"INSERT INTO XenaFiscal(XenaFiscal) 
                         VALUES ({0});", inputData.XenaFiscalID), connection);
 
             command.ExecuteNonQuery();
@@ -203,13 +203,13 @@ namespace XenaBudgetManager.Classes
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
-                string.Format(@"INSERT INTO Budget(BudgetName, Year) VALUES ('{0}', {1}) SELECT SCOPE_IDENTITY();", inputData.budgetName, inputData.budgetYear), connection);
+                String.Format(@"INSERT INTO Budget(BudgetName, Year) VALUES ('{0}', {1}) SELECT SCOPE_IDENTITY();", inputData.budgetName, inputData.budgetYear), connection);
 
             var tempData = command.ExecuteScalar();
 
             connection = DisconnectFromDB(connection);
 
-            return int.Parse(tempData.ToString());
+            return Int32.Parse(tempData.ToString());
         }
 
 
@@ -227,10 +227,10 @@ namespace XenaBudgetManager.Classes
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-                    string.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena) SELECT SCOPE_IDENTITY()"), connection);
+                    String.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena) SELECT SCOPE_IDENTITY()"), connection);
                 cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
 
-                inputList[i].ledgerAccountId = int.Parse(cmd.ExecuteScalar().ToString());
+                inputList[i].ledgerAccountId = Int32.Parse(cmd.ExecuteScalar().ToString());
                 cmd.Parameters.Clear();
 
             }
@@ -240,6 +240,52 @@ namespace XenaBudgetManager.Classes
             return inputList;
         }
 
+        /// <summary>
+        /// Thomas, dette skal i DB classen :)
+        /// </summary>
+        /// <returns></returns>
+        public static List<int> DupeCheckListTag()
+        {
+            DataTable dt = new DataTable();
+            List<int> dupeCheckList = new List<int>();
 
+            SqlConnection connection = null;
+            connection = DB.ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT LedgerTagID From LedgerTag WHERE LedgerTagID IS NOT Null", connection);
+
+            dt.Load(command.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                dupeCheckList.Add(Int32.Parse(row[0].ToString()));
+            }
+
+            connection = DB.DisconnectFromDB(connection);
+
+            return dupeCheckList;
+        }
+
+        public static List<string> DupeCheckListAccount()
+        {
+            DataTable dt = new DataTable();
+            List<string> dupeCheckList = new List<string>();
+
+            SqlConnection connection = null;
+            connection = DB.ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT LedgerAccountXena From LedgerAccount WHERE LedgerAccountXena IS NOT Null", connection);
+
+            dt.Load(command.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                dupeCheckList.Add(row[0].ToString());
+            }
+
+            connection = DB.DisconnectFromDB(connection);
+
+            return dupeCheckList;
+        }
     }
 }

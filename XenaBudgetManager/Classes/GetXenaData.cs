@@ -146,56 +146,5 @@ namespace XenaBudgetManager.Classes
             long unixTimeSeconds = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
             return unixTimeSeconds / 60 / 60 / 24;
         }
-
-
-
-
-        /// <summary>
-        /// Thomas, dette skal i DB classen :)
-        /// </summary>
-        /// <returns></returns>
-        public static List<int> DupeCheckListTag()
-        {
-            DataTable dt = new DataTable();
-            List<int> dupeCheckList = new List<int>();
-
-            SqlConnection connection = null;
-            connection = DB.ConnectToDB(connection);
-
-            SqlCommand command = new SqlCommand("SELECT LedgerTagID From LedgerTag WHERE LedgerTagID IS NOT Null", connection);
-
-            dt.Load(command.ExecuteReader());
-
-            foreach (DataRow row in dt.Rows)
-            {
-                dupeCheckList.Add(int.Parse(row[0].ToString()));
-            }
-
-            connection = DB.DisconnectFromDB(connection);
-
-            return dupeCheckList;
-        }
-        public static List<string> DupeCheckListAccount()
-        {
-            DataTable dt = new DataTable();
-            List<string> dupeCheckList = new List<string>();
-
-            SqlConnection connection = null;
-            connection = DB.ConnectToDB(connection);
-
-            SqlCommand command = new SqlCommand("SELECT LedgerAccountXena From LedgerAccount WHERE LedgerAccountXena IS NOT Null", connection);
-
-            dt.Load(command.ExecuteReader());
-
-            foreach (DataRow row in dt.Rows)
-            {
-                dupeCheckList.Add(row[0].ToString());
-            }
-
-            connection = DB.DisconnectFromDB(connection);
-
-            return dupeCheckList;
-        }
-        
     }
 }
