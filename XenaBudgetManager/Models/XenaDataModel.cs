@@ -121,24 +121,23 @@ namespace XenaBudgetManager.Models
 
      
     }
-    
-}
-public class ExtraLedgerTag
-{
-    public int ledgerTagId { get; set; }
-    public string shortDescription { get; set; }
-    public string longDescription { get; set; }
-    public string ledgerAccountXena { get; set; }
-
-    ExtraLedgerTag()
+    public class ExtraLedgerTag
     {
-        
-    }
-    public ExtraLedgerTags(JToken jToken)
+        public int ledgerTagId { get; set; }
+        public string shortDescription { get; set; }
+        public string longDescription { get; set; }
+        public string ledgerAccountXena { get; set; }
+
+        ExtraLedgerTag()
+        {
+
+        }
+        public ExtraLedgerTag(JToken jToken)
         {
             ledgerTagId = int.Parse(jToken["Id"].ToString()); //tag de 9 første tal fra "id"
             shortDescription = jToken["AccountNumber"].ToString();
             longDescription = jToken["Description"].ToString();
             ledgerAccountXena = jToken["LedgerAccount"].ToString();
         }
+    }
 }
