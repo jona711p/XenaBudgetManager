@@ -144,5 +144,36 @@ namespace XenaBudgetManager.Classes
             long unixTimeSeconds = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
             return unixTimeSeconds / 60 / 60 / 24;
         }
+        public static  GetRevenueTag(string token)
+        {
+            List<ExtraLedgerTag> ExtraLedgerTagList = new List<ExtraLedgerTag>();
+            //create a list of the tokens received from xena - tokens here are key/value pairs
+            //Next we call xena, pass in the accesstoken, to retrieve our data from the api
+            List<JToken> jTokenList = XenaLogic.CallXena(token,
+                "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799"); // List with JTokens from Xena's Array
+            //take each token in the token list and add them to the ledgergroup list
+            foreach (JToken jToken in jTokenList)
+            {
+                ExtraLedgerTagList.Add(new ExtraLedgerTag(jToken)); // Adds each Entity to a LedgerGroupData
+            }
+
+            return ExtraLedgerTagList;
+        }
+
+        public static GetProductTag(string token, List<ExtraLedgerTag> ExtraLedgerTagList)
+        {
+            List<ExtraLedgerTag> ExtraLedgerTagList = new List<ExtraLedgerTag>();
+            //create a list of the tokens received from xena - tokens here are key/value pairs
+            //Next we call xena, pass in the accesstoken, to retrieve our data from the api
+            List<JToken> jTokenList = XenaLogic.CallXena(token,
+                "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799"); // List with JTokens from Xena's Array
+            //take each token in the token list and add them to the ledgergroup list
+            foreach (JToken jToken in jTokenList)
+            {
+                ExtraLedgerTagList.Add(new ExtraLedgerTag(jToken)); // Adds each Entity to a LedgerGroupData
+            }
+
+            return ExtraLedgerTagList;
+        }
     }
 }
