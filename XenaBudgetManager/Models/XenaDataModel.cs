@@ -63,7 +63,7 @@ namespace XenaBudgetManager.Models
         public int AmountMonth { get; set; }
         //public int? AmountMonthDebit { get; set; }
         //public int? AmountMonthCredit { get; set; }
-        //public string Group { get; set; }
+        public string Group { get; set; }
         [DisplayName("År til dato")]
         public int AmountYearToDate { get; set; }
       //  public int? AmountYearToDateDebit { get; set; }
@@ -81,7 +81,7 @@ namespace XenaBudgetManager.Models
             AmountMonth = int.Parse(jToken["AmountMonth"].ToString());
             //AmountMonthDebit = jToken["AmountMonthDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthDebit"].ToString());
             //AmountMonthCredit = jToken["AmountMonthCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountMonthCredit"].ToString());
-            //Group = jToken["Group"].ToString();
+            Group = jToken["Group"].ToString();
             AmountYearToDate = int.Parse(jToken["AmountYearToDate"].ToString());
             //AmountYearToDateDebit = jToken["AmountYearToDateDebit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateDebit"].ToString());
             //AmountYearToDateCredit = jToken["AmountYearToDateCredit"].Type == JTokenType.Null ? null : AmountMonthDebit = int.Parse(jToken["AmountYearToDateCredit"].ToString());

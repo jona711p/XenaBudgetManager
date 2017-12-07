@@ -1,4 +1,4 @@
-﻿@model XenaBudgetManager.Models.LedgerTags
+﻿@model XenaBudgetManager.Models.AccountingModel
 
 @{
     ViewBag.Title = "EditBudget";
@@ -10,26 +10,28 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>LedgerTags</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.shortDescription[0], htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.shortDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.shortDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Revenue_DogFood)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.shortDescription[1], htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.shortDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.shortDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Revenue_DogFood)
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.ProductConsumption_DogFood)
+            </th>
+
+
+
+            <th></th>
+        </tr>
+    </table>
 
 
         <div class="form-group">
@@ -37,7 +39,6 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-    </div>
 }
 
 <div>
