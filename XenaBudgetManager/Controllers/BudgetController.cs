@@ -43,21 +43,37 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
         {
-            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString());
-            List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString());
+            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
+            List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
 
-            budget.budgetID = DB.WriteNewBudget(budget);
+            budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
             List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !GetXenaData.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
-            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !GetXenaData.DupeCheckListAccount().Contains(x.ledgerAccountId)).ToList();
+            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !GetXenaData.DupeCheckListAccount().Contains(x.ledgerAccountId.ToString())).ToList();//CN Id added tostring
 
-            DB.WriteNewLedgerAccount(dupecheckledgerAccount);
-            DB.WriteNewLedgerTag(dupecheckledgertag);
-            DB.WriteNewRel_AccountPlan(dupecheckledgertag, dupecheckledgerAccount, budget.budgetID);
+            //if ((tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgertag.Count == 0) ||
+            //    (tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgerAccount.Count == 0))
+            //{
+            //    //tjek efter budgetår?
+            //    tempLedgerAccount = DB.GetAccountIDs(tempLedgerAccount); //hent ids fra allerede oprettede db grupper
+            //    DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
+               
+            //}
 
-            return View("CreateBudget2");
+            tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB og gemmer grupperID fra db i en liste af grupper
+            DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
+            DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
+            return View();
             
+            /*
+             kører fint første gang
+             anden gang er 
+                dupecheckledgertag.count = 1 
+                dupecheckledgerAccount.count = 10
+            men disse grupper og kontoer hører ikke sammen? så der bliver ikke lavet en relationstabel for budget nr 2
+            henter vi ikke den fulde liste med grupper & konto fra xena med vores kald?
+             */
         }
-        
+
     }
 }

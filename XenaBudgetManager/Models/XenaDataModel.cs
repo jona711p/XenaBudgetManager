@@ -12,7 +12,8 @@ namespace XenaBudgetManager.Models
         public int ledgerTagId { get; set; }
         public string shortDescription { get; set; }
         public string longDescription { get; set; }
-        public string accountID { get; set; }
+        public string ledgerAccountXena { get; set; }
+
 
         public LedgerTags()
         {
@@ -20,20 +21,19 @@ namespace XenaBudgetManager.Models
 
         public LedgerTags(JToken jToken)
         {
-            if (jToken["Id"].Type != JTokenType.Null)
-            {
                 ledgerTagId = int.Parse(jToken["Id"].ToString());
                 shortDescription = jToken["ShortDescription"].ToString();
                 longDescription = jToken["LongDescription"].ToString();
-                accountID = jToken["LedgerAccount"].ToString();
-            }
+                ledgerAccountXena = jToken["LedgerAccount"].ToString();
         }
     }
 
     // Containing ledger accounts
     public class LedgerAccounts
     {
-        public string ledgerAccountId { get; set; }
+
+        public int ledgerAccountId { get; set; }
+        public string ledgerAccountXena { get; set; }
         public string accountName { get; set; }
 
         public LedgerAccounts()
@@ -42,7 +42,7 @@ namespace XenaBudgetManager.Models
 
         public LedgerAccounts(JToken jToken)
         {
-            ledgerAccountId = jToken["Value"].ToString();
+            ledgerAccountXena = jToken["Value"].ToString();
             accountName = jToken["Text"].ToString();
         }
     }

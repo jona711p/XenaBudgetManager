@@ -72,7 +72,7 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry in  DB 'LedgerAccount' with related data 
         /// </summary>
-        public static void WriteNewLedgerAccount(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
+        public static List<LedgerAccounts> WriteNewLedgerAccount(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -80,16 +80,20 @@ namespace XenaBudgetManager.Models
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-                    string.Format(@"INSERT INTO LedgerAccount(LedgerAccountID, AccountName) 
-                    VALUES(@LedgerAccountID, @AccountName)"), connection);
+                    string.Format(@"INSERT INTO LedgerAccount(LedgerAccountXena, AccountName) 
+                    VALUES(@LedgerAccountXena, @AccountName) SELECT SCOPE_IDENTITY()"), connection);
 
-                cmd.Parameters.AddWithValue("@LedgerAccountID", inputList[i].ledgerAccountId);
+                cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
                 cmd.Parameters.AddWithValue("@AccountName", inputList[i].accountName);
 
-                cmd.ExecuteNonQuery();
+                inputList[i].ledgerAccountId = int.Parse(cmd.ExecuteScalar().ToString());
                 cmd.Parameters.Clear();
+
             }
+
             connection = DisconnectFromDB(connection);
+
+            return inputList;
         }
 
         /// <summary>
@@ -129,20 +133,37 @@ namespace XenaBudgetManager.Models
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
         /// </summary>
-        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputList, List<LedgerAccounts> inputList2, int budgetID) //rettet efter XenaDataModel
+        public static void WriteNewRel_AccountPlan(List<LedgerTags> inputTagList, List<LedgerAccounts> inputAccountList, int budgetID) //rettet efter XenaDataModel
         {
-            SqlConnection connection = null;
-            connection = ConnectToDB(connection);
+         
 
-            for (int i = 0; i < inputList.Count; i++)
+            for (int i = 0; i < inputTagList.Count; i++)
             {
-                SqlCommand command = new SqlCommand(
-                    string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},'{1}',{2});", budgetID, inputList2[i].ledgerAccountId, inputList[i].ledgerTagId), connection);
+                for (int j = 0; j < inputAccountList.Count; j++)
+                {
+                    if (inputTagList[i].ledgerAccountXena == inputAccountList[j].ledgerAccountXena)
+                    {
+                        try
+                        {
+                            SqlConnection connection = null;
+                            connection = ConnectToDB(connection);
 
-                command.ExecuteNonQuery();
+                            SqlCommand command = new SqlCommand(
+                                string.Format(@"INSERT INTO Rel_AccountPlan(FK_BudgetID, FK_LedgerAccountID, FK_LedgerTagID) VALUES ({0},{1},{2});", budgetID, inputAccountList[j].ledgerAccountId, inputTagList[i].ledgerTagId), connection);
+
+                            command.ExecuteNonQuery();
+                            connection = DisconnectFromDB(connection);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error at " + i + ". " + ex.ToString());
+                        }
+                    }
+                }
             }
-            connection = DisconnectFromDB(connection);
-        }
+                }
+
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'XenaUser' with related data 
@@ -196,11 +217,33 @@ namespace XenaBudgetManager.Models
             return int.Parse(tempData.ToString());
         }
 
-       
-            //List<City> dupeCheckList = cities.Where(x => !XMLDBReadLogic.DupeCheckList("ID", "Cities").Contains(x.ID.Value)).ToList(); // Removes any dupes found already in the DataBase
-        
+
+        //få fat i gruppeidliste 
+        //select * from LedgerAccount
+        //tag templisten og bind xenaid til accountid
+        //returner opdateret liste med grupper
 
 
+        public static List<LedgerAccounts> GetAccountIDs(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            for (int i = 0; i < inputList.Count; i++)
+            {
+                SqlCommand cmd = new SqlCommand(
+                    string.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena) SELECT SCOPE_IDENTITY()"), connection);
+                cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
+
+                inputList[i].ledgerAccountId = int.Parse(cmd.ExecuteScalar().ToString());
+                cmd.Parameters.Clear();
+
+            }
+
+            connection = DisconnectFromDB(connection);
+
+            return inputList;
+        }
 
 
     }

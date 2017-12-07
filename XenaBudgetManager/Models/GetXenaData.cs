@@ -40,7 +40,10 @@ namespace XenaBudgetManager.Models
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
             {
-                LedgerTagList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerTag list
+                if (jToken["Id"].Type != JTokenType.Null && int.Parse(jToken["Id"].ToString()) != 0)
+                {
+                    LedgerTagList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerTag list
+                }
             }
 
             //TODO: code that takes the list and persists it to the db
@@ -172,7 +175,7 @@ namespace XenaBudgetManager.Models
             SqlConnection connection = null;
             connection = DB.ConnectToDB(connection);
 
-            SqlCommand command = new SqlCommand("SELECT LedgerAccountID From LedgerAccount WHERE LedgerAccountID IS NOT Null", connection);
+            SqlCommand command = new SqlCommand("SELECT LedgerAccountXena From LedgerAccount WHERE LedgerAccountXena IS NOT Null", connection);
 
             dt.Load(command.ExecuteReader());
 
