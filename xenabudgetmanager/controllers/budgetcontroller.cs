@@ -75,6 +75,7 @@ namespace XenaBudgetManager.Models
         }
         public ActionResult EditBudget(List<LedgerTags> list)
         {
+
             return View();
         }
 
