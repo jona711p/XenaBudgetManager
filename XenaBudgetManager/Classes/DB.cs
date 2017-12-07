@@ -96,12 +96,12 @@ namespace XenaBudgetManager.Classes
 
             return inputList;
         }
-
+        
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'LedgerTag' with related data 
         /// </summary>
-        public static void WriteNewLedgerTag(List<LedgerTags> inputList) //rettet efter XenaDataModel
+        public static List<LedgerTags> WriteNewLedgerTag(List<LedgerTags> inputList) //rettet efter XenaDataModel
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -110,18 +110,18 @@ namespace XenaBudgetManager.Classes
             for (int i = 1; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-               String.Format(@"INSERT INTO LedgerTag(LedgerTagID, ShortDescription, LongDescription) 
-               VALUES (@LedgerTagID, @ShortDescription, @LongDescription)"), connection);
+               String.Format(@"INSERT INTO LedgerTag(ShortDescription, LongDescription) 
+               VALUES (@ShortDescription, @LongDescription) SELECT SCOPE_IDENTITY()"), connection);
 
-                cmd.Parameters.AddWithValue("@LedgerTagID", inputList[i].ledgerTagId).ToString();
                 cmd.Parameters.AddWithValue("@ShortDescription", inputList[i].shortDescription);
                 cmd.Parameters.AddWithValue("@LongDescription", inputList[i].longDescription);
-                
-                cmd.ExecuteNonQuery();
+
+                inputList[i].ledgerTagId = Int32.Parse(cmd.ExecuteScalar().ToString());
                 cmd.Parameters.Clear();
 
             }
             connection = DisconnectFromDB(connection);
+            return inputList;
         }
    
         /// <summary>
@@ -174,7 +174,7 @@ namespace XenaBudgetManager.Classes
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
-        }
+        } //ikke i brug
 
         /// <summary>
         /// Written by Thomas
@@ -191,7 +191,7 @@ namespace XenaBudgetManager.Classes
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
-        }
+        } //ikke i brug
 
         /// <summary>
         /// Written by Thomas
@@ -217,8 +217,6 @@ namespace XenaBudgetManager.Classes
         //select * from LedgerAccount
         //tag templisten og bind xenaid til accountid
         //returner opdateret liste med grupper
-
-
         public static List<LedgerAccounts> GetAccountIDs(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
         {
             SqlConnection connection = null;
@@ -227,38 +225,96 @@ namespace XenaBudgetManager.Classes
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-                    String.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena) SELECT SCOPE_IDENTITY()"), connection);
+                    String.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena"), connection);
                 cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
+                var data = cmd.ExecuteScalar();
+                if (data != null)
+                {
+                    inputList[i].ledgerAccountId = Int32.Parse(data.ToString());
+                    cmd.Parameters.Clear();
+                }
+                else
+                {
+                    cmd.Parameters.Clear();
 
-                inputList[i].ledgerAccountId = Int32.Parse(cmd.ExecuteScalar().ToString());
-                cmd.Parameters.Clear();
+                    SqlCommand cmd1 = new SqlCommand(
+                        String.Format(@"INSERT INTO LedgerAccount(LedgerAccountXena, AccountName) 
+                    VALUES(@LedgerAccountXena, @AccountName); SELECT SCOPE_IDENTITY()"), connection);
+
+                    cmd1.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
+                    cmd1.Parameters.AddWithValue("@AccountName", inputList[i].accountName);
+
+                    inputList[i].ledgerAccountId = Int32.Parse(cmd1.ExecuteScalar().ToString());
+                    cmd1.Parameters.Clear();
+
+                }
+
+            }
+            connection = DisconnectFromDB(connection);
+
+
+            return inputList;
+
+        }
+
+        public static List<LedgerTags> GetTagIDs(List<LedgerTags> inputList) //rettet efter XenaDataModel
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            for (int i = 0; i < inputList.Count; i++)
+            {
+                SqlCommand cmd = new SqlCommand(
+                    String.Format(@"select LedgerTagID from LedgerTag WHERE longDescription =  @longDescription"), connection);
+                cmd.Parameters.AddWithValue("@longDescription", inputList[i].longDescription);
+
+                var data = cmd.ExecuteScalar();
+                if (data != null)
+                {
+                    inputList[i].ledgerTagId = Int32.Parse(data.ToString());
+                    cmd.Parameters.Clear();
+                }
+                else
+                {
+                    cmd.Parameters.Clear();
+
+                    SqlCommand cmd1 = new SqlCommand(
+                        String.Format(@"INSERT INTO LedgerTag(ShortDescription, longDescription) 
+                    VALUES(@ShortDescription, @longDescription); SELECT SCOPE_IDENTITY()"), connection);
+
+                    cmd1.Parameters.AddWithValue("@ShortDescription", inputList[i].shortDescription);
+                    cmd1.Parameters.AddWithValue("@longDescription", inputList[i].longDescription);
+
+                    inputList[i].ledgerTagId = Int32.Parse(cmd1.ExecuteScalar().ToString());
+                    cmd1.Parameters.Clear();
+
+                }
 
             }
 
             connection = DisconnectFromDB(connection);
 
             return inputList;
+
         }
 
-        /// <summary>
-        /// Thomas, dette skal i DB classen :)
-        /// </summary>
-        /// <returns></returns>
-        public static List<int> DupeCheckListTag()
+
+
+        public static List<string> DupeCheckListTag()
         {
             DataTable dt = new DataTable();
-            List<int> dupeCheckList = new List<int>();
+            List<string> dupeCheckList = new List<string>();
 
             SqlConnection connection = null;
             connection = DB.ConnectToDB(connection);
 
-            SqlCommand command = new SqlCommand("SELECT LedgerTagID From LedgerTag WHERE LedgerTagID IS NOT Null", connection);
+            SqlCommand command = new SqlCommand("SELECT LongDescription From LedgerTag WHERE LongDescription IS NOT Null", connection);
 
             dt.Load(command.ExecuteReader());
 
             foreach (DataRow row in dt.Rows)
             {
-                dupeCheckList.Add(Int32.Parse(row[0].ToString()));
+                dupeCheckList.Add(row[2].ToString());
             }
 
             connection = DB.DisconnectFromDB(connection);

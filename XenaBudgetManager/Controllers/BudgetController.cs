@@ -41,13 +41,17 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
         {
-            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
+            //evt lav et tjek om budgetyear allerede er i db
+
+            //hent alle grupper i en liste
             List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
 
+            //hent alle konti fra xena
+            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
             List<ExtraLedgerTag> tempExtraProductTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
             List<ExtraLedgerTag> tempExtraRevenueTag = GetXenaData.GetRevenueTag(Session["access_token"].ToString()); //laver listen forfra
 
-     
+            //konverter og tilføj konti for varegrupper og nettoomsætning og tilføj dem til kontolisten
             for (int i = 0; i < tempExtraProductTag.Count; i++)
             {
                 tempLedgerTag.Add(new LedgerTags(tempExtraProductTag[i]));
@@ -56,36 +60,17 @@ namespace XenaBudgetManager.Models
             {
                 tempLedgerTag.Add(new LedgerTags(tempExtraRevenueTag[i]));
             }
-            //extratagID er ikke unikt brug kontoid istedet?
 
+            //extratagID er ikke unikt brug kontoid istedet?
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
-            List<LedgerTags> dupecheckledgertag = tempLedgerTag.Where(x => !DB.DupeCheckListTag().Contains(x.ledgerTagId)).ToList();
-            List<LedgerAccounts> dupecheckledgerAccount = tempLedgerAccount.Where(x => !DB.DupeCheckListAccount().Contains(x.ledgerAccountId.ToString())).ToList();//CN Id added tostring
+            tempLedgerAccount = DB.GetAccountIDs(tempLedgerAccount);
+            tempLedgerTag = DB.GetTagIDs(tempLedgerTag);
+            DB.WriteNewRel_AccountPlan(tempLedgerTag, tempLedgerAccount, budget.budgetID);
 
-            //if ((tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgertag.Count == 0) ||
-            //    (tempLedgerTag.Count > 0 || tempLedgerAccount.Count > 0 && dupecheckledgerAccount.Count == 0))
-            //{
-            //    //tjek efter budgetår?
-            //    tempLedgerAccount = DB.GetAccountIDs(tempLedgerAccount); //hent ids fra allerede oprettede db grupper
-            //    DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-
-            //}
-            tempLedgerAccount = DB.WriteNewLedgerAccount(dupecheckledgerAccount); //skriver unikke  grupper i DB og gemmer grupperID fra db i en liste af grupper
-            DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
-
-            DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-            return RedirectToAction("Accounting",tempLedgerTag);
-           // return View("EditBudget",tempLedgerTag);
-            
-            /*
-             kører fint første gang
-             anden gang er 
-                dupecheckledgertag.count = 1 
-                dupecheckledgerAccount.count = 10
-            men disse grupper og kontoer hører ikke sammen? så der bliver ikke lavet en relationstabel for budget nr 2
-            henter vi ikke den fulde liste med grupper & konto fra xena med vores kald?
-             */
+            return View();
+            //return RedirectToAction(); //"Accounting",tempLedgerTag
+            // return View("EditBudget",tempLedgerTag);
         }
         public ActionResult EditBudget()
         {

@@ -41,7 +41,10 @@ namespace XenaBudgetManager.Classes
             {
                 if (jToken["Id"].Type != JTokenType.Null && int.Parse(jToken["Id"].ToString()) != 0)
                 {
-                    LedgerTagList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerTag list
+                    if (int.Parse(jToken["Number"].ToString()) != 8900 && int.Parse(jToken["Number"].ToString()) != 8920)
+                    {
+                        LedgerTagList.Add(new LedgerTags(jToken)); // Adds each Entity to a LedgerTag list
+                    }
                 }
             }
 
