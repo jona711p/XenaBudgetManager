@@ -94,11 +94,8 @@ namespace XenaBudgetManager.Models
         [ValidateAntiForgeryToken] // Klippe klistre - Aner ikke hvad den bruges til.
         public ActionResult EditBudget(List<LedgerTags> list)
         {
-            if (ModelState.IsValid)
-            {
-               // DB.Insert(list);
-            }
-            return View();
+            ViewBag.MyList = list;
+            return View(list);
         }
 
     }
