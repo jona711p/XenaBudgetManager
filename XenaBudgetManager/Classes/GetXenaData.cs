@@ -94,6 +94,11 @@ namespace XenaBudgetManager.Classes
                 ledgerGroupDataList.Add(new LedgerGroupData(jToken)); // Adds each Entity to a LedgerGroupData
             }
 
+            foreach (LedgerGroupData ledgerGroupData in ledgerGroupDataList)
+            {
+                ledgerGroupData.LedgerGroupDetailDataList = LedgerGroupDetailData(token, ledgerGroupData.Group);
+            }
+
             return ledgerGroupDataList;
         }
 
@@ -142,6 +147,25 @@ namespace XenaBudgetManager.Classes
         }
 
         public static List<LedgerTags> GetRevenueTag(string token) // Without DateTime
+        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, string group) // Without DateTime
+        {
+            //create an instanse of a ledgergroupdata
+            List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
+
+            //create a list of the tokens received from xena - tokens here are key/value pairs
+            //Next we call xena, pass in the accesstoken, to retrieve our data from the api
+            List<JToken> jTokenList = XenaLogic.CallXena(token,
+                "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=" + group + "&_=1512035981799"); // List with JTokens from Xena's Array
+            //take each token in the token list and add them to the ledgergroup list
+            foreach (JToken jToken in jTokenList)
+            {
+                ledgerGroupDetailDataList.Add(new LedgerGroupDetailData(jToken)); // Adds each Entity to a LedgerGroupData
+            }
+
+            return ledgerGroupDetailDataList;
+        }
+
+        private static long TimeInEpoch(DateTime dateTime)
         {
             //create an instanse of a ledgergroupdata
             List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
