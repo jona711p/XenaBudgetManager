@@ -54,7 +54,8 @@ namespace XenaBudgetManager.Models
             DB.WriteNewLedgerAccount(dupecheckledgerAccount);
             DB.WriteNewLedgerTag(dupecheckledgertag);
             DB.WriteNewRel_AccountPlan(dupecheckledgertag, dupecheckledgerAccount, budget.budgetID);
-            return View();
+
+            return View("CreateBudget2");
             
         }
         
