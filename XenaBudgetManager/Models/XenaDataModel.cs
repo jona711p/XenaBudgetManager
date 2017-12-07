@@ -28,6 +28,14 @@ namespace XenaBudgetManager.Models
                 longDescription = jToken["LongDescription"].ToString();
                 ledgerAccountXena = jToken["LedgerAccount"].ToString();
         }
+
+        public LedgerTags(ExtraLedgerTag input)
+        {
+            ledgerTagId = input.ledgerTagId;
+            shortDescription = input.shortDescription;
+            longDescription = input.longDescription;
+            ledgerAccountXena = input.ledgerAccountXena;
+        }
     }
 
     // Containing ledger accounts
