@@ -47,13 +47,12 @@ namespace XenaBudgetManager.Models
             List<ExtraLedgerTag> tempExtraTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
             tempExtraTag = GetXenaData.GetRevenueTag(Session["access_token"].ToString());
 
-
      
             for (int i = 0; i < tempExtraTag.Count; i++)
             {
-                tempLedgerTag.Add();
-                (tempExtraTag[i])
+                tempLedgerTag.Add(new LedgerTags(tempExtraTag[i]));
             }
+
 
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
