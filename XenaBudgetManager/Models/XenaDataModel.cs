@@ -118,5 +118,27 @@ namespace XenaBudgetManager.Models
             Group = jToken["Group"].ToString();
             //GroupIndex = int.Parse(jToken["GroupIndex"].ToString());
         }
+
+     
     }
+    
+}
+public class ExtraLedgerTag
+{
+    public int ledgerTagId { get; set; }
+    public string shortDescription { get; set; }
+    public string longDescription { get; set; }
+    public string ledgerAccountXena { get; set; }
+
+    ExtraLedgerTag()
+    {
+        
+    }
+    public ExtraLedgerTags(JToken jToken)
+        {
+            ledgerTagId = int.Parse(jToken["Id"].ToString()); //tag de 9 første tal fra "id"
+            shortDescription = jToken["AccountNumber"].ToString();
+            longDescription = jToken["Description"].ToString();
+            ledgerAccountXena = jToken["LedgerAccount"].ToString();
+        }
 }
