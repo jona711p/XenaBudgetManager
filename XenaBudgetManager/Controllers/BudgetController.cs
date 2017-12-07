@@ -30,7 +30,7 @@ namespace XenaBudgetManager.Models
 
             return View(ds);
         }
-        
+
 
         public ActionResult CreateBudget()
         {
@@ -47,7 +47,7 @@ namespace XenaBudgetManager.Models
             List<ExtraLedgerTag> tempExtraProductTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
             List<ExtraLedgerTag> tempExtraRevenueTag = GetXenaData.GetRevenueTag(Session["access_token"].ToString()); //laver listen forfra
 
-     
+
             for (int i = 0; i < tempExtraProductTag.Count; i++)
             {
                 tempLedgerTag.Add(new LedgerTags(tempExtraProductTag[i]));
@@ -75,32 +75,26 @@ namespace XenaBudgetManager.Models
             DB.WriteNewLedgerTag(dupecheckledgertag); //skriver unikke  kontoer i DB
 
             DB.WriteNewRel_AccountPlan(dupecheckledgertag, tempLedgerAccount, budget.budgetID); //sætter budget grupper og kontoer i relation til hinanden
-            return RedirectToAction("Accounting",tempLedgerTag);
-           // return View("EditBudget",tempLedgerTag);
-            
-            /*
-             kører fint første gang
-             anden gang er 
-                dupecheckledgertag.count = 1 
-                dupecheckledgerAccount.count = 10
-            men disse grupper og kontoer hører ikke sammen? så der bliver ikke lavet en relationstabel for budget nr 2
-            henter vi ikke den fulde liste med grupper & konto fra xena med vores kald?
-             */
+            return RedirectToAction("Accounting", tempLedgerTag);
+            //return View("EditBudget", tempLedgerTag);
         }
+   
+
+        /*
+         kører fint første gang
+         anden gang er 
+            dupecheckledgertag.count = 1 
+            dupecheckledgerAccount.count = 10
+        men disse grupper og kontoer hører ikke sammen? så der bliver ikke lavet en relationstabel for budget nr 2
+        henter vi ikke den fulde liste med grupper & konto fra xena med vores kald?
+         */
         public ActionResult EditBudget()
         {
-            return View();
-        }
+            List<LedgerTags> list = new List<LedgerTags>();
 
-
-        // http://techfunda.com/howto/278/insert-record-into-database
-        [HttpPost]
-        [ValidateAntiForgeryToken] // Klippe klistre - Aner ikke hvad den bruges til.
-        public ActionResult EditBudget(List<LedgerTags> list)
-        {
-            ViewBag.MyList = list;
             return View(list);
         }
-
     }
+
 }
+
