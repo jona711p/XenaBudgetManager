@@ -4,6 +4,10 @@ namespace XenaBudgetManager.Models
 {
     public class Account
     {
+        public Account(int inputID)
+        {
+            accountID = inputID;
+        }
         [DisplayName("Konto ID")]
         public int accountID { get; set; }
 

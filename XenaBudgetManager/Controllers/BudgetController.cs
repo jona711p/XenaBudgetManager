@@ -82,7 +82,13 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult EditBudget(List<LedgerTags> TagList)
         {
-            // Dropdown med alle måneder
+            // lav Dropdownliste med alle måneder i view
+            List<Account> AccountList = new List<Account>();
+
+            for (int i = 0; i < TagList.Count; i++)
+            {
+                AccountList.Add(new Account(i));
+            }
             // Knap til skriv næste måned  EditBudget(List<LedgerTags> TagList, List<Account> AccountList)
 
             return View();
