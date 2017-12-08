@@ -80,7 +80,15 @@ namespace XenaBudgetManager.Models
 
 
         [HttpPost]
-        public ActionResult EditBudget(List<LedgerTags> list)
+        public ActionResult EditBudget(List<LedgerTags> TagList)
+        {
+            // Dropdown med alle måneder
+            // Knap til skriv næste måned  EditBudget(List<LedgerTags> TagList, List<Account> AccountList)
+
+            return View();
+        }
+
+        public ActionResult EditBudget(List<LedgerTags> TagList, List<Account> AccountList)
         {
             return View();
         }
