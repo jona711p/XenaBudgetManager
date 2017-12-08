@@ -14,7 +14,7 @@
             $('td div').slideUp();
             $('td b').click(
                 function () {
-                    $(this).siblings('div').slideToggle();
+                    $('.fisse').siblings('div').slideToggle();
                 }
             );
         }
@@ -39,19 +39,18 @@
     {
         <tr>
             <td>
-                <b>@Html.DisplayFor(modelItem => item.TranslatedGroup)</b>
+                <b class="fisse">@Html.DisplayFor(modelItem => item.TranslatedGroup)</b>
                 <div>
 
                     @foreach (var list in item.LedgerGroupDetailDataList)
                     {
-                        <p>@Html.DisplayFor(modelItemList => list.Group)</p>
                         <p>@Html.DisplayFor(modelItemList => list.AccountDescription)</p>
                     }
 
                 </div>
             </td>
             <td>
-                <b>@Html.DisplayFor(modelItem => item.AmountMonth)</b>
+                <b class="fisse">@Html.DisplayFor(modelItem => item.AmountMonth)</b>
                 <div>
 
                     @foreach (var list in item.LedgerGroupDetailDataList)
@@ -60,9 +59,10 @@
                     }
 
                 </div>
+
             </td>
             <td>
-                <b>@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
+                <b class="fisse">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
                 <div>
 
                     @foreach (var list in item.LedgerGroupDetailDataList)

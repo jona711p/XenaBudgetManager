@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Mvc;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Classes
@@ -63,16 +64,18 @@ namespace XenaBudgetManager.Classes
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
 
-        public static List<int> GetFiscalIDList(List<JToken> jTokenList)
+        public static SelectList GetFiscalSelectList(List<JToken> jTokenList)
         {
-            List<int> fiscalIDList = new List<int>();
+            List<Fiscal> fiscalList = new List<Fiscal>();
 
             foreach (JToken jToken in jTokenList)
             {
-                fiscalIDList.Add(int.Parse(jToken["FiscalSetupId"].ToString()));
+                fiscalList.Add(new Fiscal(jToken));
             }
 
-            return fiscalIDList;
+            SelectList fiscalSelectList = new SelectList(fiscalList, "ResourceName", "FiscalSetupId");
+
+            return fiscalSelectList;
         }
 
         /// <summary>
