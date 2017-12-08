@@ -10,11 +10,16 @@
 <script type="text/javascript">
     $(document).ready(
         function () {
-
-            $('td div').slideUp();
-            $('td b').click(
+            $('.placeholder').slideUp();
+            $('.slide').slideUp();
+            $(".line").click(
                 function () {
-                    $('.fisse').siblings('div').slideToggle();
+
+                    $(this).children(".slide").slideToggle();
+                    $(this).nextAll().children(".slide").slideToggle();
+                    
+                    $(this).nextAll().children(".placeholder").slideToggle();
+                    $(this).nextAll().children(".hideFiscal").slideToggle();
                 }
             );
         }
@@ -38,40 +43,47 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                <b class="fisse">@Html.DisplayFor(modelItem => item.TranslatedGroup)</b>
-                <div>
+             
+                 <td class="line">
+                    <b>@Html.DisplayFor(modelItem => item.TranslatedGroup)</b>
+                    <div class="slide">
 
-                    @foreach (var list in item.LedgerGroupDetailDataList)
-                    {
-                        <p>@Html.DisplayFor(modelItemList => list.AccountDescription)</p>
-                    }
+                        @foreach (var list in item.LedgerGroupDetailDataList)
+                        {
+                            <p>@Html.DisplayFor(modelItemList => list.AccountDescription)</p>
+                        }
 
-                </div>
-            </td>
-            <td>
-                <b class="fisse">@Html.DisplayFor(modelItem => item.AmountMonth)</b>
-                <div>
+                    </div>
+                </td>
+                <td class="line">
+                    <b class="hideFiscal" >@Html.DisplayFor(modelItem => item.AmountMonth)</b>
+                    <b class="placeholder" ></b>
+                    <div class="slide">
 
-                    @foreach (var list in item.LedgerGroupDetailDataList)
-                    {
-                        <p>@Html.DisplayFor(modelItemList => list.AmountMonth)</p>
-                    }
 
-                </div>
+                        @foreach (var list in item.LedgerGroupDetailDataList)
+                        {
+                            <p>@Html.DisplayFor(modelItemList => list.AmountMonth)</p>
+                        }
 
-            </td>
-            <td>
-                <b class="fisse">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
-                <div>
+                    </div>
+                </td>
+                <td class="line">
+                    <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
+                    <b class="placeholder"></b>
+                     <div class="slide">
 
-                    @foreach (var list in item.LedgerGroupDetailDataList)
-                    {
-                        <p>@Html.DisplayFor(modelItemList => list.AmountYearToDate)</p>
-                    }
 
-                </div>
-            </td>
+                        @foreach (var list in item.LedgerGroupDetailDataList)
+                        {
+                            <p>@Html.DisplayFor(modelItemList => list.AmountYearToDate)</p>
+                        }
+
+                    </div>
+                    
+                </td>
+            
+
         </tr>
     }
 </table>
