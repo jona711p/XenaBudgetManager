@@ -63,6 +63,18 @@ namespace XenaBudgetManager.Classes
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
 
+        public static List<int> GetFiscalIDList(List<JToken> jTokenList)
+        {
+            List<int> fiscalIDList = new List<int>();
+
+            foreach (JToken jToken in jTokenList)
+            {
+                fiscalIDList.Add(int.Parse(jToken["FiscalSetupId"].ToString()));
+            }
+
+            return fiscalIDList;
+        }
+
         /// <summary>
         /// 
         /// Written by Jonas
