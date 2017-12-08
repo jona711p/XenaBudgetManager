@@ -254,8 +254,8 @@
     <Content Include="Views\Budget\Budget.cshtml" />
     <Content Include="Views\Shared\_Layout_LoggedIn.cshtml" />
     <Content Include="Views\Budget\CreateBudget.cshtml" />
-    <Content Include="Views\Budget\EditBudget.cshtml" />
     <Content Include="Views\Accounting\LedgerGroupData.cshtml" />
+    <Content Include="Views\Budget\EditBudget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

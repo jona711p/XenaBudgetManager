@@ -1,1 +1,12 @@
-﻿
+﻿@{
+    ViewBag.SelectedList = "tempLedgerTag";
+}
+@foreach(var item in ViewBag.List)
+{
+    <div> @item.longDescription </div>
+    <div> @Html.TextBox("item.longDescription", null, new { @class = "form-control" })</div>   
+}
+
+
+
+

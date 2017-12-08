@@ -4,12 +4,15 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using XenaBudgetManager.Classes;
 
 namespace XenaBudgetManager.Models
 {
+    
     public class BudgetController : Controller
     {
+        List<LedgerTags> tempLedgerTag = new List<LedgerTags>();
         // GET: Budget
         public ActionResult Budget()
         {
@@ -68,16 +71,23 @@ namespace XenaBudgetManager.Models
             tempLedgerTag = DB.GetTagIDs(tempLedgerTag);
             DB.WriteNewRel_AccountPlan(tempLedgerTag, tempLedgerAccount, budget.budgetID);
 
-            return View();
-            //return RedirectToAction(); //"Accounting",tempLedgerTag
-            // return View("EditBudget",tempLedgerTag);
+
+            ViewBag.list = tempLedgerTag;
+            return View("EditBudget",ViewBag.list);
+            
         }
         public ActionResult EditBudget()
         {
-            List<LedgerTags> list = new List<LedgerTags>();
-
-            return View(list);
+           
+            return View();
         }
+
+        //[HttpPost]
+        //public ActionResult EditBudget()
+        //{
+
+        //    return View();
+        //}
     }
 
 }
