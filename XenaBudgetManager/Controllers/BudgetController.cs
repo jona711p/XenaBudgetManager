@@ -64,7 +64,7 @@ namespace XenaBudgetManager.Models
                 tempLedgerTag.Add(new LedgerTags(tempExtraRevenueTag[i]));
             }
 
-            //extratagID er ikke unikt brug kontoid istedet?
+            //extratagID8 er ikke unikt brug kontoid istedet?
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
             tempLedgerAccount = DB.GetAccountIDs(tempLedgerAccount);
@@ -76,18 +76,14 @@ namespace XenaBudgetManager.Models
             return View("EditBudget",ViewBag.list);
             
         }
-        public ActionResult EditBudget()
+
+
+
+        [HttpPost]
+        public ActionResult EditBudget(List<LedgerTags> list)
         {
-           
             return View();
         }
-
-        //[HttpPost]
-        //public ActionResult EditBudget()
-        //{
-
-        //    return View();
-        //}
     }
 
 }
