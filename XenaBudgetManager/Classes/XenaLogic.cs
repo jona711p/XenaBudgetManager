@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Mvc;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Classes
@@ -61,6 +62,20 @@ namespace XenaBudgetManager.Classes
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
+        }
+
+        public static SelectList GetFiscalSelectList(List<JToken> jTokenList)
+        {
+            List<Fiscal> fiscalList = new List<Fiscal>();
+
+            foreach (JToken jToken in jTokenList)
+            {
+                fiscalList.Add(new Fiscal(jToken));
+            }
+
+            SelectList fiscalSelectList = new SelectList(fiscalList, "ResourceName", "FiscalSetupId");
+
+            return fiscalSelectList;
         }
 
         /// <summary>

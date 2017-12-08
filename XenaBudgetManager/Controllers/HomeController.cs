@@ -57,6 +57,7 @@ namespace XenaBudgetManager.Controllers
             List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
 
+            Session["fiscalSelectList"] = XenaLogic.GetFiscalSelectList(jTokenList);
             Session["userName"] = jTokenList[0]["ResourceName"].ToString();
 
             ViewBag.Token = xena.access_token; // Debug
@@ -88,6 +89,7 @@ namespace XenaBudgetManager.Controllers
             List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
 
+            Session["fiscalSelectList"] = XenaLogic.GetFiscalSelectList(jTokenList);
             Session["userName"] = jTokenList[0]["ResourceName"].ToString();
 
             return RedirectToAction("Index");
