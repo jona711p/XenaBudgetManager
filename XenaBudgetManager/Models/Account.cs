@@ -1,12 +1,29 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace XenaBudgetManager.Models
 {
     public class Account
     {
-        public Account(int inputID)
+        public Account(Account account)
         {
-            accountID = inputID;
+            
+        }
+        public Account(LedgerTags inputData)
+        {
+            accountID = inputData.ledgerTagId;
+            accountName = inputData.longDescription;
+        }
+        public static List<Account> ConvertLedgerTagsToAccountList(List<LedgerTags> inputData)
+        {
+            List<Account> convertedList = new List<Account>();
+
+            for (int i = 0; i < inputData.Count; i++)
+            {
+                convertedList.Add(new Account(inputData[i]));
+            }
+
+            return convertedList;
         }
         [DisplayName("Konto ID")]
         public int accountID { get; set; }

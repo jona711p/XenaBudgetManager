@@ -44,7 +44,8 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
         {
-            //evt lav et tjek om budgetyear allerede er i db
+            //evt lav et tjek om budgetyear allerede er i db?
+            //bind det valgte fiscalID til budget.fiscalId 
 
             //hent alle grupper i en liste
             List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
@@ -64,17 +65,50 @@ namespace XenaBudgetManager.Models
                 tempLedgerTag.Add(new LedgerTags(tempExtraRevenueTag[i]));
             }
 
-            //extratagID8 er ikke unikt brug kontoid istedet?
             budget.budgetID = DB.WriteNewBudget(budget); //opretter nyt budget og returnere Id fra DB
 
             tempLedgerAccount = DB.GetAccountIDs(tempLedgerAccount);
             tempLedgerTag = DB.GetTagIDs(tempLedgerTag);
             DB.WriteNewRel_AccountPlan(tempLedgerTag, tempLedgerAccount, budget.budgetID);
 
+            //gemmer rel_accountplan for det givene budgetID i et keyvaluepair
+            List<KeyValuePair<int, int>> AccountPlan = DB.ReadRel_AccountPlan(budget);
+
+            //konvertere tags til accounts
+            List<Account> tempAccountList = Account.ConvertLedgerTagsToAccountList(tempLedgerTag);
+
+            //konvertere ledgerAccounts til accountgroups
+            List<AccountGroup> tempGroupList = AccountGroup.ConvertLedgerAccountToAccountGroupList(tempLedgerAccount, tempAccountList, AccountPlan);
+
+
+            budget.groupList = tempGroupList;
+
+            //tjek hvilke group.id der hører sammen med account.id via accountplan
+            for (int i = 0; i < tempGroupList.Count; i++)
+            {
+                tempGroupList[i].accountList = new List<Account>();
+                for (int j = 0; j < tempAccountList.Count; j++)
+                {
+                    for (int k = 0; k < AccountPlan.Count; k++)
+                    {
+                        if (tempGroupList[i].accountGroupID == AccountPlan[k].Key && tempAccountList[j].accountID == AccountPlan[k].Value)
+                        {
+                            tempGroupList[i].accountList.Add(tempAccountList[j]);
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < budget.groupList.Count; i++)
+            {
+                if (budget.groupList[i].accountList.Count == 0)
+                {
+                    budget.groupList.RemoveAt(i);
+                    --i;
+                }
+            }
 
             ViewBag.list = tempLedgerTag;
             return View("EditBudget",ViewBag.list);
-            
         }
 
 
@@ -83,12 +117,7 @@ namespace XenaBudgetManager.Models
         public ActionResult EditBudget(List<LedgerTags> TagList)
         {
             // lav Dropdownliste med alle måneder i view
-            List<Account> AccountList = new List<Account>();
-
-            for (int i = 0; i < TagList.Count; i++)
-            {
-                AccountList.Add(new Account(i));
-            }
+            
             // Knap til skriv næste måned  EditBudget(List<LedgerTags> TagList, List<Account> AccountList)
 
             return View();

@@ -17,8 +17,8 @@ namespace XenaBudgetManager.Models
         [DisplayName("Budgetår")]
         public int budgetYear { get; set; }
 
-        [DisplayName("Brugerliste")]
-        public List<Fiscal> userList { get; set; }
+        //[DisplayName("Brugerliste")]
+        //public List<Fiscal> userList { get; set; }
 
         [DisplayName("Gruppeliste")]
         public List<AccountGroup> groupList { get; set; }

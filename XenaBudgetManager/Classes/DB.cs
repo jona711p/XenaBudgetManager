@@ -298,6 +298,32 @@ namespace XenaBudgetManager.Classes
 
         }
 
+        public static List<KeyValuePair<int, int>> ReadRel_AccountPlan(Budget inputBudget)
+        {
+            List<KeyValuePair<int, int>> inputList = new List<KeyValuePair<int, int>>();
+            inputList.Clear();
+
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT FK_LedgerAccountID, FK_LedgerTagID from rel_accountplan where FK_budgetid = @BudgetID", connection);
+            command.Parameters.AddWithValue("@BudgetID", inputBudget.budgetID);
+
+            dt.Load(command.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int tempAccount = int.Parse(row["FK_LedgerAccountID"].ToString());
+                int tempTag = int.Parse(row["FK_LedgerTagID"].ToString());
+                inputList.Add(new KeyValuePair<int, int>(tempAccount, tempTag));
+            }
+
+            connection = DisconnectFromDB(connection);
+
+            return inputList;
+        }
 
 
         public static List<string> DupeCheckListTag()
