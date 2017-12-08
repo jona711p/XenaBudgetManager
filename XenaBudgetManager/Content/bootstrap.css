@@ -4501,8 +4501,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #9bae07;
+  background-image:url(../Images/toppattern2.png);
+  background-position: center center;
+  height: 50px;
+  padding: 7px 0;
+  /*border-color: #080808;*/
+
 }
 
 .navbar-inverse .navbar-brand {
