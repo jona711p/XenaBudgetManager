@@ -55,7 +55,7 @@ namespace XenaBudgetManager.Classes
         }
 
         // GET: GetXenaData - fiscal period data
-        public static List<LedgerGroupData> LedgerGroupData(string token, DateTime fromData, DateTime toData)
+        public static List<LedgerGroupData> LedgerGroupData(string token, int fiscalID, DateTime fromData, DateTime toData)
         {
             //create an instanse of a ledgergroupdata
             List<LedgerGroupData> ledgerGroupDataList = new List<LedgerGroupData>(); // A new empty list of LedgerGroupData
@@ -66,9 +66,13 @@ namespace XenaBudgetManager.Classes
             long fromXenaEpoch = TimeInEpoch(fromData);
             long toXenaEpoch = TimeInEpoch(toData);
 
-            string url = "Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&" +
-                          "FiscalDateFrom=" + fromXenaEpoch + "&" +
-                          "FiscalDateTo=" + toXenaEpoch;
+            int fiscalPeriodId = 169626878; // Needs to be dynamic!
+
+            string url = "Fiscal/" + fiscalID +
+                         "/Transaction/LedgerGroupData" +
+                         "?fiscalPeriodId=" + fiscalPeriodId +
+                         "&FiscalDateFrom=" + fromXenaEpoch +
+                         "&FiscalDateTo=" + toXenaEpoch;
 
             List<JToken> jTokenList = XenaLogic.CallXena(token, url); // List with JTokens from Xena's Array
             //take each token in the token list and add them to the ledgergroup list
@@ -79,13 +83,13 @@ namespace XenaBudgetManager.Classes
 
             foreach (LedgerGroupData ledgerGroupData in ledgerGroupDataList)
             {
-                ledgerGroupData.LedgerGroupDetailDataList = LedgerGroupDetailData(token, ledgerGroupData.Group, fromXenaEpoch, toXenaEpoch);
+                ledgerGroupData.LedgerGroupDetailDataList = LedgerGroupDetailData(token, fiscalID, ledgerGroupData.Group, fromXenaEpoch, toXenaEpoch);
             }
 
             return ledgerGroupDataList;
         }
 
-        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, string group, long fromXenaEpoch, long toXenaEpoch)
+        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, int fiscalID, string group, long fromXenaEpoch, long toXenaEpoch)
         {
             //create an instanse of a ledgergroupdata
             List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
@@ -93,10 +97,14 @@ namespace XenaBudgetManager.Classes
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
 
-            string url = "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&" +
-                         "FiscalDateFrom=" + fromXenaEpoch + "&" +
-                         "FiscalDateTo=" + toXenaEpoch + "&" +
-                         "ledgerAccount=" + group +
+            int fiscalPeriodId = 169626878; // Needs to be dynamic!
+
+            string url = "Fiscal/" + fiscalID +
+                         "/Transaction/LedgerGroupDataDetail" +
+                         "?fiscalPeriodId=" + fiscalPeriodId +
+                         "&FiscalDateFrom=" + fromXenaEpoch +
+                         "&FiscalDateTo=" + toXenaEpoch +
+                         "&ledgerAccount=" + group +
                          "&_=1512035981799";
 
             List<JToken> jTokenList = XenaLogic.CallXena(token, url); // List with JTokens from Xena's Array

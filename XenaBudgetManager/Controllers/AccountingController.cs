@@ -20,7 +20,7 @@ namespace XenaBudgetManager.Controllers
             ViewBag.datePicked = true;
 
             List<LedgerGroupData> ledgerGroupDataList =
-                GetXenaData.LedgerGroupData(Session["access_token"].ToString(), fromDate, toDate);
+                GetXenaData.LedgerGroupData(Session["access_token"].ToString(), int.Parse(Session["fiscalID"].ToString()), fromDate, toDate);
 
             return View(ledgerGroupDataList);
         }

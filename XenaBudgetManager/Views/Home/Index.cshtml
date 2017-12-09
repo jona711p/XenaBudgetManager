@@ -1,20 +1,28 @@
-﻿<div class="jumbotron">
-    <h1>XENA BUDGET MANAGER</h1>
-    <p class="lead">Blah blah blah...</p>
-</div>
+﻿
+@{
+    ViewBag.Title = "Xena Budget Manager";
+}
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>Velkommen til Xena's Budget Manager skrevet af Team Smoker</h2>
-        <p>
-            Mere blah blah blah...
-        </p>
-        <p><a class="btn btn-default" href="#">Link!</a></p>
+    <div class="col-md-10">
+        <h2>Velkommen til Xena's Budget Manager</h2>
+        <br />
+        <p>Her kan du oprette budgetter til dine virksomheder's regnskaber.</p>
+        <br />
+        <p>Men før du kan noget, må du lige logge ind først, du skal bruge dit Xena Login.</p>
+        <br />
+        <p>God fornøjelse med Xena Budget Manager,</p>
+        <p>MVH. Team Smoker.</p>
     </div>
 </div>
 
 @*Debug*@
-<div class="jumbotron">
-    <h1>TOKEN:</h1>
-    <p class="lead">@ViewBag.Token</p>
-    <p><a class="btn btn-default" href="http://localhost:1337/home/debug/">Debug!</a></p>
+<div class="row">
+    <div class="col-md-10">
+        <br />
+        <h2>Token:</h2>
+        <p>@ViewBag.Token</p>
+        <p><a class="btn btn-default" href="http://localhost:1337/home/debug/">Debug!</a>
+        </p>
+    </div>
 </div>

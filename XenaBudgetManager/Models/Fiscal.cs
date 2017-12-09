@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.ComponentModel;
+using Newtonsoft.Json.Linq;
 
 namespace XenaBudgetManager.Models
 {

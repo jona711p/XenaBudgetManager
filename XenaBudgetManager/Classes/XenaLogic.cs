@@ -64,20 +64,6 @@ namespace XenaBudgetManager.Classes
                 .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
 
-        public static SelectList GetFiscalSelectList(List<JToken> jTokenList)
-        {
-            List<Fiscal> fiscalList = new List<Fiscal>();
-
-            foreach (JToken jToken in jTokenList)
-            {
-                fiscalList.Add(new Fiscal(jToken));
-            }
-
-            SelectList fiscalSelectList = new SelectList(fiscalList);
-
-            return fiscalSelectList;
-        }
-
         /// <summary>
         /// 
         /// Written by Jonas
@@ -123,5 +109,17 @@ namespace XenaBudgetManager.Classes
         //        string jTokenString3 = jToken["ResourceName3"].ToString();
         //    }
         //}
+
+        public static List<Fiscal> GetFiscalList(List<JToken> jTokenList)
+        {
+            List<Fiscal> fiscalList = new List<Fiscal>();
+
+            foreach (JToken jToken in jTokenList)
+            {
+                fiscalList.Add(new Fiscal(jToken));
+            }
+
+            return fiscalList;
+        }
     }
 }
