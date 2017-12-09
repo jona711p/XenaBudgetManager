@@ -71,6 +71,10 @@ namespace XenaBudgetManager.Models
             tempLedgerTag = DB.GetTagIDs(tempLedgerTag);
             DB.WriteNewRel_AccountPlan(tempLedgerTag, tempLedgerAccount, budget.budgetID);
 
+            #region Konverter til budget
+
+            
+
             //gemmer rel_accountplan for det givene budgetID i et keyvaluepair
             List<KeyValuePair<int, int>> AccountPlan = DB.ReadRel_AccountPlan(budget);
 
@@ -106,6 +110,7 @@ namespace XenaBudgetManager.Models
                     --i;
                 }
             }
+            #endregion
 
             ViewBag.list = tempLedgerTag;
             return View("EditBudget",ViewBag.list);
@@ -117,8 +122,12 @@ namespace XenaBudgetManager.Models
         public ActionResult EditBudget(List<LedgerTags> TagList)
         {
             // lav Dropdownliste med alle måneder i view
-            
-            // Knap til skriv næste måned  EditBudget(List<LedgerTags> TagList, List<Account> AccountList)
+            //efter måned er valgt kan værdier for denne indtastes for hver konto
+            //derefter vælger man et nyt måned og gør det samme
+            //hvis man f.eks. har indtastes op til marts skal man stadig kunne gå tilbage og ændre f.kes. januar
+            //når alle måneder/konti er udfyld trykkes på en knap "gem budget"
+            //budgettet kan ikke redigeres efter dette
+            //bagefter skal vi lave et view til visningen af budgettet ala 'vis regnskab'
 
             return View();
         }
