@@ -203,7 +203,7 @@ namespace XenaBudgetManager.Classes
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
-                String.Format(@"INSERT INTO Budget(BudgetName, Year) VALUES ('{0}', {1}) SELECT SCOPE_IDENTITY();", inputData.budgetName, inputData.budgetYear), connection);
+                String.Format(@"INSERT INTO Budget(BudgetName, Year, XenaFiscalID) VALUES ('{0}', {1}, {2}) SELECT SCOPE_IDENTITY();", inputData.budgetName, inputData.budgetYear, inputData.XenaFiscalID), connection);
 
             var tempData = command.ExecuteScalar();
 

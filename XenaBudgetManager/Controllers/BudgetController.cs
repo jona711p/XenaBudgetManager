@@ -45,7 +45,9 @@ namespace XenaBudgetManager.Models
         public ActionResult CreateBudget(Budget budget)
         {
             //evt lav et tjek om budgetyear allerede er i db?
+
             //bind det valgte fiscalID til budget.fiscalId 
+            budget.XenaFiscalID = int.Parse(Session["fiscalID"].ToString());
 
             //hent alle grupper i en liste
             List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
