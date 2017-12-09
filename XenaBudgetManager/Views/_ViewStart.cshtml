@@ -4,8 +4,13 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
-    else
+    else if (Session["userName"] != null && Session["fiscalID"] == null)
     {
         Layout = "~/Views/Shared/_Layout_LoggedIn.cshtml";
+    }
+
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_LoggedInWithFiscal.cshtml";
     }
 }
