@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<XenaBudgetManager.Models.LedgerGroupData>
+
 @{
-    ViewBag.Title = "Regnskab";
-    ViewBag.Title = "LedgerGroupData";
+    ViewBag.Title = "Vis Regnskab";
 }
 
-<h2>Regnskab</h2>
+<h2>Vis Regnskab</h2>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/slideToggle.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -29,64 +32,69 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Se Regnskab" class="btn btn-default" />
+                <input type="submit" value="Vis Regnskab" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TranslatedGroup)
 
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.AmountMonth)
-        </th>
-
-
-        <th>
-            @Html.DisplayNameFor(model => model.AmountYearToDate)
-        </th>
-
-
-
-        <th></th>
-    </tr>
-</table>
-    @foreach (var item in Model)
+@{
+    if (ViewBag.datePicked == true)
     {
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Vis Regnskab", "Accounting", "Accounting", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("Opret Budget", "CreateBudget", "Budget", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("Vis Budget", "Budget", "Budget", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("Group Data", "LedgerGroupData", "Accounting", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("Group Detailed Data", "LedgerGroupDetailData", "Accounting", new { area = "" }, null)</li>
-            </ul>
-        </li>
-        <tr class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.DisplayFor(modelItem => item.TranslatedGroup)</a>
-            <td>
-                @Html.DisplayFor(modelItem => item.TranslatedGroup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountMonth)
-            </td>
-          
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountYearToDate)
-            </td>
-      
-        </tr>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TranslatedGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AmountMonth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AmountYearToDate)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="line">
+                        <b>@Html.DisplayFor(modelItem => item.TranslatedGroup)</b>
+                        <div class="slide">
+
+                            @foreach (var list in item.LedgerGroupDetailDataList)
+                            {
+                                <p>@Html.DisplayFor(modelItemList => list.AccountDescription)</p>
+                            }
+
+                        </div>
+                    </td>
+                    <td class="line">
+                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountMonth)</b>
+                        <b class="placeholder"></b>
+                        <div class="slide">
+
+                            @foreach (var list in item.LedgerGroupDetailDataList)
+                            {
+                                <p>@Html.DisplayFor(modelItemList => list.AmountMonth)</p>
+                            }
+
+                        </div>
+                    </td>
+                    <td class="line">
+                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
+                        <b class="placeholder"></b>
+                        <div class="slide">
+
+                            @foreach (var list in item.LedgerGroupDetailDataList)
+                            {
+                                <p>@Html.DisplayFor(modelItemList => list.AmountYearToDate)</p>
+                            }
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
     }
-
-
-@*Claus - attempt to persist to db*@
-<div id="gridContent">
-    <input type="button" value="Opdater Kontoplan" onclick="location.href='@Url.Action("LedgerTag", "Accounting")'" />
-</div>
-
-
+}

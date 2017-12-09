@@ -4506,12 +4506,11 @@ textarea.input-group-sm > .input-group-btn > .btn {
   background-position: center center;
   height: 50px;
   padding: 7px 0;
-  /*border-color: #080808;*/
-
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4525,7 +4524,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #999999;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -4538,7 +4538,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #080808;
+  background-color: ffffff;
 }
 
 .navbar-inverse .navbar-nav > .disabled > a,
@@ -4570,7 +4570,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
   color: #ffffff;
-  background-color: #080808;
+  background-color: transparent;
 }
 
 .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {

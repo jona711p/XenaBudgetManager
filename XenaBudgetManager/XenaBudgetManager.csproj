@@ -191,7 +191,6 @@
     <Compile Include="Models\AccountingModel.cs" />
     <Compile Include="Classes\GetXenaData.cs" />
     <Compile Include="Models\Fiscal.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Xena.cs" />
     <Compile Include="Models\XenaDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,6 +236,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\slideToggle.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -252,12 +252,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Debug.cshtml" />
-    <Content Include="Views\Accounting\Accounting.cshtml" />
     <Content Include="Views\Budget\Budget.cshtml" />
     <Content Include="Views\Shared\_Layout_LoggedIn.cshtml" />
     <Content Include="Views\Budget\CreateBudget.cshtml" />
-    <Content Include="Views\Accounting\LedgerGroupData.cshtml" />
     <Content Include="Views\Budget\EditBudget.cshtml" />
+    <Content Include="Views\Accounting\Accounting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

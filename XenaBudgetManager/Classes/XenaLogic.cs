@@ -73,7 +73,7 @@ namespace XenaBudgetManager.Classes
                 fiscalList.Add(new Fiscal(jToken));
             }
 
-            SelectList fiscalSelectList = new SelectList(fiscalList, "ResourceName", "FiscalSetupId");
+            SelectList fiscalSelectList = new SelectList(fiscalList);
 
             return fiscalSelectList;
         }

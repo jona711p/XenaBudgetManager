@@ -163,14 +163,14 @@ namespace XenaBudgetManager.Classes
         /// Written by Thomas
         /// Inserts a new entry in  DB 'XenaUser' with related data 
         /// </summary>
-        public static void WriteNewUser(User inputData)
+        public static void WriteNewUser(Fiscal inputData)
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
                 String.Format(@"INSERT INTO XenaUser(UserID) 
-                        VALUES ({0});", inputData.userID), connection);
+                        VALUES ({0});", inputData.UserID), connection);
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);

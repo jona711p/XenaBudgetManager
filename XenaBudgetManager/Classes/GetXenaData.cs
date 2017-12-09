@@ -55,7 +55,7 @@ namespace XenaBudgetManager.Classes
         }
 
         // GET: GetXenaData - fiscal period data
-        public static List<LedgerGroupData> LedgerGroupData(string token, DateTime fromData, DateTime toData) // With DateTime
+        public static List<LedgerGroupData> LedgerGroupData(string token, DateTime fromData, DateTime toData)
         {
             //create an instanse of a ledgergroupdata
             List<LedgerGroupData> ledgerGroupDataList = new List<LedgerGroupData>(); // A new empty list of LedgerGroupData
@@ -77,85 +77,29 @@ namespace XenaBudgetManager.Classes
                 ledgerGroupDataList.Add(new LedgerGroupData(jToken)); // Adds each Entity to a LedgerGroupData
             }
 
-            return ledgerGroupDataList;
-        }
-
-        public static List<LedgerGroupData> LedgerGroupData(string token) // Without DateTime
-        {
-            //create an instanse of a ledgergroupdata
-            List<LedgerGroupData> ledgerGroupDataList = new List<LedgerGroupData>(); // A new empty list of LedgerGroupData
-            //
-            //create a list of the tokens received from xena - tokens here are key/value pairs
-            //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = XenaLogic.CallXena(token,
-                "Fiscal/98437/Transaction/LedgerGroupData?fiscalPeriodId=169626878&FiscalDateFrom=17167&FiscalDateTo=17530"); // List with JTokens from Xena's Array
-            //take each token in the token list and add them to the ledgergroup list
-            foreach (JToken jToken in jTokenList)
-            {
-                ledgerGroupDataList.Add(new LedgerGroupData(jToken)); // Adds each Entity to a LedgerGroupData
-            }
-
             foreach (LedgerGroupData ledgerGroupData in ledgerGroupDataList)
             {
-                ledgerGroupData.LedgerGroupDetailDataList = LedgerGroupDetailData(token, ledgerGroupData.Group);
+                ledgerGroupData.LedgerGroupDetailDataList = LedgerGroupDetailData(token, ledgerGroupData.Group, fromXenaEpoch, toXenaEpoch);
             }
 
             return ledgerGroupDataList;
         }
 
-        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, DateTime fromData, DateTime toData) // With DateTime
+        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, string group, long fromXenaEpoch, long toXenaEpoch)
         {
             //create an instanse of a ledgergroupdata
             List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
 
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-
-            long fromXenaEpoch = TimeInEpoch(fromData);
-            long toXenaEpoch = TimeInEpoch(toData);
 
             string url = "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&" +
                          "FiscalDateFrom=" + fromXenaEpoch + "&" +
-                         "FiscalDateTo=" + toXenaEpoch +
-                         "&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799";
+                         "FiscalDateTo=" + toXenaEpoch + "&" +
+                         "ledgerAccount=" + group +
+                         "&_=1512035981799";
 
             List<JToken> jTokenList = XenaLogic.CallXena(token, url); // List with JTokens from Xena's Array
-            //take each token in the token list and add them to the ledgergroup list
-            foreach (JToken jToken in jTokenList)
-            {
-                ledgerGroupDetailDataList.Add(new LedgerGroupDetailData(jToken)); // Adds each Entity to a LedgerGroupData
-            }
-
-            return ledgerGroupDetailDataList;
-        }
-
-        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, string group) // Without DateTime 
-        {
-            //create an instanse of a ledgergroupdata 
-            List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
-
-            //create a list of the tokens received from xena - tokens here are key/value pairs 
-            //Next we call xena, pass in the accesstoken, to retrieve our data from the api 
-            List<JToken> jTokenList = XenaLogic.CallXena(token,
-                "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=" + group + "&_=1512035981799"); // List with JTokens from Xena's Array 
-            //take each token in the token list and add them to the ledgergroup list 
-            foreach (JToken jToken in jTokenList)
-            {
-                ledgerGroupDetailDataList.Add(new LedgerGroupDetailData(jToken)); // Adds each Entity to a LedgerGroupData 
-            }
-
-            return ledgerGroupDetailDataList;
-        }
-
-        public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token) // Without DateTime
-        {
-            //create an instanse of a ledgergroupdata
-            List<LedgerGroupDetailData> ledgerGroupDetailDataList = new List<LedgerGroupDetailData>();
-
-            //create a list of the tokens received from xena - tokens here are key/value pairs
-            //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = XenaLogic.CallXena(token,
-                "Fiscal/98437/Transaction/LedgerGroupDataDetail?fiscalPeriodId=169626878&FiscalDateFrom=17197&FiscalDateTo=17535&ledgerAccount=Xena_Domain_Income_Accounts_Net_Turn_Over&_=1512035981799"); // List with JTokens from Xena's Array
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
             {
@@ -170,6 +114,7 @@ namespace XenaBudgetManager.Classes
             long unixTimeSeconds = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
             return unixTimeSeconds / 60 / 60 / 24;
         }
+
         public static List<ExtraLedgerTag> GetRevenueTag(string token)
         {
             List<ExtraLedgerTag> ExtraLedgerTagList = new List<ExtraLedgerTag>();
