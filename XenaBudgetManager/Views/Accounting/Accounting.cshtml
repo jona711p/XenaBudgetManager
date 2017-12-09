@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<XenaBudgetManager.Models.LedgerGroupData>
 
 @{
-    ViewBag.Title = "Vis Regnskab";
+    ViewBag.Title = "Vis Regnskab for: " + Session["fiscalSetupName"];
 }
 
-<h2>Vis Regnskab</h2>
+<h2>Vis Regnskab for @Session["fiscalSetupName"]</h2>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="~/Scripts/slideToggle.js"></script>

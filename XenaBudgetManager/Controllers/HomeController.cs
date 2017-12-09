@@ -64,6 +64,12 @@ namespace XenaBudgetManager.Controllers
             return RedirectToAction("Fiscals");
         }
 
+        /// <summary>
+        /// 
+        /// Written by Jonas
+        /// 
+        /// Clear the session and returns to the Index page.
+        /// </summary>
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -71,6 +77,36 @@ namespace XenaBudgetManager.Controllers
             Session.RemoveAll();
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// 
+        /// Written by Jonas
+        /// 
+        /// Shows a page with the Fiscals that the logged in user have access to.
+        /// </summary>
+        public ActionResult Fiscals()
+        {
+            List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
+                "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
+
+            return View(XenaLogic.GetFiscalList(jTokenList));
+        }
+
+        /// <summary>
+        /// 
+        /// Written by Jonas
+        /// 
+        /// Sets the Session Varibles to the givin' Fiscal.
+        /// </summary>
+        public ActionResult SetFiscalAndUser(int fiscalID, string fiscalSetupName, int userID)
+        {
+            Session["fiscalID"] = fiscalID;
+            Session["fiscalSetupName"] = fiscalSetupName;
+            Session["userID"] = userID;
+
+            return RedirectToAction("Fiscals");
+        }
+
 
         /// <summary>
         /// Debug
@@ -88,25 +124,8 @@ namespace XenaBudgetManager.Controllers
 
             List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
-            
+
             Session["userName"] = jTokenList[0]["ResourceName"].ToString();
-
-            return RedirectToAction("Fiscals");
-        }
-
-        public ActionResult Fiscals()
-        {
-            List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
-                "User/XenaUserMembership?listOptions.showDeactivated=true&listOptions.forceNoPaging=true");
-
-            return View(XenaLogic.GetFiscalList(jTokenList));
-        }
-        
-        public ActionResult SetFiscalAndUser(int fiscalID, string fiscalSetupName, int userID)
-        {
-            Session["fiscalID"] = fiscalID;
-            Session["fiscalSetupName"] = fiscalSetupName;
-            Session["userID"] = userID;
 
             return RedirectToAction("Fiscals");
         }

@@ -6,17 +6,12 @@
 
 <h2>Virksomheder</h2>
 
-<table class="table table-hover">
-    <tr>
-        <th>
-            <p>Virksomheder:</p>
-        </th>
-        <th></th>
-    </tr>
+<table class="table">
 
 @foreach (var item in Model) {
     <tr>
         <td>
+            <img src="~/Images/avatar-company-xena.jpg" />
             @Html.ActionLink(item.FiscalSetupName, "SetFiscalAndUser", new { item.FiscalID, item.FiscalSetupName, item.UserID })
         </td>
     </tr>
