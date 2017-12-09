@@ -62,7 +62,7 @@ namespace XenaBudgetManager.Controllers
             ViewBag.Token = xena.access_token; // Debug
 
             //return RedirectToAction("Fiscals");
-            return RedirectToAction("Index"); // Debug
+            return View(); // Debug
         }
 
         /// <summary>
