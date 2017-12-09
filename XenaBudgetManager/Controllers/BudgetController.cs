@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using XenaBudgetManager.Classes;
 
@@ -12,7 +13,6 @@ namespace XenaBudgetManager.Models
     
     public class BudgetController : Controller
     {
-        List<LedgerTags> tempLedgerTag = new List<LedgerTags>();
         // GET: Budget
         public ActionResult Budget()
         {
@@ -34,12 +34,10 @@ namespace XenaBudgetManager.Models
             return View(ds);
         }
 
-
         public ActionResult CreateBudget()
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
@@ -114,28 +112,35 @@ namespace XenaBudgetManager.Models
             }
             #endregion
 
-            ViewBag.list = tempLedgerTag;
+            ViewBag.list = budget;
             return View("EditBudget",ViewBag.list);
         }
 
-
-
         [HttpPost]
-        public ActionResult EditBudget(List<LedgerTags> TagList)
+        public ActionResult EditBudget(Budget compeleteBudget)
         {
-            // lav Dropdownliste med alle måneder i view
+            // !lav Dropdownliste med alle måneder i view 
             //efter måned er valgt kan værdier for denne indtastes for hver konto
             //derefter vælger man et nyt måned og gør det samme
-            //hvis man f.eks. har indtastes op til marts skal man stadig kunne gå tilbage og ændre f.kes. januar
-            //når alle måneder/konti er udfyld trykkes på en knap "gem budget"
+            //hvis man f.eks. har indtastes op til marts skal man stadig kunne gå tilbage og ændre f.eks. januar
+            //når alle måneder/konti er udfyldt trykkes på en knap "gem budget"
             //budgettet kan ikke redigeres efter dette
-            //bagefter skal vi lave et view til visningen af budgettet ala 'vis regnskab'
+            //bagefter skal vi lave et view til visningen af budgettet a la 'vis regnskab'
 
-            return View();
-        }
 
-        public ActionResult EditBudget(List<LedgerTags> TagList, List<Account> AccountList)
-        {
+
+            //@using(Html.BeginForm("Index", "Home", FormMethod.Post)){
+
+            //    @*Bind inputfelterne *@
+            //        < Input  name = "txt_text" placeholder = "Text" />
+
+            //        < Input Type = "text" name = "txt_author"placeholder = "Author" />
+
+
+            //        < input type = "submit" value = "Gem budget" />
+            //}
+
+
             return View();
         }
     }

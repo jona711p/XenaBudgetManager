@@ -1,12 +1,104 @@
-﻿@{
-    ViewBag.SelectedList = "tempLedgerTag";
-}
-@foreach(var item in ViewBag.List)
-{
-    <div> @item.longDescription </div>
-    <div> @Html.TextBox("item.longDescription", null, new { @class = "form-control" })</div>   
+﻿@using System.Text.RegularExpressions
+@model XenaBudgetManager.Models.Budget
+
+@*dropdownliste med keyvaluepair <int, string> hvor int er 1-12 og string er måned
+sammenlign key med 'i' nedenunder og vis kun inputfelter hvor key = i*@
+
+@{List<SelectListItem> dropdownValues = new List<SelectListItem>();
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "Januar",
+        Value = "0"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "Februar",
+        Value = "1"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "Marts",
+        Value = "2"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "April",
+        Value = "3"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "Maj",
+        Value = "4"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "Juni",
+        Value = "5"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "Juli",
+        Value = "6"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "August",
+        Value = "7"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "September",
+        Value = "8"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "Oktober",
+        Value = "9"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "November",
+        Value = "10"
+    });
+    dropdownValues.Add(new SelectListItem
+    {
+        Text = "December",
+        Value = "11"
+    });
 }
 
+@Html.DropDownList("DDlDemo", new SelectList(dropdownValues, "Value", "Text"))
+
+
+
+
+@{
+
+
+
+    for (int i = 0; i < 1; i++)
+    {
+        foreach (var Group in Model.groupList)  {
+            <div >
+                <h1>
+                    @Html.DisplayFor(modelItemList => Group.accountGroupName)
+                </h1>
+            </div>
+            foreach (var Account in Group.accountList)
+            {
+                <div>
+                    <h3>
+                        <p>@Html.DisplayFor(modelItemList => Account.accountName)</p>
+                    </h3>
+
+                    @Html.EditorFor(model => Account.accountName, new {htmlAttributes = new {@class = "form-control"}, id = Account.accountID + "-" + i}) @*skulle gerne - giver hver inputfelt et unikt id der indikere kontiId og måned*@
+                    <hr/>
+                    @*@Html.ValidationMessageFor(model => Account.accountName, "", new { @class = "text-danger" })*@
+                </div>
+                    }
+        }
+    }    
+}
 
 
 
