@@ -1,0 +1,6 @@
+﻿@model XenaBudgetManager.Models.AccountListViewModel
+
+@for (var index = 0; index < Model.accountList.Count; index++)
+{
+   @Html.EditorFor(x=> Model.accountList[index])
+}

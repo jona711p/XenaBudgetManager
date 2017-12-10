@@ -185,6 +185,8 @@
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountGroup.cs" />
+    <Compile Include="Models\AccountGroupListViewModel.cs" />
+    <Compile Include="Models\AccountListViewModel.cs" />
     <Compile Include="Models\Budget.cs" />
     <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Classes\DB.cs" />
@@ -260,6 +262,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_LoggedInWithFiscal.cshtml" />
     <Content Include="Views\Home\Fiscals.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AccountGroupListViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AccountGroup.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AccountListViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Account.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

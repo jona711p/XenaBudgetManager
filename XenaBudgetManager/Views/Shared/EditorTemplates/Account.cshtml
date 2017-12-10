@@ -1,0 +1,37 @@
+﻿@model XenaBudgetManager.Models.Account
+<div>
+    <h3>
+        <p>@Html.DisplayFor(modelItemList => Model.accountName)</p> 
+    </h3>
+
+    @Html.HiddenFor(model=>model.accountID)
+    @Html.HiddenFor(model=>model.accountName)
+    @Html.HiddenFor(model=>model.Total)
+    
+    
+    @Html.EditorFor(model => Model.January, new {htmlAttributes = new {@class = "form-control monthInput month0" } })
+
+    @Html.EditorFor(model => Model.February, new {htmlAttributes = new {@class = "form-control monthInput month1", style="display:none" } })
+
+    @Html.EditorFor(model => Model.March, new {htmlAttributes = new {@class = "form-control monthInput month2", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.April, new {htmlAttributes = new {@class = "form-control monthInput month3", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.May, new {htmlAttributes = new {@class = "form-control monthInput month4", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.June, new {htmlAttributes = new {@class = "form-control monthInput month5", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.July, new {htmlAttributes = new {@class = "form-control monthInput month6", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.August, new {htmlAttributes = new {@class = "form-control monthInput month7", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.September, new {htmlAttributes = new {@class = "form-control monthInput month8", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.October, new {htmlAttributes = new {@class = "form-control monthInput month9", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.November, new {htmlAttributes = new {@class = "form-control monthInput month10", style = "display:none" } })
+
+    @Html.EditorFor(model => Model.December, new {htmlAttributes = new {@class = "form-control monthInput month11", style = "display:none" } })@*skulle gerne - giver hver inputfelt et unikt id der indikere kontiId og måned*@
+    <hr/>
+    @*@Html.ValidationMessageFor(model => Account.accountName, "", new { @class = "text-danger" })*@
+</div>

@@ -5,6 +5,10 @@ namespace XenaBudgetManager.Models
 {
     public class Account
     {
+        public Account()
+        {
+            
+        }
         public Account(Account account)
         {
             

@@ -85,28 +85,31 @@ namespace XenaBudgetManager.Models
             List<AccountGroup> tempGroupList = AccountGroup.ConvertLedgerAccountToAccountGroupList(tempLedgerAccount, tempAccountList, AccountPlan);
 
 
-            budget.groupList = tempGroupList;
+            budget.groupList = new AccountGroupListViewModel() {groupList = tempGroupList};
 
             //tjek hvilke group.id der hører sammen med account.id via accountplan
             for (int i = 0; i < tempGroupList.Count; i++)
             {
-                tempGroupList[i].accountList = new List<Account>();
+                tempGroupList[i].accountList = new AccountListViewModel()
+                {
+                    accountList = new List<Account>()
+                };
                 for (int j = 0; j < tempAccountList.Count; j++)
                 {
                     for (int k = 0; k < AccountPlan.Count; k++)
                     {
                         if (tempGroupList[i].accountGroupID == AccountPlan[k].Key && tempAccountList[j].accountID == AccountPlan[k].Value)
                         {
-                            tempGroupList[i].accountList.Add(tempAccountList[j]);
+                            tempGroupList[i].accountList.accountList.Add(tempAccountList[j]);
                         }
                     }
                 }
             }
-            for (int i = 0; i < budget.groupList.Count; i++)
+            for (int i = 0; i < budget.groupList.groupList.Count; i++)
             {
-                if (budget.groupList[i].accountList.Count == 0)
+                if (budget.groupList.groupList[i].accountList.accountList.Count == 0)
                 {
-                    budget.groupList.RemoveAt(i);
+                    budget.groupList.groupList.RemoveAt(i);
                     --i;
                 }
             }
@@ -120,28 +123,15 @@ namespace XenaBudgetManager.Models
         public ActionResult EditBudget(Budget compeleteBudget)
         {
             // !lav Dropdownliste med alle måneder i view 
-            //efter måned er valgt kan værdier for denne indtastes for hver konto
-            //derefter vælger man et nyt måned og gør det samme
-            //hvis man f.eks. har indtastes op til marts skal man stadig kunne gå tilbage og ændre f.eks. januar
-            //når alle måneder/konti er udfyldt trykkes på en knap "gem budget"
-            //budgettet kan ikke redigeres efter dette
+            //!efter måned er valgt kan værdier for denne indtastes for hver konto
+            //!derefter vælger man et nyt måned og gør det samme
+            //!hvis man f.eks. har indtastes op til marts skal man stadig kunne gå tilbage og ændre f.eks. januar
+            //-!når alle måneder/konti er udfyldt trykkes på en knap "gem budget"
+            //-!budgettet kan ikke redigeres efter dette
             //bagefter skal vi lave et view til visningen af budgettet a la 'vis regnskab'
 
 
-
-            //@using(Html.BeginForm("Index", "Home", FormMethod.Post)){
-
-            //    @*Bind inputfelterne *@
-            //        < Input  name = "txt_text" placeholder = "Text" />
-
-            //        < Input Type = "text" name = "txt_author"placeholder = "Author" />
-
-
-            //        < input type = "submit" value = "Gem budget" />
-            //}
-
-
-            return View();
+            return RedirectToAction("Index","Home");
         }
     }
 

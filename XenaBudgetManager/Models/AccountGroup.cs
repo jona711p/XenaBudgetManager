@@ -5,6 +5,10 @@ namespace XenaBudgetManager.Models
 {
     public class AccountGroup
     {
+        public AccountGroup()
+        {
+            
+        }
         public AccountGroup(LedgerAccounts inputData)
         {
             accountGroupID = inputData.ledgerAccountId;
@@ -31,6 +35,6 @@ namespace XenaBudgetManager.Models
         public string accountGroupName { get; set; }
 
         [DisplayName("Kontoliste")]
-        public List<Account> accountList { get; set; }
+        public AccountListViewModel accountList { get; set; }
     }
 }

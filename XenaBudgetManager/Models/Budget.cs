@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace XenaBudgetManager.Models
 {
     public class Budget
     {
+        public Budget()
+        {
+            
+        }
         [DisplayName("Budget ID")]
         public int budgetID { get; set; }
 
@@ -21,6 +24,6 @@ namespace XenaBudgetManager.Models
         //public List<Fiscal> userList { get; set; }
 
         [DisplayName("Gruppeliste")]
-        public List<AccountGroup> groupList { get; set; }
+        public AccountGroupListViewModel groupList { get; set; }
     }
 }
