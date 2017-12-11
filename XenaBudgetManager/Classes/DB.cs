@@ -381,11 +381,11 @@ namespace XenaBudgetManager.Classes
 
 
                     int AccountID = inputData.groupList.groupList[i].accountList.accountList[j].accountID;
-                    int ValueID =  Int32.Parse(tempData.ToString());
+                    int ValueID = Int32.Parse(tempData.ToString());
                     DB.WriteRel_Posting(AccountID, ValueID);
 
                 }
-                
+
             }
             connection = DisconnectFromDB(connection);
             return;
@@ -400,6 +400,29 @@ namespace XenaBudgetManager.Classes
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
+        }
+
+        public static List<Budget> GetFullBudgetList(int budgetID)
+        {
+            List<Budget> budgetList = new List<Budget>();
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT * FROM view_GetFullBudget WHERE BudgetID = @BudgetID", connection);
+            command.Parameters.AddWithValue("@BudgetID", budgetID);
+
+            dt.Load(command.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                budgetList.Add(new Budget(row));
+            }
+
+            connection = DisconnectFromDB(connection);
+
+            return budgetList;
         }
     }
 }
