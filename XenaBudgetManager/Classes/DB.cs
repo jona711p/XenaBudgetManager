@@ -10,7 +10,7 @@ namespace XenaBudgetManager.Classes
     public class DB
     {
         ///<summary>
-        ///Written by Thomas
+        ///Written by Jonas
         ///Establishes a connection to the DB 
         ///</summary>
         public static SqlConnection ConnectToDB(SqlConnection connection)
@@ -25,7 +25,7 @@ namespace XenaBudgetManager.Classes
         }
 
         /// <summary>
-        /// Written by Thomas
+        /// Written by Jonas
         /// Closes connection to the DB
         /// </summary>
         public static SqlConnection DisconnectFromDB(SqlConnection connection)
@@ -41,14 +41,14 @@ namespace XenaBudgetManager.Classes
 
             catch (Exception)
             {
-                //MessageBox.Show("Der Kunne ikke Oprettes Forbindelse til Databaseserveren!");
+               
             }
 
             return connection;
         }
 
         /// <summary>
-        /// Written by Thomas
+        /// Written by Thomas and Mikael
         /// Inserts a new entry to the ValueInterval table in DB with the postings of a given account
         /// </summary>
         public static void WriteValueInterval(Account inputData)//BRUGEE´S IKKE?
@@ -70,7 +70,7 @@ namespace XenaBudgetManager.Classes
         }
 
         /// <summary>
-        /// Written by Thomas
+        /// Written by Thomas and Mikael
         /// Inserts a new entry in  DB 'LedgerAccount' with related data 
         /// </summary>
         public static List<LedgerAccounts> WriteNewLedgerAccount(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
@@ -98,7 +98,7 @@ namespace XenaBudgetManager.Classes
         }
 
         /// <summary>
-        /// Written by Thomas
+        /// Written by Thomas and Mikael
         /// Inserts a new entry in  DB 'LedgerTag' with related data 
         /// </summary>
         public static List<LedgerTags> WriteNewLedgerTag(List<LedgerTags> inputList) //rettet efter XenaDataModel
@@ -125,7 +125,7 @@ namespace XenaBudgetManager.Classes
         }
 
         /// <summary>
-        /// Written by Thomas
+        /// Written by Thomas and Mikael
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
         /// </summary>
         public static void WriteNewRel_AccountPlan(List<LedgerTags> inputTagList, List<LedgerAccounts> inputAccountList, int budgetID) //rettet efter XenaDataModel
@@ -160,7 +160,7 @@ namespace XenaBudgetManager.Classes
         }
 
         /// <summary>
-        /// Written by Thomas
+        /// Written by Thomas and Mikael
         /// Inserts a new entry in  DB 'XenaFiscal' with related data 
         /// </summary>
         public static void WriteNewFiscal(Budget inputData)
@@ -177,7 +177,7 @@ namespace XenaBudgetManager.Classes
         } //ikke i brug
 
         /// <summary>
-        /// Written by Thomas
+        /// Written by Thomas and Mikael
         /// Inserts a new entry in  DB 'Budget' with related data 
         /// </summary>
         public static int WriteNewBudget(Budget inputData)
@@ -195,7 +195,11 @@ namespace XenaBudgetManager.Classes
             return Int32.Parse(tempData.ToString());
         }
 
-        // Claus. Gets List of Budgets. Is used to populate selectedList i view where you pick a budget to compare.
+        ///<summary>
+        ///Written Claus
+        /// Claus. Gets List of Budgets. Is used to populate selectedList i view where you pick a budget to compare. 
+        ///</summary>
+
         public static List<Budget> GetBudgetId()
         {
             List<Budget> budgetList = new List<Budget>();
@@ -219,10 +223,11 @@ namespace XenaBudgetManager.Classes
             conn = DisconnectFromDB(conn);
             return budgetList;
         }
-        //få fat i gruppeidliste 
-        //select * from LedgerAccount
-        //tag templisten og bind xenaid til accountid
-        //returner opdateret liste med grupper
+
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///Establishes a connection to the DB 
+        ///</summary>
         public static List<LedgerAccounts> GetAccountIDs(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
         {
             SqlConnection connection = null;
@@ -262,7 +267,9 @@ namespace XenaBudgetManager.Classes
             return inputList;
 
         }
-
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///</summary>
         public static List<LedgerTags> GetTagIDs(List<LedgerTags> inputList) //rettet efter XenaDataModel
         {
             SqlConnection connection = null;
@@ -304,6 +311,9 @@ namespace XenaBudgetManager.Classes
 
         }
 
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///</summary>
         public static List<KeyValuePair<int, int>> ReadRel_AccountPlan(Budget inputBudget)
         {
             List<KeyValuePair<int, int>> inputList = new List<KeyValuePair<int, int>>();
@@ -331,7 +341,9 @@ namespace XenaBudgetManager.Classes
             return inputList;
         }
 
-
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///</summary>
         public static List<string> DupeCheckListTag()
         {
             DataTable dt = new DataTable();
@@ -354,6 +366,9 @@ namespace XenaBudgetManager.Classes
             return dupeCheckList;
         }
 
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///</summary>
         public static List<string> DupeCheckListAccount()
         {
             DataTable dt = new DataTable();
@@ -375,6 +390,10 @@ namespace XenaBudgetManager.Classes
 
             return dupeCheckList;
         }
+
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///</summary>
         public static void WriteBudgetValues(Budget inputData)
         {
             SqlConnection connection = null;
@@ -412,6 +431,10 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
             return;
         }
+
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///</summary>
         public static void WriteValueIntervalToAccountPlan(int ValueID, int budgetID, int accountID)
         {
             SqlConnection connection = null;
@@ -424,6 +447,9 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
         }
 
+        ///<summary>
+        ///Written by Thomas and Mikael
+        ///</summary>
         public static List<Budget> GetFullBudgetList(int budgetID, int fromMonth, int toMonth)
         {
             List<Budget> budgetList = new List<Budget>();
@@ -462,6 +488,9 @@ namespace XenaBudgetManager.Classes
             return budgetList;
         }
 
+        ///<summary>
+        ///Written by Jonas
+        ///</summary>
         private static string FindMonth(int month)
         {
             switch (month)

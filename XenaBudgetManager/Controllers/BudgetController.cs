@@ -10,7 +10,10 @@ namespace XenaBudgetManager.Models
 
     public class BudgetController : Controller
     {
-        // GET: Budget
+        ///<summary>
+        /// /// Written by Mikael
+        /// GET: Budget
+        ///</summary>
         public ActionResult Budget()
         {
             DataSet ds = new DataSet();
@@ -31,11 +34,17 @@ namespace XenaBudgetManager.Models
             return View(ds);
         }
 
+        ///<summary>
+        /// /// Written by Mikael
+        ///</summary>
         public ActionResult CreateBudget()
         {
             return View();
         }
 
+        ///<summary>
+        /// /// Written by Mikael and Thomas
+        ///</summary>
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
         {
@@ -116,6 +125,9 @@ namespace XenaBudgetManager.Models
             return View("EditBudget",ViewBag.list);
         }
 
+        ///<summary>
+        /// /// Written by Mikael and Thomas
+        ///</summary>
         [HttpPost]
         public ActionResult EditBudget(Budget compeleteBudget)
         {

@@ -2,6 +2,10 @@
 
 namespace XenaBudgetManager.Models
 {
+
+    /// <summary>
+    /// Written by Jonas
+    /// </summary>
     public class Fiscal
     {
         public int FiscalID { get; set; }

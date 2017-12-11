@@ -4,11 +4,13 @@ using System.ComponentModel;
 
 namespace XenaBudgetManager.Models
 {
-    //Claus
+    /// <summary>
+    /// Written by Claus
     //Containing the variables consumed from account og ledgertag api's
     //from here variables are persisted to the Db.
-
     // Containing ledger tag  which is the actual account numbers
+    /// </summary>
+
     public class LedgerTags
     {
         public int ledgerTagId { get; set; }
@@ -16,7 +18,9 @@ namespace XenaBudgetManager.Models
         public string longDescription { get; set; }
         public string ledgerAccountXena { get; set; }
 
-
+        /// <summary>
+        /// Written by Jonas, Claus and Thomas
+        /// </summary>
         public LedgerTags()
         {
         }
@@ -29,6 +33,7 @@ namespace XenaBudgetManager.Models
                 ledgerAccountXena = jToken["LedgerAccount"].ToString();
         }
 
+      
         public LedgerTags(ExtraLedgerTag input)
         {
             ledgerTagId = input.ledgerTagId;
@@ -38,7 +43,9 @@ namespace XenaBudgetManager.Models
         }
     }
 
-    // Containing ledger accounts
+    /// <summary>
+    /// Written by Jonas, Claus, Thomas and Mikael
+    /// </summary>
     public class LedgerAccounts
     {
         public int ledgerAccountId { get; set; }
@@ -56,6 +63,9 @@ namespace XenaBudgetManager.Models
         }
     }
 
+    /// <summary>
+    /// Written by Jonas and Claus
+    /// </summary>
     public class LedgerGroupData
     {
         [DisplayName("Periode")]
@@ -81,6 +91,9 @@ namespace XenaBudgetManager.Models
         }
     }
 
+    /// <summary>
+    /// Written by Jonas, Claus and Thomas
+    /// </summary>
     public class LedgerGroupDetailData
     {
         public string AccountDescription { get; set; }
@@ -101,6 +114,10 @@ namespace XenaBudgetManager.Models
 
      
     }
+
+    /// <summary>
+    /// Written by Thomas and Mikael
+    /// </summary>
     public class ExtraLedgerTag
     {
         public int ledgerTagId { get; set; }

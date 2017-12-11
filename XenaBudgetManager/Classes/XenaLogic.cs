@@ -13,9 +13,7 @@ namespace XenaBudgetManager.Classes
     public class XenaLogic
     {
         /// <summary>
-        /// 
         /// Written by Jonas
-        /// 
         /// You will now request a Access Token from Xena's Authorization Server.
         /// You build a encoded URL and send it to Xena's Authorization Server.
         /// Xena's Authorization Server sends a long string back, this is your Access Token!
@@ -50,9 +48,7 @@ namespace XenaBudgetManager.Classes
         }
 
         /// <summary>
-        /// 
         /// Written by Jonas
-        /// 
         /// Here we generate a uniqe string og letters & numbers to be used in the authorization process.
         /// </summary>
         public static string RandomString(int length)
@@ -65,9 +61,7 @@ namespace XenaBudgetManager.Classes
         }
 
         /// <summary>
-        /// 
         /// Written by Jonas
-        /// 
         /// This is a "HELPER METHOD" that is used everytime you want to call Xena's API. So that it minimize the code use in the rest of the code ;)
         /// </summary>
         public static List<JToken> CallXena(string token, string path)
@@ -87,12 +81,10 @@ namespace XenaBudgetManager.Classes
 
 
         // Written by Jonas
-        //
         // This is what should be used in the rest of the code, to utilize the Helper Method seen above, COPY AND UNCOMMENT.
-        // !!! Don't assume that its like it should be everywhere, you will need to change the URL string "Fiscal/98437/FiscalPeriod" so that you call the right API Endpoint !!!
-        // !!! We'll recive a List with JSON Tokens.                                                                                                                          !!!
-        // !!! The list of Tokens and now be procressed with INDEX [ ] or a FOREACH, I'll include examples on each for you                                                    !!!
-
+        // !!! Don't assume that its like it should be everywhere, you will need to change the URL string "Fiscal/98437/FiscalPeriod" so that you call the right API Endpoint 
+        // !!! We'll recive a List with JSON Tokens.                                                                                                                          
+        // !!! The list of Tokens and now be procressed with INDEX [ ] or a FOREACH, I'll include examples on each for you                                                    
         //private void GetDataFromXena()
         //{
         //    List<JToken> jTokenList = Xena.CallXena(Session["access_token"].ToString(), // "Session["access_token"].ToString()" Can only be used in a controller, change it to a parameter if used in a class and send it along from the controller
@@ -110,6 +102,9 @@ namespace XenaBudgetManager.Classes
         //    }
         //}
 
+        ///<summary>
+        /// /// Written by Jonas
+        ///</summary>
         public static List<Fiscal> GetFiscalList(List<JToken> jTokenList)
         {
             List<Fiscal> fiscalList = new List<Fiscal>();

@@ -3,6 +3,10 @@ using System.ComponentModel;
 
 namespace XenaBudgetManager.Models
 {
+
+    /// <summary>
+    /// Written by Jonas, Thomas, Claus and Mikael
+    /// </summary>
     public class AccountGroup
     {
         public AccountGroup()

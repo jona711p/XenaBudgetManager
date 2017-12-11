@@ -7,6 +7,10 @@ namespace XenaBudgetManager.Models
 {
     public class Budget
     {
+
+        /// <summary>
+        /// Written by Mikael and Thomas
+        /// </summary>
         public Budget()
         {
         }

@@ -7,7 +7,11 @@ namespace XenaBudgetManager.Classes
 {
     public class GetXenaData
     {
+        ///<summary>
+        /// /// Written by Jonas
         //GET:  list of ledgeraccount objects - the group names
+        ///</summary>
+
         public static List<LedgerAccounts> LedgerAccount(string token) //Takes the helper object xena to easier connect to xena
         {
             List<LedgerAccounts> LedgerAccountList = new List<LedgerAccounts>();
@@ -27,7 +31,11 @@ namespace XenaBudgetManager.Classes
             //TODO: code that takes the list and persists it to the db
         }
 
-        //GET:  list of ledgertag objects - the account names
+
+        ///<summary>
+        /// /// Written by Jonas and Thomas
+        ///GET:  list of ledgertag objects - the account names
+        ///</summary>
         public static List<LedgerTags> LedgerTag(string token) //Takes the helper object xena to easier connect to xena
         {
             List<LedgerTags> LedgerTagList = new List<LedgerTags>();
@@ -54,7 +62,10 @@ namespace XenaBudgetManager.Classes
             return LedgerTagList;
         }
 
-        // GET: GetXenaData - fiscal period data
+        ///<summary>
+        /// /// Written by Jonas
+        /// GET: GetXenaData - fiscal period data
+        ///</summary>
         public static List<LedgerGroupData> LedgerGroupData(string token, int fiscalID, DateTime fromData, DateTime toData)
         {
             //create an instanse of a ledgergroupdata
@@ -89,6 +100,9 @@ namespace XenaBudgetManager.Classes
             return ledgerGroupDataList;
         }
 
+        ///<summary>
+        /// /// Written by Jonas
+        ///</summary>
         public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, int fiscalID, string group, long fromXenaEpoch, long toXenaEpoch)
         {
             //create an instanse of a ledgergroupdata
@@ -117,12 +131,18 @@ namespace XenaBudgetManager.Classes
             return ledgerGroupDetailDataList;
         }
 
+        ///<summary>
+        /// /// Written by Jonas
+        ///</summary>
         private static long TimeInEpoch(DateTime dateTime)
         {
             long unixTimeSeconds = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
             return unixTimeSeconds / 60 / 60 / 24;
         }
 
+        ///<summary>
+        /// /// Written by Mikael
+        ///</summary>
         public static List<ExtraLedgerTag> GetRevenueTag(string token)
         {
             List<ExtraLedgerTag> ExtraLedgerTagList = new List<ExtraLedgerTag>();
@@ -139,6 +159,9 @@ namespace XenaBudgetManager.Classes
             return ExtraLedgerTagList;
         }
 
+        ///<summary>
+        /// /// Written by Mikael
+        ///</summary>
         public static List<ExtraLedgerTag> GetProductTag(string token)
         {
             List<ExtraLedgerTag> ExtraLedgerTagList = new List<ExtraLedgerTag>();

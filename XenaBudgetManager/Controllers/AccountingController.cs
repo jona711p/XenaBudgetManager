@@ -8,6 +8,9 @@ namespace XenaBudgetManager.Controllers
 {
     public class AccountingController : Controller
     {
+        ///<summary>
+        /// /// Written by Jonas and Mikael
+        ///</summary>
         public ActionResult Accounting()
         {
             ViewBag.datePicked = false;
@@ -16,6 +19,9 @@ namespace XenaBudgetManager.Controllers
             return View();
         }
 
+        ///<summary>
+        /// /// Written by Jonas
+        ///</summary>
         [HttpPost]
         public ActionResult Accounting(DateTime fromDate, DateTime toDate)
         {
@@ -33,6 +39,9 @@ namespace XenaBudgetManager.Controllers
             return View(ledgerGroupDataList);
         }
 
+        ///<summary>
+        /// /// Written by Jonas
+        ///</summary>
         private bool DatePickedCorrect(DateTime fromDate, DateTime toDate)
         {
             int fromYear = fromDate.Year;

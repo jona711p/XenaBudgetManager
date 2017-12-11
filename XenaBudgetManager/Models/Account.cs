@@ -7,6 +7,9 @@ namespace XenaBudgetManager.Models
 {
     public class Account
     {
+        /// <summary>
+        /// Written by Jonas, Thomas, Claus and Mikael
+        /// </summary>
         public Account()
         {
             

@@ -2,6 +2,10 @@
 
 namespace XenaBudgetManager.Models
 {
+
+    /// <summary>
+    /// Written by Thomas
+    /// </summary>
     public class AccountListViewModel
     {
         public AccountListViewModel()

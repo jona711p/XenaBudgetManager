@@ -10,15 +10,16 @@ namespace XenaBudgetManager.Controllers
 {
     public class HomeController : Controller
     {
+        ///<summary>
+        /// /// Written by Jonas
+        ///</summary>
         public ActionResult Index()
         {
             return View();
         }
 
         /// <summary>
-        /// 
         /// Written by Jonas
-        /// 
         /// When the "Login" Link is pushed on the page.
         /// Makes a QueryString with the parameters that is needed and a "Callback URL", then it sends it to Xena's Authorization Server.
         /// Then you get redirect to Xena's own Login Page, here you enter your data and press Login.
@@ -39,9 +40,7 @@ namespace XenaBudgetManager.Controllers
         }
 
         /// <summary>
-        /// 
         /// Written by Jonas
-        /// 
         /// After you have pressed Login on Xena's own Login Page, it sends you back to the "Callback URL" that was send in the first place.
         /// You have been givin' a "code". This is your approval from the Xena's Authorization Server.
         /// </summary>
@@ -66,9 +65,7 @@ namespace XenaBudgetManager.Controllers
         }
 
         /// <summary>
-        /// 
         /// Written by Jonas
-        /// 
         /// Clear the session and returns to the Index page.
         /// </summary>
         public ActionResult Logout()
@@ -80,9 +77,7 @@ namespace XenaBudgetManager.Controllers
         }
 
         /// <summary>
-        /// 
         /// Written by Jonas
-        /// 
         /// Shows a page with the Fiscals that the logged in user have access to.
         /// </summary>
         public ActionResult Fiscals()
@@ -94,9 +89,7 @@ namespace XenaBudgetManager.Controllers
         }
 
         /// <summary>
-        /// 
-        /// Written by Jonas
-        /// 
+        /// Written by Jonas and Claus
         /// Sets the Session Varibles to the givin' Fiscal.
         /// </summary>
         public ActionResult SetFiscalAndUser(int fiscalID, string fiscalSetupName)
@@ -109,13 +102,16 @@ namespace XenaBudgetManager.Controllers
 
 
         /// <summary>
-        /// Debug
+        /// Written by Jonas
         /// </summary>
         public ActionResult Debug()
         {
             return View();
         }
 
+        /// <summary>
+        /// Written by Jonas and Claus
+        /// </summary>
         [HttpPost]
         public ActionResult Debug(string token)
         {
