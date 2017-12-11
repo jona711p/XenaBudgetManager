@@ -187,7 +187,6 @@
     <Compile Include="Models\AccountGroup.cs" />
     <Compile Include="Models\AccountGroupListViewModel.cs" />
     <Compile Include="Models\AccountListViewModel.cs" />
-    <Compile Include="Models\Budget.cs" />
     <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Classes\DB.cs" />
     <Compile Include="Models\AccountingModel.cs" />
