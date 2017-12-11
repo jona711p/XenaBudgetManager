@@ -51,7 +51,7 @@ namespace XenaBudgetManager.Classes
         /// Written by Thomas
         /// Inserts a new entry to the ValueInterval table in DB with the postings of a given account
         /// </summary>
-        public static void WriteValueInterval(Account inputData)
+        public static void WriteValueInterval(Account inputData)//BRUGEE´S IKKE?
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -379,10 +379,9 @@ namespace XenaBudgetManager.Classes
                     var tempData = command.ExecuteScalar();
 
 
-
-                    int AccountID = inputData.groupList.groupList[i].accountList.accountList[j].accountID;
+                    int BudgetID = inputData.budgetID;
                     int ValueID = Int32.Parse(tempData.ToString());
-                    DB.WriteRel_Posting(AccountID, ValueID);
+                    DB.WriteValueIntervalToAccountPlan(ValueID, BudgetID);
 
                 }
 
@@ -390,13 +389,13 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
             return;
         }
-        public static void WriteRel_Posting(int AccountID, int ValueID)
+        public static void WriteValueIntervalToAccountPlan(int AccountID, int budgetID)
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
-                String.Format(@"INSERT INTO Rel_Posting(FK_LedgerTagID, FK_ValueIntervalID) VALUES ({0}, {1})", AccountID, ValueID), connection);
+                String.Format(@"UPDATE Rel_AccountPlan SET FK_ValueIntervalID = ({0}) WHERE FK_BudgetID = {1}", AccountID, budgetID), connection);
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
