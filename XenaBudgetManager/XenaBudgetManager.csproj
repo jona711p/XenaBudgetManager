@@ -191,6 +191,7 @@
     <Compile Include="Classes\DB.cs" />
     <Compile Include="Models\AccountingModel.cs" />
     <Compile Include="Classes\GetXenaData.cs" />
+    <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\Fiscal.cs" />
     <Compile Include="Models\Xena.cs" />
     <Compile Include="Models\XenaDataModel.cs" />
