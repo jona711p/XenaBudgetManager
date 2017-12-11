@@ -369,5 +369,36 @@ namespace XenaBudgetManager.Classes
 
             return dupeCheckList;
         }
+        public static void EditBudget(Budget inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            for (int i = 0; i < inputData.groupList.groupList.Count; i++)
+            {
+                for (int j = 0; j < inputData.groupList.groupList[i].accountList.accoutList.Count; j++)
+                {
+                    SqlCommand command = new SqlCommand(
+                    String.Format(@"INSERT INTO ValueInterval (January,February,March,April,June,July,August,September,October,November,December) 
+                                    VALUES({@January},{@February},{@March},{@April},{@May},{@June},{@July},{@August},{@September},{@October},{@November},{@December}"), connection);
+                    command.Parameters.AddWithValue("@January", inputData.groupList.groupList[i].accountList.accountList[j].January);
+                    command.Parameters.AddWithValue("@February", inputData.groupList.groupList[i].accountList.accountList[j].February);
+                    command.Parameters.AddWithValue("@March", inputData.groupList.groupList[i].accountList.accountList[j].March);
+                    command.Parameters.AddWithValue("@April", inputData.groupList.groupList[i].accountList.accountList[j].April);
+                    command.Parameters.AddWithValue("@May", inputData.groupList.groupList[i].accountList.accountList[j].May);
+                    command.Parameters.AddWithValue("@June", inputData.groupList.groupList[i].accountList.accountList[j].June);
+                    command.Parameters.AddWithValue("@July", inputData.groupList.groupList[i].accountList.accountList[j].July);
+                    command.Parameters.AddWithValue("@August", inputData.groupList.groupList[i].accountList.accountList[j].August);
+                    command.Parameters.AddWithValue("@September", inputData.groupList.groupList[i].accountList.accountList[j].September);
+                    command.Parameters.AddWithValue("@October", inputData.groupList.groupList[i].accountList.accountList[j].October);
+                    command.Parameters.AddWithValue("@November", inputData.groupList.groupList[i].accountList.accountList[j].November);
+                    command.Parameters.AddWithValue("@December", inputData.groupList.groupList[i].accountList.accountList[j].December);
+                    command.ExecuteNonQuery();
+
+                }
+                connection = DisconnectFromDB(connection);
+                return;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -130,6 +131,7 @@ namespace XenaBudgetManager.Models
             //-!budgettet kan ikke redigeres efter dette
             //bagefter skal vi lave et view til visningen af budgettet a la 'vis regnskab'
 
+            DB.EditBudget(compeleteBudget);
 
             return RedirectToAction("Index","Home");
         }
