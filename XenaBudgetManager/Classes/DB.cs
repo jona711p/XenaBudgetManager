@@ -378,10 +378,10 @@ namespace XenaBudgetManager.Classes
                     command.Parameters.AddWithValue("@December", inputData.groupList.groupList[i].accountList.accountList[j].December);
                     var tempData = command.ExecuteScalar();
 
-
+                    int accountID = inputData.groupList.groupList[i].accountList.accountList[j].accountID;
                     int BudgetID = inputData.budgetID;
                     int ValueID = Int32.Parse(tempData.ToString());
-                    DB.WriteValueIntervalToAccountPlan(ValueID, BudgetID);
+                    DB.WriteValueIntervalToAccountPlan(ValueID, BudgetID, accountID);
 
                 }
 
@@ -389,13 +389,13 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
             return;
         }
-        public static void WriteValueIntervalToAccountPlan(int AccountID, int budgetID)
+        public static void WriteValueIntervalToAccountPlan(int ValueID, int budgetID, int accountID)
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
             SqlCommand command = new SqlCommand(
-                String.Format(@"UPDATE Rel_AccountPlan SET FK_ValueIntervalID = ({0}) WHERE FK_BudgetID = {1}", AccountID, budgetID), connection);
+                String.Format(@"UPDATE Rel_AccountPlan SET FK_ValueIntervalID = ({0}) WHERE FK_BudgetID = {1} AND FK_LedgerTagID = {2}", ValueID, budgetID, accountID), connection);
 
             command.ExecuteNonQuery();
             connection = DisconnectFromDB(connection);
