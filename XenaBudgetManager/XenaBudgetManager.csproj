@@ -189,7 +189,6 @@
     <Compile Include="Models\AccountListViewModel.cs" />
     <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Classes\DB.cs" />
-    <Compile Include="Models\AccountingModel.cs" />
     <Compile Include="Classes\GetXenaData.cs" />
     <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\Fiscal.cs" />
