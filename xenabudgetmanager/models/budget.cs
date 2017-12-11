@@ -12,7 +12,7 @@ namespace XenaBudgetManager.Models
         [DisplayName("Budget ID")]
         public int budgetID { get; set; }
 
-        [RegularExpression(@"^[^<>{}\[\]]+$", ErrorMessage = "special characters are not allowed.")]
+        [RegularExpression(@"^[^<>{}\[\]]+$")]
         [DisplayName("Budgetnavn")]
         public string budgetName { get; set; }
 
