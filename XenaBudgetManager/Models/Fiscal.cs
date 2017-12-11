@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace XenaBudgetManager.Models
 {
@@ -7,7 +6,6 @@ namespace XenaBudgetManager.Models
     {
         public int FiscalID { get; set; }
         public string FiscalSetupName { get; set; }
-        public int UserID { get; set; }
 
         public Fiscal()
         {
@@ -17,7 +15,6 @@ namespace XenaBudgetManager.Models
         {
             FiscalID = int.Parse(jToken["FiscalSetupId"].ToString());
             FiscalSetupName = jToken["FiscalSetupName"].ToString();
-            UserID = int.Parse(jToken["UserId"].ToString());
         }
     }
 }

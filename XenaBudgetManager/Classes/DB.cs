@@ -15,11 +15,11 @@ namespace XenaBudgetManager.Classes
         ///</summary>
         public static SqlConnection ConnectToDB(SqlConnection connection)
         {
-           
-                if (connection == null)
-                    connection = new SqlConnection(ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString);
-                connection.Open();
-           
+
+            if (connection == null)
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString);
+            connection.Open();
+
 
             return connection;
         }
@@ -96,7 +96,7 @@ namespace XenaBudgetManager.Classes
 
             return inputList;
         }
-        
+
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'LedgerTag' with related data 
@@ -106,7 +106,7 @@ namespace XenaBudgetManager.Classes
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
-            
+
             for (int i = 1; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
@@ -123,14 +123,14 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
             return inputList;
         }
-   
+
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
         /// </summary>
         public static void WriteNewRel_AccountPlan(List<LedgerTags> inputTagList, List<LedgerAccounts> inputAccountList, int budgetID) //rettet efter XenaDataModel
         {
-         
+
 
             for (int i = 0; i < inputTagList.Count; i++)
             {
@@ -157,24 +157,7 @@ namespace XenaBudgetManager.Classes
                     }
                 }
             }
-                }
-
-        /// <summary>
-        /// Written by Thomas
-        /// Inserts a new entry in  DB 'XenaUser' with related data 
-        /// </summary>
-        public static void WriteNewUser(Fiscal inputData)
-        {
-            SqlConnection connection = null;
-            connection = ConnectToDB(connection);
-
-            SqlCommand command = new SqlCommand(
-                String.Format(@"INSERT INTO XenaUser(UserID) 
-                        VALUES ({0});", inputData.UserID), connection);
-
-            command.ExecuteNonQuery();
-            connection = DisconnectFromDB(connection);
-        } //ikke i brug
+        }
 
         /// <summary>
         /// Written by Thomas
