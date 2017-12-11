@@ -376,11 +376,11 @@ namespace XenaBudgetManager.Classes
 
             for (int i = 0; i < inputData.groupList.groupList.Count; i++)
             {
-                for (int j = 0; j < inputData.groupList.groupList[i].accountList.accoutList.Count; j++)
+                for (int j = 0; j < inputData.groupList.groupList[i].accountList.accountList.Count; j++)
                 {
                     SqlCommand command = new SqlCommand(
-                    String.Format(@"INSERT INTO ValueInterval (January,February,March,April,June,July,August,September,October,November,December) 
-                                    VALUES({@January},{@February},{@March},{@April},{@May},{@June},{@July},{@August},{@September},{@October},{@November},{@December}"), connection);
+                    String.Format(@"INSERT INTO ValueInterval (January,February,March,April, May, June,July,August,September,October,November,December) 
+                                    VALUES(@January, @February, @March, @April, @May, @June , @July , @August, @September, @October, @November, @December)"), connection);
                     command.Parameters.AddWithValue("@January", inputData.groupList.groupList[i].accountList.accountList[j].January);
                     command.Parameters.AddWithValue("@February", inputData.groupList.groupList[i].accountList.accountList[j].February);
                     command.Parameters.AddWithValue("@March", inputData.groupList.groupList[i].accountList.accountList[j].March);
@@ -397,8 +397,9 @@ namespace XenaBudgetManager.Classes
 
                 }
                 connection = DisconnectFromDB(connection);
-                return;
+                
             }
+            return;
         }
     }
 }
