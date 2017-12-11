@@ -212,7 +212,30 @@ namespace XenaBudgetManager.Classes
             return Int32.Parse(tempData.ToString());
         }
 
+        // Claus. Gets List of Budgets. Is used to populate selectedList i view where you pick a budget to compare.
+        public static List<Budget> GetBudgetId()
+        {
+            List<Budget> budgetList = new List<Budget>();
+            DataTable dt = new DataTable();
 
+            SqlConnection conn = null;
+            conn = ConnectToDB(conn);
+            SqlCommand cmd = new SqlCommand(
+            string.Format(@"select * FROM Budget"), conn);
+
+            dt.Load(cmd.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Budget budget = new Budget();
+                budget.budgetID = int.Parse(row["BudgetID"].ToString());
+                budget.budgetName = row["BudgetName"].ToString();
+                budgetList.Add(budget);
+            }
+
+            conn = DisconnectFromDB(conn);
+            return budgetList;
+        }
         //få fat i gruppeidliste 
         //select * from LedgerAccount
         //tag templisten og bind xenaid til accountid
@@ -221,11 +244,11 @@ namespace XenaBudgetManager.Classes
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
-
+              
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
-                    String.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena"), connection);
+                    string.Format(@"select LedgerAccountID from LedgerAccount WHERE LedgerAccountXena =  @LedgerAccountXena"), connection);
                 cmd.Parameters.AddWithValue("@LedgerAccountXena", inputList[i].ledgerAccountXena);
                 var data = cmd.ExecuteScalar();
                 if (data != null)
