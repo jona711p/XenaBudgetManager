@@ -99,11 +99,10 @@ namespace XenaBudgetManager.Controllers
         /// 
         /// Sets the Session Varibles to the givin' Fiscal.
         /// </summary>
-        public ActionResult SetFiscalAndUser(int fiscalID, string fiscalSetupName, int userID)
+        public ActionResult SetFiscalAndUser(int fiscalID, string fiscalSetupName)
         {
             Session["fiscalID"] = fiscalID;
             Session["fiscalSetupName"] = fiscalSetupName;
-            Session["userID"] = userID;
 
             return RedirectToAction("Fiscals");
         }

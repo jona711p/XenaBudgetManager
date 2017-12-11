@@ -15,11 +15,11 @@ namespace XenaBudgetManager.Classes
         ///</summary>
         public static SqlConnection ConnectToDB(SqlConnection connection)
         {
-           
-                if (connection == null)
-                    connection = new SqlConnection(ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString);
-                connection.Open();
-           
+
+            if (connection == null)
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString);
+            connection.Open();
+
 
             return connection;
         }
@@ -51,7 +51,7 @@ namespace XenaBudgetManager.Classes
         /// Written by Thomas
         /// Inserts a new entry to the ValueInterval table in DB with the postings of a given account
         /// </summary>
-        public static void WriteValueInterval(Account inputData)
+        public static void WriteValueInterval(Account inputData)//BRUGEE´S IKKE?
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -96,7 +96,7 @@ namespace XenaBudgetManager.Classes
 
             return inputList;
         }
-        
+
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'LedgerTag' with related data 
@@ -106,7 +106,7 @@ namespace XenaBudgetManager.Classes
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
-            
+
             for (int i = 1; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
@@ -123,14 +123,14 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
             return inputList;
         }
-   
+
         /// <summary>
         /// Written by Thomas
         /// Inserts a new entry in  DB 'Rel_AccountPlan' with related data 
         /// </summary>
         public static void WriteNewRel_AccountPlan(List<LedgerTags> inputTagList, List<LedgerAccounts> inputAccountList, int budgetID) //rettet efter XenaDataModel
         {
-         
+
 
             for (int i = 0; i < inputTagList.Count; i++)
             {
@@ -157,24 +157,7 @@ namespace XenaBudgetManager.Classes
                     }
                 }
             }
-                }
-
-        /// <summary>
-        /// Written by Thomas
-        /// Inserts a new entry in  DB 'XenaUser' with related data 
-        /// </summary>
-        public static void WriteNewUser(Fiscal inputData)
-        {
-            SqlConnection connection = null;
-            connection = ConnectToDB(connection);
-
-            SqlCommand command = new SqlCommand(
-                String.Format(@"INSERT INTO XenaUser(UserID) 
-                        VALUES ({0});", inputData.UserID), connection);
-
-            command.ExecuteNonQuery();
-            connection = DisconnectFromDB(connection);
-        } //ikke i brug
+        }
 
         /// <summary>
         /// Written by Thomas
@@ -391,6 +374,77 @@ namespace XenaBudgetManager.Classes
             connection = DB.DisconnectFromDB(connection);
 
             return dupeCheckList;
+        }
+        public static void WriteBudgetValues(Budget inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            for (int i = 0; i < inputData.groupList.groupList.Count; i++)
+            {
+                for (int j = 0; j < inputData.groupList.groupList[i].accountList.accountList.Count; j++)
+                {
+                    SqlCommand command = new SqlCommand(
+                    String.Format(@"INSERT INTO ValueInterval (January,February,March,April, May, June,July,August,September,October,November,December) 
+                                    VALUES(@January, @February, @March, @April, @May, @June , @July , @August, @September, @October, @November, @December) SELECT SCOPE_IDENTITY();"), connection);
+                    command.Parameters.AddWithValue("@January", inputData.groupList.groupList[i].accountList.accountList[j].January);
+                    command.Parameters.AddWithValue("@February", inputData.groupList.groupList[i].accountList.accountList[j].February);
+                    command.Parameters.AddWithValue("@March", inputData.groupList.groupList[i].accountList.accountList[j].March);
+                    command.Parameters.AddWithValue("@April", inputData.groupList.groupList[i].accountList.accountList[j].April);
+                    command.Parameters.AddWithValue("@May", inputData.groupList.groupList[i].accountList.accountList[j].May);
+                    command.Parameters.AddWithValue("@June", inputData.groupList.groupList[i].accountList.accountList[j].June);
+                    command.Parameters.AddWithValue("@July", inputData.groupList.groupList[i].accountList.accountList[j].July);
+                    command.Parameters.AddWithValue("@August", inputData.groupList.groupList[i].accountList.accountList[j].August);
+                    command.Parameters.AddWithValue("@September", inputData.groupList.groupList[i].accountList.accountList[j].September);
+                    command.Parameters.AddWithValue("@October", inputData.groupList.groupList[i].accountList.accountList[j].October);
+                    command.Parameters.AddWithValue("@November", inputData.groupList.groupList[i].accountList.accountList[j].November);
+                    command.Parameters.AddWithValue("@December", inputData.groupList.groupList[i].accountList.accountList[j].December);
+                    var tempData = command.ExecuteScalar();
+
+
+                    int BudgetID = inputData.budgetID;
+                    int ValueID = Int32.Parse(tempData.ToString());
+                    DB.WriteValueIntervalToAccountPlan(ValueID, BudgetID);
+
+                }
+
+            }
+            connection = DisconnectFromDB(connection);
+            return;
+        }
+        public static void WriteValueIntervalToAccountPlan(int AccountID, int budgetID)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                String.Format(@"UPDATE Rel_AccountPlan SET FK_ValueIntervalID = ({0}) WHERE FK_BudgetID = {1}", AccountID, budgetID), connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
+        }
+
+        public static List<Budget> GetFullBudgetList(int budgetID)
+        {
+            List<Budget> budgetList = new List<Budget>();
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT * FROM view_GetFullBudget WHERE BudgetID = @BudgetID", connection);
+            command.Parameters.AddWithValue("@BudgetID", budgetID);
+
+            dt.Load(command.ExecuteReader());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                budgetList.Add(new Budget(row));
+            }
+
+            connection = DisconnectFromDB(connection);
+
+            return budgetList;
         }
     }
 }

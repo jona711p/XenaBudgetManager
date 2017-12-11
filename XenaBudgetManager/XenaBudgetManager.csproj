@@ -187,11 +187,10 @@
     <Compile Include="Models\AccountGroup.cs" />
     <Compile Include="Models\AccountGroupListViewModel.cs" />
     <Compile Include="Models\AccountListViewModel.cs" />
-    <Compile Include="Models\Budget.cs" />
     <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Classes\DB.cs" />
-    <Compile Include="Models\AccountingModel.cs" />
     <Compile Include="Classes\GetXenaData.cs" />
+    <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\Fiscal.cs" />
     <Compile Include="Models\Xena.cs" />
     <Compile Include="Models\XenaDataModel.cs" />
@@ -254,7 +253,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Debug.cshtml" />
-    <Content Include="Views\Budget\Budget.cshtml" />
     <Content Include="Views\Shared\_Layout_LoggedIn.cshtml" />
     <Content Include="Views\Budget\CreateBudget.cshtml" />
     <Content Include="Views\Budget\EditBudget.cshtml" />
