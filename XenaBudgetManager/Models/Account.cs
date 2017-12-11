@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace XenaBudgetManager.Models
 {
@@ -10,9 +11,10 @@ namespace XenaBudgetManager.Models
         {
             
         }
-        public Account(Account account)
+        public Account(DataRow row)
         {
-            
+            accountName = row["AccountName"].ToString();
+            January = int.Parse(row["January"].ToString());
         }
         public Account(LedgerTags inputData)
         {
