@@ -38,7 +38,7 @@ namespace XenaBudgetManager.Models
         [DisplayName("Kontonavn")]
         public string accountName { get; set; }
 
-        [Range(0, double.MaxValue, ErrorMessage="Du kan ikke!")]
+        [Range(0, 9999999999999)]
         [DisplayName("Januar")]
         public double January { get; set; }
 
