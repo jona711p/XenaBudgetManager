@@ -36,7 +36,14 @@
 }
 
 @{
-    if (ViewBag.datePicked == true)
+    if (ViewBag.datePickedCorrect == false)
+    {
+        <script type="text/javascript">
+            alert('Du skal vælge 2 korrekte datoer fra samme år');
+        </script>
+    }
+
+    if (ViewBag.datePicked == true && ViewBag.datePickedCorrect == true)
     {
         <table class="table table-hover">
             <tr>
@@ -44,10 +51,19 @@
                     @Html.DisplayNameFor(model => model.TranslatedGroup)
                 </th>
                 <th>
+                    @Html.DisplayName("Budget Periode")
+                </th>
+                <th>
+                    @Html.DisplayName("Budget År til Dato")
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.AmountMonth)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AmountYearToDate)
+                </th>
+                <th>
+                    @Html.DisplayName("Differance")
                 </th>
                 <th></th>
             </tr>

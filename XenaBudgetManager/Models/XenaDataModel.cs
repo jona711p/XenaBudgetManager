@@ -66,7 +66,7 @@ namespace XenaBudgetManager.Models
         [DisplayName("Finanskonto")]
         public string TranslatedGroup { get; set; }
         public List<LedgerGroupDetailData> LedgerGroupDetailDataList { get; set; }
-        public List<Budget> BudgetList { get; set; }
+        public List<Account> AccountList { get; set; }
 
         public LedgerGroupData()
         {

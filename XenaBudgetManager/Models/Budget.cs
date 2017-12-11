@@ -19,8 +19,6 @@ namespace XenaBudgetManager.Models
             XenaFiscalID = int.Parse(row["XenaFiscalID"].ToString());
 
             AccountList.Add(new Account(row));
-
-
         }
 
         [DisplayName("Budget ID")]

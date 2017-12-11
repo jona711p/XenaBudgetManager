@@ -424,10 +424,25 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
         }
 
-        public static List<Budget> GetFullBudgetList(int budgetID)
+        public static List<Budget> GetFullBudgetList(int budgetID, int fromMonth, int toMonth)
         {
             List<Budget> budgetList = new List<Budget>();
             DataTable dt = new DataTable();
+
+            string[] months = new string[2];
+
+            for (int i = 0; i < months.Length; i++)
+            {
+                if (i == 0)
+                {
+                    months[i] = FindMonth(fromMonth);
+                }
+
+                if (i == 1)
+                {
+                    months[i] = FindMonth(toMonth);
+                }
+            }
 
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -445,6 +460,39 @@ namespace XenaBudgetManager.Classes
             connection = DisconnectFromDB(connection);
 
             return budgetList;
+        }
+
+        private static string FindMonth(int month)
+        {
+            switch (month)
+            {
+                case 1:
+                    return "January";
+                case 2:
+                    return "February";
+                case 3:
+                    return "March";
+                case 4:
+                    return "April";
+                case 5:
+                    return "May";
+                case 6:
+                    return "June";
+                case 7:
+                    return "July";
+                case 8:
+                    return "August";
+                case 9:
+                    return "September";
+                case 10:
+                    return "October";
+                case 11:
+                    return "November";
+                case 12:
+                    return "December";
+            }
+
+            return null;
         }
     }
 }
