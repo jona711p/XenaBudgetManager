@@ -7,7 +7,7 @@ namespace XenaBudgetManager.Models
     {
         public Budget()
         {
-            
+            //CUNT
         }
         [DisplayName("Budget ID")]
         public int budgetID { get; set; }
