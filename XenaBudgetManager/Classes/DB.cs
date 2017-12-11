@@ -352,7 +352,7 @@ namespace XenaBudgetManager.Classes
 
             return dupeCheckList;
         }
-        public static void EditBudget(Budget inputData)
+        public static void WriteBudgetValues(Budget inputData)
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
@@ -363,7 +363,7 @@ namespace XenaBudgetManager.Classes
                 {
                     SqlCommand command = new SqlCommand(
                     String.Format(@"INSERT INTO ValueInterval (January,February,March,April, May, June,July,August,September,October,November,December) 
-                                    VALUES(@January, @February, @March, @April, @May, @June , @July , @August, @September, @October, @November, @December)"), connection);
+                                    VALUES(@January, @February, @March, @April, @May, @June , @July , @August, @September, @October, @November, @December) SELECT SCOPE_IDENTITY();"), connection);
                     command.Parameters.AddWithValue("@January", inputData.groupList.groupList[i].accountList.accountList[j].January);
                     command.Parameters.AddWithValue("@February", inputData.groupList.groupList[i].accountList.accountList[j].February);
                     command.Parameters.AddWithValue("@March", inputData.groupList.groupList[i].accountList.accountList[j].March);
@@ -376,13 +376,30 @@ namespace XenaBudgetManager.Classes
                     command.Parameters.AddWithValue("@October", inputData.groupList.groupList[i].accountList.accountList[j].October);
                     command.Parameters.AddWithValue("@November", inputData.groupList.groupList[i].accountList.accountList[j].November);
                     command.Parameters.AddWithValue("@December", inputData.groupList.groupList[i].accountList.accountList[j].December);
-                    command.ExecuteNonQuery();
+                    var tempData = command.ExecuteScalar();
+
+
+
+                    int AccountID = inputData.groupList.groupList[i].accountList.accountList[j].accountID;
+                    int ValueID =  Int32.Parse(tempData.ToString());
+                    DB.WriteRel_Posting(AccountID, ValueID);
 
                 }
-                connection = DisconnectFromDB(connection);
                 
             }
+            connection = DisconnectFromDB(connection);
             return;
+        }
+        public static void WriteRel_Posting(int AccountID, int ValueID)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                String.Format(@"INSERT INTO Rel_Posting(FK_LedgerTagID, FK_ValueIntervalID) VALUES ({0}, {1})", AccountID, ValueID), connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
         }
     }
 }

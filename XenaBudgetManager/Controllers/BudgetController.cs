@@ -131,7 +131,7 @@ namespace XenaBudgetManager.Models
             //-!budgettet kan ikke redigeres efter dette
             //bagefter skal vi lave et view til visningen af budgettet a la 'vis regnskab'
 
-            DB.EditBudget(compeleteBudget);
+            DB.WriteBudgetValues(compeleteBudget);
 
             return RedirectToAction("Index","Home");
         }
