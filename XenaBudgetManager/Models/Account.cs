@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace XenaBudgetManager.Models
 {
@@ -35,39 +36,51 @@ namespace XenaBudgetManager.Models
         [DisplayName("Kontonavn")]
         public string accountName { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("Januar")]
         public double January { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("Februar")]
         public double February { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("Marts")]
         public double March { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("April")]
         public double April { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("Maj")]
         public double May { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("Juni")]
         public double June { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("Juli")]
         public double July { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("August")]
         public double August { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("September")]
         public double September { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("Oktober")]
         public double October { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("November")]
         public double November { get; set; }
 
+        [Range(0, double.MaxValue)]
         [DisplayName("December")]
         public double December { get; set; }
 

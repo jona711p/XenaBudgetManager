@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace XenaBudgetManager.Models
 {
@@ -11,12 +12,14 @@ namespace XenaBudgetManager.Models
         [DisplayName("Budget ID")]
         public int budgetID { get; set; }
 
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,40}$", ErrorMessage = "special characters are not allowed.")]
         [DisplayName("Budgetnavn")]
         public string budgetName { get; set; }
 
         [DisplayName("Xena Finans ID")]
         public int XenaFiscalID { get; set; }
 
+        [Range(1970,9999)]
         [DisplayName("Budgetår")]
         public int budgetYear { get; set; }
 
