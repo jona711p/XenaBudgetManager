@@ -123,14 +123,6 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult EditBudget(Budget compeleteBudget)
         {
-            // !lav Dropdownliste med alle måneder i view 
-            //!efter måned er valgt kan værdier for denne indtastes for hver konto
-            //!derefter vælger man et nyt måned og gør det samme
-            //!hvis man f.eks. har indtastes op til marts skal man stadig kunne gå tilbage og ændre f.eks. januar
-            //-!når alle måneder/konti er udfyldt trykkes på en knap "gem budget"
-            //-!budgettet kan ikke redigeres efter dette
-            //bagefter skal vi lave et view til visningen af budgettet a la 'vis regnskab'
-
             DB.WriteBudgetValues(compeleteBudget);
 
             return RedirectToAction("Index","Home");
