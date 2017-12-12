@@ -451,6 +451,7 @@ namespace XenaBudgetManager.Classes
 
         ///<summary>
         /// Written by Jonas
+        /// Get Accounts from the DB, and process the onces selected in the DatePicker (With full months)
         ///</summary>
         public static List<Account> GetAccounts(LedgerGroupData ledgerGroupData, int budgetID, int fromMonth, int toMonth)
         {
