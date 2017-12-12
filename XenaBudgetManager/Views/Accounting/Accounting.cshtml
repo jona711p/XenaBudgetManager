@@ -72,6 +72,8 @@
 
             @foreach (var item in Model)
             {
+                double periodTotal = 0;
+
                 <tr>
                     <td class="line">
                         <b>@Html.DisplayFor(modelItem => item.TranslatedGroup)</b>
@@ -85,21 +87,20 @@
                         </div>
                     </td>
 
-@*lines for budget figures*@
+                    @*lines for budget figures*@
                     <td class="line">
-                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.BudgetMonth)</b>
                         <b class="placeholder"></b>
                         <div class="slide">
-
-                            @foreach (var list in item.LedgerGroupDetailDataList)
+                            @foreach (var list in item.AccountList)
                             {
-                                <p>@Html.DisplayFor(modelItemList => list.BudgetMonth)</p>
+                                <p>@Html.DisplayFor(modelItemList => list.Total)</p>
+                                periodTotal += list.Total;
                             }
-
                         </div>
+                        <b class="hideFiscal">@periodTotal</b>
                     </td>
-                    
-@*lines for fiscals*@
+
+                    @*lines for fiscals*@
                     <td class="line">
                         <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountMonth)</b>
                         <b class="placeholder"></b>
@@ -125,7 +126,7 @@
                         </div>
                     </td>
 
-@*line for comparison - create class that compres budget and fiscal*@
+                    @*line for comparison - create class that compres budget and fiscal*@
                     <td class="line">
                         <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
                         <b class="placeholder"></b>
