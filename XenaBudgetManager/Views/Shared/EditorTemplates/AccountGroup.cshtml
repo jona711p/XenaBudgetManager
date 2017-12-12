@@ -1,12 +1,13 @@
-﻿@*Written by Thomas*@
+﻿﻿@*Written by Thomas*@
 @model XenaBudgetManager.Models.AccountGroup
-    
+
 @Html.HiddenFor(model => model.accountGroupID)
 @Html.HiddenFor(model => model.accountGroupName)
 
-<div >
-    <h1>
+<div style="margin-top:-30px; padding:0;">
+    <h3>
         @Html.DisplayFor(modelItemList => Model.accountGroupName)
-    </h1>
+    </h3>
+    @Html.EditorFor(x => Model.accountList)
+    <hr />
 </div>
-@Html.EditorFor(x=>Model.accountList)

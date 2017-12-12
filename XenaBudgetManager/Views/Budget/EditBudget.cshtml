@@ -68,10 +68,15 @@
 
 
 
-@Html.DropDownList("DDlDemo", new SelectList(dropdownValues, "Value", "Text"), new
+<div style="padding-top:1.5em">
+    @Html.DropDownList("DDlDemo", new SelectList(dropdownValues, "Value", "Text"), new
 {
     onchange = @"ShowMonth();"
 })
+</div>
+
+
+
 
 <h3>
     Indtastninger for <span id="MonthName">Januar</span>
