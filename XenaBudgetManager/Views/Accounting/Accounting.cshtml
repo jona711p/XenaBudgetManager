@@ -72,7 +72,14 @@
 
             @foreach (var item in Model)
             {
-                double periodTotal = 0;
+                double[] periodBudget;
+                double periodBudgetTotal = 0;
+
+                double[] periodAccount;
+                double periodAccountTotal = 0;
+
+                double[] periodDifference;
+                double periodDifferenceTotal = 0;
 
                 <tr>
                     <td class="line">
@@ -87,34 +94,38 @@
                         </div>
                     </td>
 
-                    @*lines for budget figures*@
                     <td class="line">
                         <b class="placeholder"></b>
                         <div class="slide">
+
                             @foreach (var list in item.AccountList)
                             {
                                 <p>@Html.DisplayFor(modelItemList => list.Total)</p>
-                                periodTotal += list.Total;
+                                periodBudgetTotal += list.Total;
                             }
+
                         </div>
-                        <b class="hideFiscal">@periodTotal</b>
+
+                        <b class="hideFiscal">@periodBudgetTotal</b>
                     </td>
 
-                    @*lines for fiscals*@
                     <td class="line">
-                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountMonth)</b>
+
                         <b class="placeholder"></b>
                         <div class="slide">
 
                             @foreach (var list in item.LedgerGroupDetailDataList)
                             {
                                 <p>@Html.DisplayFor(modelItemList => list.AmountMonth)</p>
+
+                                periodAccountTotal += list.AmountMonth;
                             }
 
                         </div>
+                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountMonth)</b>
                     </td>
+
                     <td class="line">
-                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
                         <b class="placeholder"></b>
                         <div class="slide">
 
@@ -124,17 +135,53 @@
                             }
 
                         </div>
+                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
                     </td>
 
-                    @*line for comparison - create class that compres budget and fiscal*@
+                    @{
+                        periodBudget = new double[item.AccountList.Count];
+                        int i = 0;
+
+                        foreach (var list in item.AccountList)
+                        {
+                            periodBudget[i] = list.Total;
+                            i++;
+                        }
+
+                        periodAccount = new double[item.LedgerGroupDetailDataList.Count];
+                        i = 0;
+
+                        foreach (var list in item.LedgerGroupDetailDataList)
+                        {
+                            periodAccount[i] = list.AmountMonth;
+                            i++;
+                        }
+
+                        periodDifference = new double[i];
+
+                        for (int j = 0; j < i; j++)
+                        {
+                            periodDifference[j] = periodAccount[j] - periodBudget[j];
+                        }
+                    }
+
                     <td class="line">
-                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
                         <b class="placeholder"></b>
                         <div class="slide">
 
+                            @foreach (double number in periodDifference)
+                            {
+                                <p>@number</p>
+                            }
 
+                        </div>
 
+                        @{
+                            periodDifferenceTotal = periodAccountTotal - periodBudgetTotal;
+                        }
 
+                        <b class="hideFiscal">@periodDifferenceTotal</b>
+                    </td>
                 </tr>
             }
 
