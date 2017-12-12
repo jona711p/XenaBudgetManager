@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Security.Principal;
 using System.Text;
+using System.Web.Mvc;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Classes
@@ -43,7 +44,6 @@ namespace XenaBudgetManager.Classes
 
             catch (Exception)
             {
-
             }
 
             return connection;

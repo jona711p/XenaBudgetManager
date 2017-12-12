@@ -54,11 +54,11 @@ namespace XenaBudgetManager.Models
             budget.XenaFiscalID = int.Parse(Session["fiscalID"].ToString());
 
             //hent alle grupper i en liste
-            List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString()); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
+            List<LedgerAccounts> tempLedgerAccount = GetXenaData.LedgerAccount(Session["access_token"].ToString(), int.Parse(Session["fiscalID"].ToString())); //trækker grupper ud fra xena og gemmer dem i en liste af typen LedgerAccounts
 
             //hent alle konti fra xena
-            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString()); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
-            List<ExtraLedgerTag> tempExtraProductTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
+            List<LedgerTags> tempLedgerTag = GetXenaData.LedgerTag(Session["access_token"].ToString(), int.Parse(Session["fiscalID"].ToString())); //trækker kontoer ud fra xena og gemmer dem i en liste af typen LedgerTags
+            List <ExtraLedgerTag> tempExtraProductTag = GetXenaData.GetProductTag(Session["access_token"].ToString());
             List<ExtraLedgerTag> tempExtraRevenueTag = GetXenaData.GetRevenueTag(Session["access_token"].ToString()); //laver listen forfra
 
             //konverter og tilføj konti for varegrupper og nettoomsætning og tilføj dem til kontolisten

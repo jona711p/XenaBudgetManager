@@ -12,14 +12,17 @@ namespace XenaBudgetManager.Classes
         /// GET:  list of ledgeraccount objects - the group names
         ///</summary>
 
-        public static List<LedgerAccounts> LedgerAccount(string token) //Takes the helper object xena to easier connect to xena
+        public static List<LedgerAccounts> LedgerAccount(string token, int fiscalID) //Takes the helper object xena to easier connect to xena
         {
             List<LedgerAccounts> LedgerAccountList = new List<LedgerAccounts>();
 
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = XenaLogic.CallXena(token,
-                "Fiscal/98437/LedgerTagGroup/LedgerAccount");
+
+            string url = "Fiscal/" + fiscalID +
+                         "/LedgerTagGroup/LedgerAccount";
+
+            List<JToken> jTokenList = XenaLogic.CallXena(token, url);
             //take each token in the token list and add them to the ledgeraccount list
             foreach (JToken jToken in jTokenList)
             {
@@ -34,14 +37,17 @@ namespace XenaBudgetManager.Classes
         /// Written by Claus and Thomas
         /// GET:  list of ledgertag objects - the account names
         ///</summary>
-        public static List<LedgerTags> LedgerTag(string token) //Takes the helper object xena to easier connect to xena
+        public static List<LedgerTags> LedgerTag(string token, int fiscalID) //Takes the helper object xena to easier connect to xena
         {
             List<LedgerTags> LedgerTagList = new List<LedgerTags>();
 
             //create a list of the tokens received from xena - tokens here are key/value pairs
             //Next we call xena, pass in the accesstoken, to retrieve our data from the api
-            List<JToken> jTokenList = XenaLogic.CallXena(token,
-                "Fiscal/98437/LedgerTag");
+
+            string url = "Fiscal/" + fiscalID +
+                         "/LedgerTag";
+
+            List<JToken> jTokenList = XenaLogic.CallXena(token, url);
             //take each token in the token list and add them to the ledgergroup list
             foreach (JToken jToken in jTokenList)
             {
