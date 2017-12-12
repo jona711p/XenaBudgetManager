@@ -59,16 +59,13 @@
                     @Html.DisplayName("Budget Periode")
                 </th>
                 <th>
-                    @Html.DisplayName("Budget År til Dato")
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.AmountMonth)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AmountYearToDate)
                 </th>
                 <th>
-                    @Html.DisplayName("Differance")
+                    @Html.DisplayName("Difference")
                 </th>
                 <th></th>
             </tr>
@@ -87,6 +84,22 @@
 
                         </div>
                     </td>
+
+@*lines for budget figures*@
+                    <td class="line">
+                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.BudgetMonth)</b>
+                        <b class="placeholder"></b>
+                        <div class="slide">
+
+                            @foreach (var list in item.LedgerGroupDetailDataList)
+                            {
+                                <p>@Html.DisplayFor(modelItemList => list.BudgetMonth)</p>
+                            }
+
+                        </div>
+                    </td>
+                    
+@*lines for fiscals*@
                     <td class="line">
                         <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountMonth)</b>
                         <b class="placeholder"></b>
@@ -111,6 +124,23 @@
 
                         </div>
                     </td>
+
+@*line for comparison - create class that compres budget and fiscal*@
+                    <td class="line">
+                        <b class="hideFiscal">@Html.DisplayFor(modelItem => item.AmountYearToDate)</b>
+                        <b class="placeholder"></b>
+                        <div class="slide">
+
+                            @foreach (var list in item.LedgerGroupDetailDataList)
+                            {
+                                <p>@Html.DisplayFor(modelItemList => list.AmountYearToDate)</p>
+                            }
+
+                        </div>
+                    </td>
+
+
+
                 </tr>
             }
 

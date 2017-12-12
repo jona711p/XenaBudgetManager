@@ -44,7 +44,16 @@ namespace XenaBudgetManager.Controllers
             {
                 ledgerGroupData.AccountList = DB.GetAccounts(ledgerGroupData, budgetID, fromMonth, toMonth);
             }
+            //cn attempt to build list og budget numbers
+            //List<BudgetData> BudgetDataList = DB.GetFullBudgetList(123, fromMonth, toMonth);
 
+            //List<ComparedData> ComparedDataList = new List<ComparedData>();
+
+            //for (int i = 0; i < ledgerGroupDataList.length; i++)
+            //{
+            //    ComparedDataList =  ledgerGroupDataList[i] - BudgetDataList[i];
+            //}
+           
             return View(ledgerGroupDataList);
         }
 
