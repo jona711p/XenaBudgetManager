@@ -74,9 +74,6 @@ namespace XenaBudgetManager.Models
         public int AmountYearToDate { get; set; }
         [DisplayName("Finanskonto")]
         public string TranslatedGroup { get; set; }
-
-        //public int BudgetMonth { get; set; } //Claus - used in the presentation view, to prsent budget numbers
-
         public List<LedgerGroupDetailData> LedgerGroupDetailDataList { get; set; }
         public List<Account> AccountList { get; set; }
 
