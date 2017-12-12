@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Principal;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Classes
@@ -41,7 +42,7 @@ namespace XenaBudgetManager.Classes
 
             catch (Exception)
             {
-               
+
             }
 
             return connection;
@@ -51,7 +52,7 @@ namespace XenaBudgetManager.Classes
         /// Written by Thomas and Mikael
         /// Inserts a new entry to the ValueInterval table in DB with the postings of a given account
         /// </summary>
-        public static void WriteValueInterval(Account inputData)//BRUGEE´S IKKE?
+        public static void WriteValueInterval(Account inputData)//BRUGE´S IKKE?
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);

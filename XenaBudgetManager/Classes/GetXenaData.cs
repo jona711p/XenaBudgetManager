@@ -27,8 +27,6 @@ namespace XenaBudgetManager.Classes
             }
 
             return LedgerAccountList;
-
-            //TODO: code that takes the list and persists it to the db
         }
 
 
@@ -55,9 +53,6 @@ namespace XenaBudgetManager.Classes
                     }
                 }
             }
-
-            //TODO: code that takes the list and persists it to the db
-            //DB.WriteNewLedgerTag(LedgerTagList);
 
             return LedgerTagList;
         }
