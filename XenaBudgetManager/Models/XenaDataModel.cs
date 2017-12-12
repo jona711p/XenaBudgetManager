@@ -6,20 +6,14 @@ namespace XenaBudgetManager.Models
 {
     /// <summary>
     /// Written by Claus
-    //Containing the variables consumed from account og ledgertag api's
-    //from here variables are persisted to the Db.
-    // Containing ledger tag  which is the actual account numbers
+    /// Containing the variables consumed from account og ledgertag api's
+    /// from here variables are persisted to the Db.
+    /// Containing ledger tag  which is the actual account numbers
     /// </summary>
-
     public class LedgerTags
     {
-        public int ledgerTagId { get; set; }
-        public string shortDescription { get; set; }
-        public string longDescription { get; set; }
-        public string ledgerAccountXena { get; set; }
-
         /// <summary>
-        /// Written by Jonas, Claus and Thomas
+        /// Written by Claus and Thomas
         /// </summary>
         public LedgerTags()
         {
@@ -27,13 +21,13 @@ namespace XenaBudgetManager.Models
 
         public LedgerTags(JToken jToken)
         {
-                //ledgerTagId = int.Parse(jToken["Id"].ToString());
-                shortDescription = jToken["ShortDescription"].ToString();
-                longDescription = jToken["LongDescription"].ToString();
-                ledgerAccountXena = jToken["LedgerAccount"].ToString();
+            //ledgerTagId = int.Parse(jToken["Id"].ToString());
+            shortDescription = jToken["ShortDescription"].ToString();
+            longDescription = jToken["LongDescription"].ToString();
+            ledgerAccountXena = jToken["LedgerAccount"].ToString();
         }
 
-      
+
         public LedgerTags(ExtraLedgerTag input)
         {
             ledgerTagId = input.ledgerTagId;
@@ -41,6 +35,11 @@ namespace XenaBudgetManager.Models
             longDescription = input.longDescription;
             ledgerAccountXena = input.ledgerAccountXena;
         }
+
+        public int ledgerTagId { get; set; }
+        public string shortDescription { get; set; }
+        public string longDescription { get; set; }
+        public string ledgerAccountXena { get; set; }
     }
 
     /// <summary>
@@ -82,7 +81,7 @@ namespace XenaBudgetManager.Models
         {
         }
 
-        public LedgerGroupData(JToken jToken) // Changed from JObject to JToken, and added "if null" to int?'s
+        public LedgerGroupData(JToken jToken)
         {
             AmountMonth = int.Parse(jToken["AmountMonth"].ToString());
             Group = jToken["Group"].ToString();
@@ -92,14 +91,15 @@ namespace XenaBudgetManager.Models
     }
 
     /// <summary>
-    /// Written by Jonas, Claus and Thomas
+    /// Written by Claus and Thomas
     /// </summary>
     public class LedgerGroupDetailData
     {
         public string AccountDescription { get; set; }
         public int AmountMonth { get; set; }
         public int AmountYearToDate { get; set; }
-        public string Group { get; set; }    
+        public string Group { get; set; }
+
         public LedgerGroupDetailData()
         {
         }
@@ -111,8 +111,6 @@ namespace XenaBudgetManager.Models
             AmountYearToDate = int.Parse(jToken["AmountYearToDate"].ToString());
             Group = jToken["Group"].ToString();
         }
-
-     
     }
 
     /// <summary>
@@ -127,8 +125,8 @@ namespace XenaBudgetManager.Models
 
         ExtraLedgerTag()
         {
-
         }
+
         public ExtraLedgerTag(JToken jToken)
         {
             //ledgerTagId = int.Parse(jToken["Id"].ToString().Substring(0,9)); 

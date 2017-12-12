@@ -1,30 +1,13 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
 
 namespace XenaBudgetManager.Models
 {
     public class Budget
     {
-
         /// <summary>
         /// Written by Mikael and Thomas
         /// </summary>
-        public Budget()
-        {
-        }
-
-        public Budget(DataRow row)
-        {
-            budgetID = int.Parse(row["BudgetID"].ToString());
-            budgetName = row["BudgetName"].ToString();
-            budgetYear = int.Parse(row["Year"].ToString());
-            XenaFiscalID = int.Parse(row["XenaFiscalID"].ToString());
-
-            AccountList.Add(new Account(row));
-        }
-
         [DisplayName("Budget ID")]
         public int budgetID { get; set; }
 
@@ -41,11 +24,5 @@ namespace XenaBudgetManager.Models
 
         [DisplayName("Gruppeliste")]
         public AccountGroupListViewModel groupList { get; set; }
-
-        public List<Account> AccountList { get; set; }
-
-        public List<LedgerGroupData> LedgerGroupDataList { get; set; }
-
-        public List<LedgerGroupDetailData> LedgerGroupDetailDataList { get; set; }
     }
 }

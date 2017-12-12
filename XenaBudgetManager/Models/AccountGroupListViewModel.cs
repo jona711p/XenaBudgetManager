@@ -11,6 +11,7 @@ namespace XenaBudgetManager.Models
         {
             groupList = new List<AccountGroup>();
         }
+
         public List<AccountGroup> groupList { get; set; }
     }
 }

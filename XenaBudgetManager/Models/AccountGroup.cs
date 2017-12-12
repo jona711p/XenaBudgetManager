@@ -3,9 +3,8 @@ using System.ComponentModel;
 
 namespace XenaBudgetManager.Models
 {
-
     /// <summary>
-    /// Written by Jonas, Thomas, Claus and Mikael
+    /// Written by Claus, Mikael and Thomas
     /// </summary>
     public class AccountGroup
     {
@@ -13,6 +12,7 @@ namespace XenaBudgetManager.Models
         {
             
         }
+
         public AccountGroup(LedgerAccounts inputData)
         {
             accountGroupID = inputData.ledgerAccountId;
@@ -28,10 +28,9 @@ namespace XenaBudgetManager.Models
                 convertedList.Add(new AccountGroup(inputGroups[i]));
             }
 
-
-
             return convertedList;
         }
+
         [DisplayName("Kontogruppe ID")]
         public int accountGroupID { get; set; }
 
