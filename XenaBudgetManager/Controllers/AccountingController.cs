@@ -26,7 +26,7 @@ namespace XenaBudgetManager.Controllers
         /// /// Written by Claus and Jonas
         ///</summary>
         [HttpPost]
-        public ActionResult Accounting(DateTime fromDate, DateTime toDate)
+        public ActionResult Accounting(DateTime fromDate, DateTime toDate, int budgetID)
         {
             ViewBag.datePicked = true;
             ViewBag.datePickedCorrect = DatePickedCorrect(fromDate, toDate);
@@ -40,7 +40,10 @@ namespace XenaBudgetManager.Controllers
             int fromMonth = fromDate.Month;
             int toMonth = toDate.Month;
 
-            //DB.GetFullBudgetList(123, fromMonth, toMonth);
+            foreach (LedgerGroupData ledgerGroupData in ledgerGroupDataList)
+            {
+                ledgerGroupData.AccountList = DB.GetAccounts(ledgerGroupData, budgetID, fromMonth, toMonth);
+            }
 
             return View(ledgerGroupDataList);
         }

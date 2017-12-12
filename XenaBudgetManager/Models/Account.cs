@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Linq;
 
 namespace XenaBudgetManager.Models
 {
@@ -14,21 +15,75 @@ namespace XenaBudgetManager.Models
         {
         }
 
-        public Account(DataRow row)
+        public Account(DataRow row, string[] months)
         {
             accountName = row["AccountName"].ToString();
-            January = int.Parse(row["January"].ToString());
-            February = int.Parse(row["February"].ToString());
-            March = int.Parse(row["March"].ToString());
-            April = int.Parse(row["April"].ToString());
-            May = int.Parse(row["May"].ToString());
-            June = int.Parse(row["June"].ToString());
-            July = int.Parse(row["July"].ToString());
-            August = int.Parse(row["August"].ToString());
-            September = int.Parse(row["September"].ToString());
-            October = int.Parse(row["October"].ToString());
-            November = int.Parse(row["November"].ToString());
-            December = int.Parse(row["December"].ToString());
+
+            if (months.Contains("January"))
+            {
+                January = double.Parse(row["January"].ToString());
+                Total = Total + January;
+            }
+
+            if (months.Contains("February"))
+            {
+                February = double.Parse(row["February"].ToString());
+                Total = Total + February;
+            }
+
+            if (months.Contains("March"))
+            {
+                March = double.Parse(row["March"].ToString());
+                Total = Total + March;
+            }
+
+            if (months.Contains("May"))
+            {
+                May = double.Parse(row["May"].ToString());
+                Total = Total + May;
+            }
+
+            if (months.Contains("June"))
+            {
+                June = double.Parse(row["June"].ToString());
+                Total = Total + June;
+            }
+
+            if (months.Contains("July"))
+            {
+                July = double.Parse(row["July"].ToString());
+                Total = Total + July;
+            }
+
+            if (months.Contains("August"))
+            {
+                August = double.Parse(row["August"].ToString());
+                Total = Total + August;
+            }
+
+            if (months.Contains("September"))
+            {
+                September = double.Parse(row["September"].ToString());
+                Total = Total + September;
+            }
+
+            if (months.Contains("October"))
+            {
+                October = double.Parse(row["October"].ToString());
+                Total = Total + October;
+            }
+
+            if (months.Contains("November"))
+            {
+                November = double.Parse(row["November"].ToString());
+                Total = Total + November;
+            }
+
+            if (months.Contains("December"))
+            {
+                December = double.Parse(row["December"].ToString());
+                Total = Total + December;
+            }
         }
 
         public Account(LedgerTags inputData)

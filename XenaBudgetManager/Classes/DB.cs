@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Principal;
+using System.Text;
 using XenaBudgetManager.Models;
 
 namespace XenaBudgetManager.Classes
@@ -233,7 +234,7 @@ namespace XenaBudgetManager.Classes
         {
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
-              
+
             for (int i = 0; i < inputList.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand(
@@ -451,42 +452,36 @@ namespace XenaBudgetManager.Classes
         ///<summary>
         /// Written by Jonas
         ///</summary>
-        public static List<Budget> GetFullBudgetList(int budgetID, int fromMonth, int toMonth)
+        public static List<Account> GetAccounts(LedgerGroupData ledgerGroupData, int budgetID, int fromMonth, int toMonth)
         {
-            List<Budget> budgetList = new List<Budget>();
+            List<Account> accountList = new List<Account>();
+
             DataTable dt = new DataTable();
-
-            string[] months = new string[2];
-
-            for (int i = 0; i < months.Length; i++)
-            {
-                if (i == 0)
-                {
-                    months[i] = FindMonth(fromMonth);
-                }
-
-                if (i == 1)
-                {
-                    months[i] = FindMonth(toMonth);
-                }
-            }
 
             SqlConnection connection = null;
             connection = ConnectToDB(connection);
 
-            SqlCommand command = new SqlCommand("SELECT * FROM view_GetFullBudget WHERE BudgetID = @BudgetID", connection);
+            SqlCommand command = new SqlCommand("SELECT * FROM view_BudgetAccount WHERE FK_BudgetID = @BudgetID AND AccountName = @AccountName ORDER BY ValueIntervalID", connection);
             command.Parameters.AddWithValue("@BudgetID", budgetID);
+            command.Parameters.AddWithValue("@AccountName", ledgerGroupData.TranslatedGroup);
 
             dt.Load(command.ExecuteReader());
 
+            string[] months = new string[12];
+
+            for (int i = fromMonth; i <= toMonth; i++)
+            {
+                months[i - 1] = FindMonth(i);
+            }
+
             foreach (DataRow row in dt.Rows)
             {
-                
+                accountList.Add(new Account(row, months));
             }
 
             connection = DisconnectFromDB(connection);
 
-            return budgetList;
+            return accountList;
         }
 
         ///<summary>
