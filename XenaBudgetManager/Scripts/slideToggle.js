@@ -1,4 +1,8 @@
-﻿$(document).ready(
+﻿///<summary>
+/// Written by Claus and Jonas
+///</summary>
+
+$(document).ready(
     function () {
 
         $('.placeholder').slideUp();

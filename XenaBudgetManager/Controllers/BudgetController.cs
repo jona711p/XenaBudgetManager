@@ -11,7 +11,7 @@ namespace XenaBudgetManager.Models
     public class BudgetController : Controller
     {
         ///<summary>
-        /// /// Written by Mikael
+        /// Written by Mikael
         /// GET: Budget
         ///</summary>
         public ActionResult Budget()
@@ -35,7 +35,7 @@ namespace XenaBudgetManager.Models
         }
 
         ///<summary>
-        /// /// Written by Mikael
+        /// Written by Mikael
         ///</summary>
         public ActionResult CreateBudget()
         {
@@ -43,7 +43,7 @@ namespace XenaBudgetManager.Models
         }
 
         ///<summary>
-        /// /// Written by Mikael and Thomas
+        /// Written by Mikael and Thomas
         ///</summary>
         [HttpPost]
         public ActionResult CreateBudget(Budget budget)
@@ -126,7 +126,7 @@ namespace XenaBudgetManager.Models
         }
 
         ///<summary>
-        /// /// Written by Mikael and Thomas
+        /// Written by Mikael and Thomas
         ///</summary>
         [HttpPost]
         public ActionResult EditBudget(Budget compeleteBudget)
@@ -136,6 +136,5 @@ namespace XenaBudgetManager.Models
             return RedirectToAction("Index","Home");
         }
     }
-
 }
 

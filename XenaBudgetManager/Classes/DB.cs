@@ -10,8 +10,8 @@ namespace XenaBudgetManager.Classes
     public class DB
     {
         ///<summary>
-        ///Written by Jonas
-        ///Establishes a connection to the DB 
+        /// Written by Jonas
+        /// Establishes a connection to the DB 
         ///</summary>
         public static SqlConnection ConnectToDB(SqlConnection connection)
         {
@@ -196,7 +196,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written Claus
+        /// Written Claus
         /// Claus. Gets List of Budgets. Is used to populate selectedList i view where you pick a budget to compare. 
         ///</summary>
 
@@ -225,8 +225,8 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Thomas and Mikael
-        ///Establishes a connection to the DB 
+        /// Written by Thomas and Mikael
+        /// Establishes a connection to the DB 
         ///</summary>
         public static List<LedgerAccounts> GetAccountIDs(List<LedgerAccounts> inputList) //rettet efter XenaDataModel
         {
@@ -268,7 +268,7 @@ namespace XenaBudgetManager.Classes
 
         }
         ///<summary>
-        ///Written by Thomas and Mikael
+        /// Written by Thomas and Mikael
         ///</summary>
         public static List<LedgerTags> GetTagIDs(List<LedgerTags> inputList) //rettet efter XenaDataModel
         {
@@ -312,7 +312,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Thomas and Mikael
+        /// Written by Thomas and Mikael
         ///</summary>
         public static List<KeyValuePair<int, int>> ReadRel_AccountPlan(Budget inputBudget)
         {
@@ -342,7 +342,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Thomas and Mikael
+        /// Written by Thomas and Mikael
         ///</summary>
         public static List<string> DupeCheckListTag()
         {
@@ -367,7 +367,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Thomas and Mikael
+        /// Written by Thomas and Mikael
         ///</summary>
         public static List<string> DupeCheckListAccount()
         {
@@ -392,7 +392,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Thomas and Mikael
+        /// Written by Thomas and Mikael
         ///</summary>
         public static void WriteBudgetValues(Budget inputData)
         {
@@ -433,7 +433,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Thomas and Mikael
+        /// Written by Thomas and Mikael
         ///</summary>
         public static void WriteValueIntervalToAccountPlan(int ValueID, int budgetID, int accountID)
         {
@@ -448,7 +448,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Thomas and Mikael
+        /// Written by Jonas
         ///</summary>
         public static List<Budget> GetFullBudgetList(int budgetID, int fromMonth, int toMonth)
         {
@@ -489,7 +489,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        ///Written by Jonas
+        /// Written by Jonas
         ///</summary>
         private static string FindMonth(int month)
         {

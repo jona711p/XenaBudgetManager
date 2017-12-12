@@ -9,7 +9,7 @@ namespace XenaBudgetManager.Controllers
     public class AccountingController : Controller
     {
         ///<summary>
-        /// /// Written by Jonas and Mikael
+        /// Written by Claus, Jonas and Mikael
         ///</summary>
         public ActionResult Accounting()
         {
@@ -20,7 +20,7 @@ namespace XenaBudgetManager.Controllers
         }
 
         ///<summary>
-        /// /// Written by Jonas
+        /// /// Written by Claus and Jonas
         ///</summary>
         [HttpPost]
         public ActionResult Accounting(DateTime fromDate, DateTime toDate)

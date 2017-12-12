@@ -8,8 +8,8 @@ namespace XenaBudgetManager.Classes
     public class GetXenaData
     {
         ///<summary>
-        /// /// Written by Jonas
-        //GET:  list of ledgeraccount objects - the group names
+        /// Written by Claus
+        /// GET:  list of ledgeraccount objects - the group names
         ///</summary>
 
         public static List<LedgerAccounts> LedgerAccount(string token) //Takes the helper object xena to easier connect to xena
@@ -33,8 +33,8 @@ namespace XenaBudgetManager.Classes
 
 
         ///<summary>
-        /// /// Written by Jonas and Thomas
-        ///GET:  list of ledgertag objects - the account names
+        /// Written by Claus and Thomas
+        /// GET:  list of ledgertag objects - the account names
         ///</summary>
         public static List<LedgerTags> LedgerTag(string token) //Takes the helper object xena to easier connect to xena
         {
@@ -63,7 +63,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        /// /// Written by Jonas
+        /// Written by Claus
         /// GET: GetXenaData - fiscal period data
         ///</summary>
         public static List<LedgerGroupData> LedgerGroupData(string token, int fiscalID, DateTime fromData, DateTime toData)
@@ -101,7 +101,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        /// /// Written by Jonas
+        /// Written by Claus
         ///</summary>
         public static List<LedgerGroupDetailData> LedgerGroupDetailData(string token, int fiscalID, string group, long fromXenaEpoch, long toXenaEpoch)
         {
@@ -132,7 +132,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        /// /// Written by Jonas
+        /// Written by Jonas
         ///</summary>
         private static long TimeInEpoch(DateTime dateTime)
         {
@@ -160,7 +160,7 @@ namespace XenaBudgetManager.Classes
         }
 
         ///<summary>
-        /// /// Written by Mikael
+        /// Written by Mikael
         ///</summary>
         public static List<ExtraLedgerTag> GetProductTag(string token)
         {
