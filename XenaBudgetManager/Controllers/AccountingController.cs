@@ -31,6 +31,8 @@ namespace XenaBudgetManager.Controllers
             List<LedgerGroupData> ledgerGroupDataList =
                 GetXenaData.LedgerGroupData(Session["access_token"].ToString(), int.Parse(Session["fiscalID"].ToString()), fromDate, toDate);
 
+            SelectList Budgetlist = new SelectList(DB.GetBudgetId(), "budgetID", "BudgetName"); 
+
             int fromMonth = fromDate.Month;
             int toMonth = toDate.Month;
 

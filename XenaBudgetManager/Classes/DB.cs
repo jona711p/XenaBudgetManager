@@ -198,7 +198,7 @@ namespace XenaBudgetManager.Classes
 
         ///<summary>
         /// Written Claus
-        /// Claus. Gets List of Budgets. Is used to populate selectedList i view where you pick a budget to compare. 
+        /// Gets List of Budgets. Is used to populate selectedList i view where you pick a budget to compare. 
         ///</summary>
 
         public static List<Budget> GetBudgetId()
