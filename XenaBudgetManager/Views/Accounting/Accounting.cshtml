@@ -29,7 +29,7 @@
 
         <div class="form-group">
             @Html.Label("Vælg et Budget", new { @class = "control-label col-md-10" })
-            @Html.DropDownList("budgetID", new SelectList(ViewBag.budgetList, "Text", "Value"), new { @class = "form-control" })
+            @Html.DropDownList("budgetID", new SelectList(ViewBag.budgetList, "Value", "Text"), new { @class = "form-control" })
         </div>
 
         <div class="form-group">
