@@ -481,7 +481,7 @@ namespace XenaBudgetManager.Classes
 
             foreach (DataRow row in dt.Rows)
             {
-                budgetList.Add(new Budget(row));
+                
             }
 
             connection = DisconnectFromDB(connection);

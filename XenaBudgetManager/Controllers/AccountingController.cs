@@ -16,6 +16,9 @@ namespace XenaBudgetManager.Controllers
             ViewBag.datePicked = false;
             ViewBag.datePickedCorrect = true;
 
+            SelectList budgetList = new SelectList(DB.GetBudgetId(), "budgetID", "budgetName");
+            ViewBag.budgetList = budgetList;
+
             return View();
         }
 
@@ -31,7 +34,8 @@ namespace XenaBudgetManager.Controllers
             List<LedgerGroupData> ledgerGroupDataList =
                 GetXenaData.LedgerGroupData(Session["access_token"].ToString(), int.Parse(Session["fiscalID"].ToString()), fromDate, toDate);
 
-            SelectList Budgetlist = new SelectList(DB.GetBudgetId(), "budgetID", "BudgetName"); 
+            SelectList budgetList = new SelectList(DB.GetBudgetId(), "budgetID", "budgetName");
+            ViewBag.budgetList = budgetList;
 
             int fromMonth = fromDate.Month;
             int toMonth = toDate.Month;
