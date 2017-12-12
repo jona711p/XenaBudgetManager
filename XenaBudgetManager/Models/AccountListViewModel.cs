@@ -2,7 +2,6 @@
 
 namespace XenaBudgetManager.Models
 {
-
     /// <summary>
     /// Written by Thomas
     /// </summary>
@@ -12,6 +11,7 @@ namespace XenaBudgetManager.Models
         {
             accountList = new List<Account>();
         }
+
         public List<Account> accountList { get; set; }
     }
 }

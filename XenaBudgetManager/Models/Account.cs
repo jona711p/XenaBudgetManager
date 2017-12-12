@@ -8,12 +8,12 @@ namespace XenaBudgetManager.Models
     public class Account
     {
         /// <summary>
-        /// Written by Jonas, Thomas, Claus and Mikael
+        /// Written by Claus, Jonas, Mikael and Thomas
         /// </summary>
         public Account()
         {
-            
         }
+
         public Account(DataRow row)
         {
             accountName = row["AccountName"].ToString();
@@ -30,11 +30,13 @@ namespace XenaBudgetManager.Models
             November = int.Parse(row["November"].ToString());
             December = int.Parse(row["December"].ToString());
         }
+
         public Account(LedgerTags inputData)
         {
             accountID = inputData.ledgerTagId;
             accountName = inputData.longDescription;
         }
+
         public static List<Account> ConvertLedgerTagsToAccountList(List<LedgerTags> inputData)
         {
             List<Account> convertedList = new List<Account>();
@@ -46,6 +48,7 @@ namespace XenaBudgetManager.Models
 
             return convertedList;
         }
+
         [DisplayName("Konto ID")]
         public int accountID { get; set; }
 
