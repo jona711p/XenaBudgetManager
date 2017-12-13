@@ -32,6 +32,8 @@ namespace XenaBudgetManager.Models
             October = double.Parse(row["October"].ToString());
             November = double.Parse(row["November"].ToString());
             December = double.Parse(row["December"].ToString());
+
+            ValueIntervalID = int.Parse(row["ValueIntervalID"].ToString());
         }
         public Account(DataRow row, string[] months)
         {
@@ -178,5 +180,7 @@ namespace XenaBudgetManager.Models
 
         [DisplayName("Total")]
         public double Total { get; set; }
+
+        public int ValueIntervalID { get; set; }
     }
 }

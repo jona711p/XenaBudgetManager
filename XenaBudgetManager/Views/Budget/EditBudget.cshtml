@@ -66,16 +66,25 @@
     });
 }
 
-
-
-<div style="padding-top:1.5em">
-    @Html.DropDownList("DDlDemo", new SelectList(dropdownValues, "Value", "Text"), new
+@if (!Model.NewBudget)
 {
-    onchange = @"ShowMonth();"
-})
+    using (Html.BeginForm("SelectBudget", "Budget", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.Label("Vælg et Budget", new {@class = "control-label col-md-10"})
+            @Html.DropDownList("budgetID", new SelectList(ViewBag.budgetList, "Value", "Text"), new {@class = "form-control"})
+
+            <input type="submit" value="Hent budget"/>
+        </div>
+    }
+}
+
+<div style="padding-top: 1.5em">
+    @Html.DropDownList("DDlDemo", new SelectList(dropdownValues, "Value", "Text"), new
+    {
+        onchange = @"ShowMonth();"
+    })
 </div>
-
-
 
 
 <h3>
@@ -84,13 +93,15 @@
 @using (Html.BeginForm("EditBudget", "Budget", FormMethod.Post))
 {
     @Html.HiddenFor(model => model.budgetID)
+    @Html.HiddenFor(model => model.NewBudget)
     @Html.HiddenFor(model => model.budgetName)
     @Html.HiddenFor(model => model.budgetYear)
     @Html.HiddenFor(model => model.XenaFiscalID)
-
-    @Html.EditorFor(x => x.groupList)
-  <input type = "submit" value = "Gem budget"/>
-
+    if (Model != null && Model.groupList != null && Model.groupList.groupList != null)
+    {
+        @Html.EditorFor(x => x.groupList)
+    }
+    <input type="submit" value="Gem budget"/>
 }
 
 <script>

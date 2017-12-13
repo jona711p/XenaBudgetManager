@@ -5,6 +5,11 @@ namespace XenaBudgetManager.Models
 {
     public class Budget
     {
+        public bool NewBudget { get; set; }
+        public Budget()
+        {
+            groupList = new AccountGroupListViewModel();
+        }
         /// <summary>
         /// Written by Mikael and Thomas
         /// </summary>

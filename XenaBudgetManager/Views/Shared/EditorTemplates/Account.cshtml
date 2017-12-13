@@ -12,7 +12,8 @@
                 @Html.HiddenFor(model => model.accountID)
                 @Html.HiddenFor(model => model.accountName)
                 @Html.HiddenFor(model => model.Total)
-
+                @Html.HiddenFor(model => model.ValueIntervalID)
+                
 
                 @Html.EditorFor(model => Model.January, new { htmlAttributes = new { @class = "form-control monthInput month0" } })
 

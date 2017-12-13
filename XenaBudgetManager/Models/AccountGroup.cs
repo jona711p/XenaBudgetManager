@@ -11,13 +11,13 @@ namespace XenaBudgetManager.Models
     {
         public AccountGroup()
         {
-            
         }
 
         public AccountGroup(DataRow row)
         {
             accountGroupID = int.Parse(row["LedgerAccountID"].ToString());
             accountGroupName = row["AccountName"].ToString();
+            accountList = new AccountListViewModel();
 
         }
         public AccountGroup(LedgerAccounts inputData)

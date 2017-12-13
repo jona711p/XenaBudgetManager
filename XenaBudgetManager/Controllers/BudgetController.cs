@@ -122,6 +122,7 @@ namespace XenaBudgetManager.Models
             #endregion
 
             ViewBag.list = budget;
+            budget.NewBudget = true;
             return View("EditBudget",ViewBag.list);
         }
 
@@ -131,39 +132,43 @@ namespace XenaBudgetManager.Models
         [HttpPost]
         public ActionResult EditBudget(Budget compeleteBudget)
         {
-            DB.WriteBudgetValues(compeleteBudget);
+            if (compeleteBudget.NewBudget)
+            {
+                DB.WriteBudgetValues(compeleteBudget);
+            }
+            else
+            {
+                foreach (var group in compeleteBudget.groupList.groupList)
+                {
+                    foreach (var account in group.accountList.accountList)
+                    {
+                        DB.UpdateValueInterval(account);
+                    }
+                }
+            }
 
             return RedirectToAction("Index","Home");
         }
 
-        public ActionResult SelectBudget()
+        public ActionResult SelectBudget(int? budgetID = null)
         {
             //vælg budget fra dropdownliste 
             SelectList budgetList = new SelectList(DB.GetBudgetId(), "budgetID", "budgetName");
             ViewBag.budgetList = budgetList;
-
-
-
-            int budgetid = 58;
             Budget tempBudget = new Budget();
-            tempBudget = DB.GetBudget(budgetid);
-
-            ViewBag.list = tempBudget;
-            return View("UpdateBudget", ViewBag.list);
-
-        }
-
-        public ActionResult UpdateBudget(Budget inputBudget) //når der trykkes opdater budget
-        {
-            foreach (var group in inputBudget.groupList.groupList)       {
-                foreach (var account in group.accountList.accountList)            {
-                    DB.UpdateValueInterval(account);
-                }
+            if (budgetID != null)
+            {
+                tempBudget = new Budget();
+                tempBudget = DB.GetBudget((int)budgetID);
+                
             }
 
-            return RedirectToAction("Index", "Home");
+            tempBudget.NewBudget = false;
+
+            return View("EditBudget", tempBudget);
 
         }
+
     }
 }
 
