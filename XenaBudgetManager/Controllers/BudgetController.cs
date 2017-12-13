@@ -135,6 +135,35 @@ namespace XenaBudgetManager.Models
 
             return RedirectToAction("Index","Home");
         }
+
+        public ActionResult SelectBudget()
+        {
+            //vælg budget fra dropdownliste 
+            SelectList budgetList = new SelectList(DB.GetBudgetId(), "budgetID", "budgetName");
+            ViewBag.budgetList = budgetList;
+
+
+
+            int budgetid = 58;
+            Budget tempBudget = new Budget();
+            tempBudget = DB.GetBudget(budgetid);
+
+            ViewBag.list = tempBudget;
+            return View("UpdateBudget", ViewBag.list);
+
+        }
+
+        public ActionResult UpdateBudget(Budget inputBudget) //når der trykkes opdater budget
+        {
+            foreach (var group in inputBudget.groupList.groupList)       {
+                foreach (var account in group.accountList.accountList)            {
+                    DB.UpdateValueInterval(account);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+
+        }
     }
 }
 

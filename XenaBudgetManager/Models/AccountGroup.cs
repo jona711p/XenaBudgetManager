@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 
 namespace XenaBudgetManager.Models
 {
@@ -13,6 +14,12 @@ namespace XenaBudgetManager.Models
             
         }
 
+        public AccountGroup(DataRow row)
+        {
+            accountGroupID = int.Parse(row["LedgerAccountID"].ToString());
+            accountGroupName = row["AccountName"].ToString();
+
+        }
         public AccountGroup(LedgerAccounts inputData)
         {
             accountGroupID = inputData.ledgerAccountId;

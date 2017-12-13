@@ -15,6 +15,24 @@ namespace XenaBudgetManager.Models
         {
         }
 
+        public Account(DataRow row)
+        {
+            accountID = int.Parse(row["LedgerTagID"].ToString());
+            accountName = row["LongDescription"].ToString();
+
+            January = double.Parse(row["January"].ToString());
+            February = double.Parse(row["February"].ToString());
+            March = double.Parse(row["March"].ToString());
+            April = double.Parse(row["April"].ToString());
+            May = double.Parse(row["May"].ToString());
+            June = double.Parse(row["June"].ToString());
+            July = double.Parse(row["July"].ToString());
+            August = double.Parse(row["August"].ToString());
+            September = double.Parse(row["September"].ToString());
+            October = double.Parse(row["October"].ToString());
+            November = double.Parse(row["November"].ToString());
+            December = double.Parse(row["December"].ToString());
+        }
         public Account(DataRow row, string[] months)
         {
             accountName = row["AccountName"].ToString();

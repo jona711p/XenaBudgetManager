@@ -520,5 +520,94 @@ namespace XenaBudgetManager.Classes
 
             return null;
         }
+
+        public static Budget GetBudget(int BudgetID)
+        {
+            Budget tempBudget = new Budget();
+            tempBudget.budgetID = BudgetID;
+            int groupCount = 0;
+            //int accountCount = 0; //bruges ik?
+            int accountCount = 0;
+            int currentGroupID = 0;
+
+            List<Account> _accountList = new List<Account>();
+            Account _account = new Account();
+            List<AccountGroup> _groupList = new List<AccountGroup>();
+
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand("SELECT * FROM view_readbudget WHERE budgetID = @BudgetID  ORDER BY LedgerAccountID ", connection);
+            command.Parameters.AddWithValue("@BudgetID", tempBudget.budgetID);
+
+            dt.Load(command.ExecuteReader());
+
+            //!int nygruppeID = ny gruppeID row
+            //    hvis gruppeID row != ny gruppeID row
+            //        ny gruppeID row = gruppeID row
+                ;
+            foreach (DataRow row in dt.Rows)
+            {
+                _groupList.Add(new AccountGroup(row));
+                _groupList[groupCount].accountList = new AccountListViewModel();
+                _groupList[groupCount].accountList.accountList = new List<Account>();
+                currentGroupID = int.Parse(row["LedgerAccountID"].ToString());
+                break;
+            }               
+
+            foreach (DataRow row in dt.Rows)
+            {
+                if (currentGroupID != int.Parse(row["LedgerAccountID"].ToString())) //hvis der refereres til en ny gruppe
+                {
+                    currentGroupID = int.Parse(row["LedgerAccountID"].ToString());
+
+                    _groupList.Add(new AccountGroup(row)); //tilføjer en ny gruppe til budgetet med id og navn
+
+                    groupCount++;
+
+                    _groupList[groupCount].accountList.accountList = new List<Account>();
+
+                    accountCount = 0;
+                }
+
+                _groupList[groupCount].accountList = new AccountListViewModel();
+                _groupList[groupCount].accountList.accountList = new List<Account>();
+                _groupList[groupCount].accountList.accountList.Add(new Account(row));
+                //_groupList[groupCount].accountList.accountList.Add(new Account(row)); //tilføjer ny konto til gruppen/budget med id navn og værdier
+
+                accountCount++;
+            }
+
+            connection = DisconnectFromDB(connection);
+            //_groupList[groupCount].accountList.accountList[acc] = _accountList;
+            tempBudget.groupList.groupList = _groupList;
+            return tempBudget;
+        }
+
+        /// <summary>
+        /// Written by Thomas and Mikael
+        /// Inserts a new entry to the ValueInterval table in DB with the postings of a given account
+        /// </summary>
+        public static void UpdateValueInterval(Account inputData)
+        {
+            SqlConnection connection = null;
+            connection = ConnectToDB(connection);
+
+            SqlCommand command = new SqlCommand(
+                String.Format(@"UPDATE ValueInterval SET January = {0}, February = {1}, March = {2},
+                                April = {3}, May ={4}, June = {5}, July = {6}, August = {7},
+                                September= {8}, October = {9}, November = {10}, December = {11} WHERE ValueIntervalID = {0};",
+                    inputData.January, inputData.February, inputData.March,
+                    inputData.April, inputData.May, inputData.June, inputData.July,
+                    inputData.August, inputData.September, inputData.October,
+                    inputData.November, inputData.December, inputData.accountID),
+                connection);
+
+            command.ExecuteNonQuery();
+            connection = DisconnectFromDB(connection);
+        }
     }
+
 }
