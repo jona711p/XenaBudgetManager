@@ -31,20 +31,13 @@
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Opret Budget", "CreateBudget", "Budget", new { area = "" }, null)</li>
-                            <li>@Html.ActionLink("Rediger Budget", "SelectBudget", "Budget", new { area = "" }, null)</li>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Opret Budget", "CreateBudget", "Budget", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Rediger Budget", "SelectBudget", "Budget", new { area = "" }, null)</li>
 
-                        </ul>
-                    </li>
+                    </ul>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Regnskab<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Vis Regnskab", "Accounting", "Accounting", new { area = "" }, null)</li>
-                        </ul>
-                    </li>
-
+                    <li>@Html.ActionLink("Sammenlig Regnskab med Budget", "Accounting", "Accounting", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(loggedIn ? "Log Ind" : Session["userName"] + " (" + Session["fiscalSetupName"] + ")" + ": Log Ud", loggedIn ? "Login" : "Logout", "Home", new { area = "" }, null)</li>
                 </ul>
             </div>
