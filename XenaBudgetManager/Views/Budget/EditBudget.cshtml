@@ -71,10 +71,11 @@
     using (Html.BeginForm("SelectBudget", "Budget", FormMethod.Post))
     {
         <div class="form-group">
-            @Html.Label("Vælg et Budget", new {@class = "control-label col-md-10"})
-            @Html.DropDownList("budgetID", new SelectList(ViewBag.budgetList, "Value", "Text"), new {@class = "form-control"})
+            @Html.Label("Vælg et Budget", new { @class = "control-label col-md-10" })
+            @Html.DropDownList("budgetID", new SelectList(ViewBag.budgetList, "Value", "Text"), new { @class = "form-control" })
 
-            <input type="submit" value="Hent budget"/>
+            <input type="submit" value="Hent Budget" class="btn btn-default" />
+
         </div>
     }
 }
@@ -101,7 +102,8 @@
     {
         @Html.EditorFor(x => x.groupList)
     }
-    <input type="submit" value="Gem budget"/>
+
+    <input type="submit" value="Gem Budget" class="btn btn-default" />
 }
 
 <script>

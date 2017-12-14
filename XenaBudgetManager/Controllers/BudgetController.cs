@@ -12,30 +12,6 @@ namespace XenaBudgetManager.Models
     {
         ///<summary>
         /// Written by Mikael
-        /// GET: Budget
-        ///</summary>
-        public ActionResult Budget()
-        {
-            DataSet ds = new DataSet();
-            string constr = ConfigurationManager.ConnectionStrings["XenaBudgetManager"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
-            {
-                string query = "SELECT * FROM view_FullBudget WHERE Budgetnavn = 'Kaffebudget'";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                    {
-                        sda.Fill(ds);
-                    }
-                }
-            }
-
-            return View(ds);
-        }
-
-        ///<summary>
-        /// Written by Mikael
         ///</summary>
         public ActionResult CreateBudget()
         {
@@ -123,7 +99,7 @@ namespace XenaBudgetManager.Models
 
             ViewBag.list = budget;
             budget.NewBudget = true;
-            return View("EditBudget",ViewBag.list);
+            return View("EditBudget", ViewBag.list);
         }
 
         ///<summary>
@@ -136,6 +112,7 @@ namespace XenaBudgetManager.Models
             {
                 DB.WriteBudgetValues(compeleteBudget);
             }
+
             else
             {
                 foreach (var group in compeleteBudget.groupList.groupList)
@@ -147,7 +124,7 @@ namespace XenaBudgetManager.Models
                 }
             }
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult SelectBudget(int? budgetID = null)
@@ -156,19 +133,17 @@ namespace XenaBudgetManager.Models
             SelectList budgetList = new SelectList(DB.GetBudgetId(), "budgetID", "budgetName");
             ViewBag.budgetList = budgetList;
             Budget tempBudget = new Budget();
+
             if (budgetID != null)
             {
                 tempBudget = new Budget();
                 tempBudget = DB.GetBudget((int)budgetID);
-                
             }
 
             tempBudget.NewBudget = false;
 
             return View("EditBudget", tempBudget);
-
         }
-
     }
 }
 

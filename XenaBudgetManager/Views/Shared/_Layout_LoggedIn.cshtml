@@ -26,7 +26,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Virksomheder", "Fiscals", "Home", new { area = "" }, null)</li>*@
                     @*<li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>*@
                     <li>@Html.ActionLink(loggedIn ? "Log Ind" : Session["userName"] + ": Log Ud", loggedIn ? "Login" : "Logout", "Home", new { area = "" }, null)</li>
                 </ul>

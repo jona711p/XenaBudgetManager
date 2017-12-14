@@ -1,4 +1,5 @@
 ﻿﻿@*Written by Mikael and Thomas*@
+
 @model XenaBudgetManager.Models.Account
 <div style="margin-top:-15px">
     <table style="width:100%">
@@ -13,7 +14,7 @@
                 @Html.HiddenFor(model => model.accountName)
                 @Html.HiddenFor(model => model.Total)
                 @Html.HiddenFor(model => model.ValueIntervalID)
-                
+
 
                 @Html.EditorFor(model => Model.January, new { htmlAttributes = new { @class = "form-control monthInput month0" } })
 
@@ -38,11 +39,6 @@
                 @Html.EditorFor(model => Model.November, new { htmlAttributes = new { @class = "form-control monthInput month10", style = "display:none" } })
 
                 @Html.EditorFor(model => Model.December, new { htmlAttributes = new { @class = "form-control monthInput month11", style = "display:none" } })
-
-
-
-
-
             </td>
         </tr>
     </table>
