@@ -55,13 +55,13 @@ namespace XenaBudgetManager.Controllers
 
             List<JToken> jTokenList = XenaLogic.CallXena(Session["access_token"].ToString(),
                 "User/XenaUserMembership?ForceNoPaging=true&Page=0&PageSize=10&ShowDeactivated=false");
-            
+
             Session["userName"] = jTokenList[0]["ResourceName"].ToString();
 
             ViewBag.Token = xena.access_token; // Debug
 
-            //return RedirectToAction("Fiscals");
-            return View(); // Debug
+            //return View(); // Debug
+            return RedirectToAction("Fiscals");
         }
 
         /// <summary>
