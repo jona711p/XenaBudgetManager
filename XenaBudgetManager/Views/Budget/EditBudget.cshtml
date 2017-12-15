@@ -70,7 +70,7 @@
 {
     using (Html.BeginForm("SelectBudget", "Budget", FormMethod.Post))
     {
-        <div class="form-group">
+        <div class="form-group edit-budget">
             @Html.Label("Vælg et Budget", new { @class = "control-label col-md-10" })
             @Html.DropDownList("budgetID", new SelectList(ViewBag.budgetList, "Value", "Text"), new { @class = "form-control" })
 
@@ -103,7 +103,7 @@
         @Html.EditorFor(x => x.groupList)
     }
 
-    <input type="submit" value="Gem Budget" class="btn btn-default" />
+    <input type="submit" value="Gem Budget" class="btn btn-default cust-editbtn" />
 }
 
 <script>
